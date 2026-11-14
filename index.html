@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ইনকাম প্রতিদিন - অফিশিয়াল অ্যাপ ডাউনলোড ও বিবরণ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --surface: #131b2e;
+      --surface-2: #1e293b;
+      --primary: #6366f1;
+      --accent: #10b981;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
+      --grad: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Hind Siliguri', sans-serif; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 16px; }
+    .page-wrap { width: 100%; max-width: 440px; background: var(--surface); border: 1px solid var(--border); border-radius: 30px; padding: 28px 20px; box-shadow: 0 25px 50px rgba(0,0,0,0.7); }
+    
+    /* Header & Logo */
+    .app-header { text-align: center; margin-bottom: 20px; }
+    .logo-box { width: 84px; height: 84px; border-radius: 24px; background: var(--grad); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; font-size: 36px; color: #fff; box-shadow: 0 10px 25px rgba(99,102,241,0.4); }
+    .app-header h1 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+    .app-header p { font-size: 13px; color: var(--muted); }
+    .badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(16,185,129,0.15); color: #34d399; padding: 5px 14px; border-radius: 20px; font-size: 11.5px; font-weight: 700; margin-top: 10px; }
+
+    /* Features / Descriptions Box */
+    .features-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 20px; padding: 16px; margin-bottom: 20px; text-align: left; }
+    .features-card h3 { font-size: 14px; font-weight: 700; color: #818cf8; margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+    .feature-item { display: flex; align-items: flex-start; gap: 9px; font-size: 12.5px; color: var(--muted); margin-bottom: 8px; }
+    .feature-item i { color: var(--accent); margin-top: 3px; }
+
+    /* Action Buttons */
+    .btn-group { display: flex; flex-direction: column; gap: 10px; }
+    .btn { width: 100%; padding: 14px; border: none; border-radius: 15px; background: var(--grad); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 9px; box-shadow: 0 8px 20px rgba(99,102,241,0.35); text-decoration: none; transition: transform 0.15s; }
+    .btn:active { transform: scale(0.97); }
+    .btn-sec { background: var(--surface-2); color: var(--text); box-shadow: none; border: 1px solid var(--border); }
+    
+    .footer-note { font-size: 11px; color: var(--muted); text-align: center; margin-top: 18px; }
+  </style>
+</head>
+<body>
+
+  <div class="page-wrap">
+    <div class="app-header">
+      <div class="logo-box"><i class="fa-solid fa-coins"></i></div>
+      <h1>ইনকাম প্রতিদিন</h1>
+      <p>স্মার্ট মাইক্রো-টাস্ক ও আর্নিং প্ল্যাটফর্ম</p>
+      <div class="badge"><i class="fa-solid fa-shield-halved"></i> 100% Safe & Play Protect Verified</div>
+    </div>
+
+    <!-- বিবরণ ও কাজের তালিকা -->
+    <div class="features-card">
+      <h3><i class="fa-solid fa-circle-check"></i> এই অ্যাপে যা যা করতে পারবেন:</h3>
+      <div class="feature-item"><i class="fa-solid fa-check"></i> <span><b>ইজি ইনকাম ও টাস্ক:</b> প্রতিদিন সহজ সব টাস্ক পূরণ করে ঘরে বসেই আয় করুন।</span></div>
+      <div class="feature-item"><i class="fa-solid fa-check"></i> <span><b>বিজ্ঞাপন দেখে আয়:</b> স্পন্সরড ভিডিও অ্যাড দেখে ইনস্ট্যান্ট রিওয়ার্ড পয়েন্ট নিন।</span></div>
+      <div class="feature-item"><i class="fa-solid fa-check"></i> <span><b>ডেইলি গিফট কোড:</b> প্রতিদিন নতুন গিফট কোড ব্যবহার করে ফ্রি বোনাস ক্লেইম করুন।</span></div>
+      <div class="feature-item"><i class="fa-solid fa-check"></i> <span><b>ইনস্ট্যান্ট পেমেন্ট:</b> বিকাশ, নগদ বা রকেটের মাধ্যমে খুব সহজেই টাকা উত্তোলন করুন।</span></div>
+    </div>
+
+    <!-- ডাউনলোড ও অ্যাড টু হোম স্ক্রিন বাটন -->
+    <div class="btn-group">
+      <!-- Download Now & Install PWA Button -->
+      <button class="btn" id="installAppBtn">
+        <i class="fa-solid fa-cloud-arrow-down"></i> Download Now & Install
+      </button>
+
+      <!-- Add to Home Screen Direct Guide Button -->
+      <button class="btn btn-sec" onclick="showHomeScreenGuide()">
+        <i class="fa-solid fa-house-chimney-user"></i> Add to Home Screen
+      </button>
+
+      <!-- Open Web App Direct Link -->
+      <a href="app.html" class="btn btn-sec" style="font-size: 13.5px; padding: 11px;">
+        <i class="fa-solid fa-globe"></i> সরাসরি ব্রাউজারে চালান (Open App)
+      </a>
+    </div>
+
+    <div class="footer-note">
+      অফিশিয়াল ভার্সন v2.0 • ফায়ারবেস রিয়েল-টাইম সিকিউরড
+    </div>
+  </div>
+
+  <script>
+    let deferredPrompt;
+    const installBtn = document.getElementById('installAppBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        deferredPrompt = null;
+      } else {
+        alert('আপনার ব্রাউজার থেকে থ্রি-ডট (⋮) মেনুতে ক্লিক করে "Add to Home screen" বা "Install App" সিলেক্ট করুন।');
+      }
+    });
+
+    function showHomeScreenGuide() {
+      alert('ফোনের হোমস্ক্রিনে অ্যাপটি যোগ করতে:\n\n১. ব্রাউজারের ওপরের ডানকোণায় থ্রি-ডট (⋮) মেনুতে চাপুন।\n২. "Add to Home screen" বা "Install app" অপশনে ক্লিক করুন।\n\nবাস It’s Done! আপনার হোমস্ক্রিনে আসল অ্যাপের মতো আইকন চলে আসবে।');
+    }
+  </script>
+</body>
+</html>

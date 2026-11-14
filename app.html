@@ -1,0 +1,2888 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://*.firebaseio.com https://*.firebasedatabase.app; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: blob: https:; media-src 'self' https: blob:; frame-src https:; connect-src 'self' https://*.firebaseio.com wss://*.firebaseio.com https://*.firebasedatabase.app wss://*.firebasedatabase.app https://*.googleapis.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0b0f19">
+  <script>
+  (function () {
+    function show(msg) {
+      try {
+        var d = document.getElementById('__errbox');
+        if (!d) {
+          d = document.createElement('div');
+          d.id = '__errbox';
+          d.style.cssText = 'position:fixed;left:0;right:0;top:0;z-index:2147483647;background:#7f1d1d;color:#fff;font:12px/1.5 monospace;padding:10px;white-space:pre-wrap;max-height:50vh;overflow:auto';
+          (document.body || document.documentElement).appendChild(d);
+        }
+        d.textContent += msg + '\n';
+      } catch (e) {}
+    }
+    window.addEventListener('error', function (e) {
+      show('JS Error: ' + e.message + ' (line ' + e.lineno + ':' + e.colno + ')');
+    });
+    window.addEventListener('unhandledrejection', function (e) {
+      show('Promise Error: ' + (e.reason && e.reason.message ? e.reason.message : e.reason));
+    });
+  })();
+  </script>
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ইনকাম প্রতিদিন - 2026 Ultimate Edition</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --accent: #10b981;
+      --bg: #0b0f19;
+      --surface: #131b2e;
+      --surface-2: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --grad-main: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+    }
+    body.light-mode {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif;
+      background: #050811;
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .app-shell {
+      width: 100%;
+      max-width: 450px;
+      background: var(--bg);
+      min-height: 100vh;
+      position: relative;
+      padding-bottom: 84px;
+      box-shadow: 0 0 50px rgba(0,0,0,0.6);
+      overflow-x: hidden;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    /* ==================== ROPE JUMP & WALKING ANIMATION AUTH SCREEN ==================== */
+    .auth-screen {
+      min-height: 100vh;
+      padding: 24px 16px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at 50% 15%, rgba(99, 102, 241, 0.28), transparent 60%), var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Hanging Rope across screen top */
+    .hanging-rope-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 140px;
+      pointer-events: none;
+      z-index: 30;
+    }
+    .rope-line {
+      position: absolute;
+      top: 0;
+      left: 10%;
+      width: 80%;
+      height: 40px;
+      border-bottom: 4px dashed #fbbf24;
+      border-radius: 0 0 50% 50%;
+      transform-origin: top center;
+      transition: transform 0.4s ease;
+    }
+    .rope-line.pulled {
+      animation: ropeSnapPull 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    @keyframes ropeSnapPull {
+      0% { transform: translateY(0) scaleY(1); }
+      30% { transform: translateY(45px) scaleY(1.35); }
+      60% { transform: translateY(-15px) scaleY(0.85); }
+      100% { transform: translateY(0) scaleY(1); }
+    }
+
+    /* Walking Character & Pull Trigger */
+    .walker-character {
+      position: absolute;
+      bottom: 40px;
+      left: -80px;
+      font-size: 42px;
+      color: #818cf8;
+      z-index: 25;
+      animation: walkAcross 7s linear infinite;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .walker-character span {
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(99,102,241,0.25);
+      color: #a5b4fc;
+      padding: 2px 8px;
+      border-radius: 10px;
+      white-space: nowrap;
+      margin-top: 4px;
+    }
+    @keyframes walkAcross {
+      0% { left: -90px; transform: scaleX(1); }
+      45% { left: calc(50% - 25px); transform: scaleX(1); }
+      48% { left: calc(50% - 25px); transform: scaleX(1) translateY(-35px); } /* Jump & Grab Rope! */
+      52% { left: calc(50% - 25px); transform: scaleX(1) translateY(0); }
+      95% { left: 105%; transform: scaleX(1); }
+      96% { left: 105%; transform: scaleX(-1); }
+      100% { left: -90px; transform: scaleX(-1); }
+    }
+
+    /* File Dossier Card (Login/Reg Form) */
+    .file-dossier-card {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      border-radius: 26px;
+      padding: 22px 18px;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55);
+      position: relative;
+      z-index: 20;
+    }
+    .file-folder-tab {
+      position: absolute;
+      top: -15px;
+      left: 22px;
+      background: var(--grad-main);
+      color: #fff;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 10px 10px 0 0;
+      letter-spacing: 0.6px;
+      box-shadow: 0 -4px 12px rgba(99, 102, 241, 0.35);
+    }
+    .file-header {
+      text-align: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--border);
+    }
+    .file-header h1 {
+      font-size: 23px;
+      font-weight: 800;
+      background: var(--grad-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .file-header p { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+    .auth-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--surface-2);
+      padding: 5px;
+      border-radius: 14px;
+      margin-bottom: 16px;
+    }
+    .auth-tab {
+      text-align: center;
+      padding: 10px;
+      font-weight: 700;
+      font-size: 13.5px;
+      border-radius: 10px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+    .auth-tab.active {
+      background: var(--grad-main);
+      color: #fff;
+    }
+
+    /* TOP HEADER & 3-LINE DRAWER */
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: rgba(19, 27, 46, 0.88);
+      backdrop-filter: blur(14px);
+      height: 64px;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    body.light-mode .top-header { background: rgba(255, 255, 255, 0.9); }
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      cursor: pointer;
+    }
+    .brand-wrap { display: flex; align-items: center; gap: 9px; }
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+    .brand-title { font-size: 18px; font-weight: 800; letter-spacing: 0.3px; }
+
+    /* SIDEBAR DRAWER */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: none;
+    }
+    .drawer-backdrop.open { display: block; }
+    .side-drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 290px;
+      max-width: 82vw;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      z-index: 210;
+      transform: translateX(-105%);
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 16px;
+    }
+    .side-drawer.open { transform: translateX(0); }
+    .drawer-profile {
+      background: var(--grad-main);
+      border-radius: 20px;
+      padding: 16px;
+      color: #fff;
+      margin-bottom: 18px;
+    }
+    .dp-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .drawer-menu { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+    .drawer-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+    }
+    .drawer-item i.left-ic { width: 24px; color: var(--primary); }
+    .drawer-item.logout-btn {
+      background: rgba(239, 68, 68, 0.14);
+      border-color: rgba(239, 68, 68, 0.35);
+      color: #f87171;
+      margin-top: 12px;
+    }
+    .drawer-item.logout-btn i.left-ic { color: #f87171; }
+
+    /* HERO WALLET CARD */
+    .hero-wallet {
+      margin: 14px 12px;
+      background: var(--grad-main);
+      border-radius: 24px;
+      padding: 18px;
+      color: #fff;
+      box-shadow: 0 12px 28px rgba(99, 102, 241, 0.28);
+    }
+    .hw-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .hw-user { font-size: 13px; font-weight: 700; opacity: 0.95; }
+    .hw-badge {
+      background: rgba(0, 0, 0, 0.25);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .hw-bal-row { display: flex; justify-content: space-between; align-items: flex-end; }
+    .hw-bal small { font-size: 11.5px; opacity: 0.85; display: block; }
+    .hw-bal strong { font-size: 28px; font-weight: 800; line-height: 1.1; }
+    .hw-btns { display: flex; gap: 8px; }
+    .hw-btn {
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #fff;
+      padding: 8px 13px;
+      border-radius: 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* MARQUEE */
+    .marquee-bar {
+      margin: 0 12px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .mq-badge {
+      background: rgba(99, 102, 241, 0.18);
+      color: #818cf8;
+      padding: 4px 9px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .mq-text { overflow: hidden; white-space: nowrap; width: 100%; font-size: 13px; color: var(--text); }
+    .mq-text span { display: inline-block; padding-left: 100%; animation: marquee 17s linear infinite; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+    /* COMMUNITY ROW */
+    .comm-strip {
+      margin: 0 12px 16px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .comm-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 10px 6px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .comm-pill i { font-size: 19px; margin-bottom: 5px; display: block; }
+    .comm-pill span { font-size: 11px; font-weight: 600; color: var(--muted); }
+
+    /* CATEGORY SECTIONS */
+    .sec-block { margin: 0 12px 18px; }
+    .sec-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .sec-title {
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sec-title::before {
+      content: '';
+      width: 5px;
+      height: 16px;
+      border-radius: 4px;
+      background: var(--grad-main);
+    }
+    .sec-count { font-size: 11px; color: var(--muted); font-weight: 600; }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .bento-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 13px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.15s;
+    }
+    .bento-card:active { transform: scale(0.97); }
+    .bento-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .bento-icon img { width: 100%; height: 100%; object-fit: cover; }
+    .bento-info { overflow: hidden; flex: 1; }
+    .bento-info h4 { font-size: 13.5px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bento-info p { font-size: 12px; font-weight: 800; color: var(--accent); margin-top: 2px; }
+    .status-dot {
+      position: absolute;
+      top: 9px;
+      right: 9px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .status-dot.off { background: var(--danger); }
+    .notype-badge {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      font-size: 9px;
+      background: rgba(99, 102, 241, 0.18);
+      color: #818cf8;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    /* VIEWS */
+    .view-page { display: none; animation: fadeUp 0.2s ease; }
+    .view-page.active { display: block; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    .page-pad { padding: 12px; }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+
+    /* PORTAL & COPY CARDS */
+    .portal-banner {
+      border-radius: 22px;
+      padding: 18px 14px;
+      color: #fff;
+      margin-bottom: 14px;
+      background: var(--grad-main);
+    }
+    .pb-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .pb-stat {
+      background: rgba(0, 0, 0, 0.28);
+      border-radius: 12px;
+      padding: 9px 6px;
+      text-align: center;
+    }
+    .pb-stat small { font-size: 10px; opacity: 0.8; display: block; }
+    .pb-stat strong { font-size: 14.5px; font-weight: 800; }
+
+    .copy-box-card {
+      background: var(--surface);
+      border: 1px dashed rgba(99, 102, 241, 0.5);
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .cbc-head { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; display: flex; justify-content: space-between; }
+    .cbc-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--surface-2);
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .cbc-val {
+      font-family: monospace;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--accent);
+      word-break: break-all;
+    }
+    .copy-action-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 12.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    /* VIEW-ONLY (NO TYPE) SHOWCASE CARD */
+    .notype-showcase-card {
+      background: linear-gradient(145deg, rgba(99, 102, 241, 0.14), rgba(236, 72, 153, 0.1));
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      border-radius: 20px;
+      padding: 18px 16px;
+      margin-bottom: 14px;
+    }
+    .nts-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      padding: 4px 11px;
+      border-radius: 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .nts-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 11px 13px;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* FORMS & INPUTS */
+    .card-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .form-group { margin-bottom: 13px; }
+    .form-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .form-label span.req { color: #f87171; font-size: 11px; }
+    .input-wrap { position: relative; display: flex; align-items: center; }
+    .input-wrap i.prefix { position: absolute; left: 14px; color: var(--muted); font-size: 14px; }
+    .form-input {
+      width: 100%;
+      padding: 12px 14px 12px 38px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      font-size: 14px;
+      font-family: inherit;
+      background: var(--surface-2);
+      color: var(--text);
+      outline: none;
+    }
+    .form-input:focus { border-color: var(--primary); }
+    .form-input.invalid { border-color: var(--danger); }
+
+    .verify-alert {
+      display: none;
+      padding: 12px;
+      border-radius: 13px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      align-items: center;
+      gap: 10px;
+      line-height: 1.45;
+    }
+    .verify-alert.checking { display: flex; background: rgba(99, 102, 241, 0.15); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.35); }
+    .verify-alert.error { display: flex; background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.35); }
+    .verify-alert.success { display: flex; background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); }
+
+    .main-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 14px;
+      background: var(--grad-main);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+    }
+    .main-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .list-row {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 9px;
+    }
+    .status-tag {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .status-tag.ok { background: rgba(16, 185, 129, 0.18); color: #34d399; }
+    .status-tag.err { background: rgba(239, 68, 68, 0.18); color: #f87171; }
+    .status-tag.wait { background: rgba(245, 158, 11, 0.18); color: #fbbf24; }
+
+    /* ==================== AD WATCHING SYSTEM (MODAL / FULLSCREEN) ==================== */
+    .ad-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 8, 17, 0.95);
+      z-index: 300;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+    .ad-overlay.show { display: flex; }
+    .ad-video-container {
+      width: 100%;
+      max-width: 420px;
+      height: 250px;
+      background: #000;
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      border: 2px solid var(--border);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    }
+    .ad-video-container video, .ad-video-container iframe {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: none;
+    }
+    .ad-top-bar {
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .ad-timer-badge {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ad-close-btn {
+      background: var(--danger);
+      color: #fff;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.5);
+    }
+    .ad-close-btn.ready { display: flex; animation: pulseGlow 1.2s infinite; }
+    @keyframes pulseGlow { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+    .ad-target-btn {
+      width: 100%;
+      max-width: 420px;
+      margin-top: 14px;
+      padding: 13px;
+      background: var(--grad-main);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    /* ==================== UNIVERSAL VIDEO & AD NETWORK REWARD SYSTEM ==================== */
+    .vad-home-card {
+      background: linear-gradient(135deg, #059669 0%, #2563eb 100%);
+      border-radius: 20px;
+      padding: 16px;
+      margin: 0 16px 16px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
+      position: relative;
+      overflow: hidden;
+    }
+    .vad-home-card .vad-ic {
+      width: 52px; height: 52px; border-radius: 16px;
+      background: rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; flex-shrink: 0;
+    }
+    .vad-home-card .vad-info { flex: 1; min-width: 0; }
+    .vad-home-card .vad-info h4 { font-size: 15px; font-weight: 800; }
+    .vad-home-card .vad-info p { font-size: 12px; opacity: 0.92; margin-top: 3px; }
+    .vad-home-card .vad-count {
+      background: rgba(0,0,0,0.28); padding: 6px 12px; border-radius: 20px;
+      font-size: 13px; font-weight: 800; white-space: nowrap;
+    }
+    .vad-home-card.off { background: linear-gradient(135deg, #475569, #334155); box-shadow: none; }
+    .vad-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+    .vad-stat {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 10px 6px; text-align: center;
+    }
+    .vad-stat strong { display: block; font-size: 16px; color: #34d399; }
+    .vad-stat small { font-size: 11px; color: var(--muted); }
+    .vad-progress { height: 8px; background: var(--surface-2); border-radius: 8px; overflow: hidden; margin-bottom: 14px; }
+    .vad-progress > div { height: 100%; background: linear-gradient(90deg, #10b981, #3b82f6); border-radius: 8px; transition: width .3s; }
+
+    .vad-modal {
+      position: fixed; inset: 0; background: rgba(5, 8, 17, 0.96);
+      z-index: 300; display: none; flex-direction: column;
+      align-items: center; justify-content: center; padding: 16px;
+    }
+    .vad-modal.show { display: flex; }
+    .vad-top {
+      width: 100%; max-width: 420px; display: flex;
+      justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 10px;
+    }
+    .vad-title {
+      color: #fff; font-size: 14px; font-weight: 800;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .vad-close {
+      background: var(--danger); color: #fff; border: none;
+      width: 34px; height: 34px; border-radius: 50%; font-size: 15px;
+      cursor: pointer; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .vad-player {
+      width: 100%; max-width: 420px; height: 250px; background: #000;
+      border-radius: 18px; overflow: hidden; position: relative;
+      border: 2px solid var(--border); box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    }
+    .vad-player video, .vad-player iframe { width: 100%; height: 100%; border: none; background: #000; }
+    .vad-player video { object-fit: contain; }
+    .vad-web-msg {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 18px; gap: 12px; background: rgba(0,0,0,0.78); color: #fff;
+      font-size: 13px; line-height: 1.55;
+    }
+    .vad-web-msg button {
+      background: var(--grad-main); color: #fff; border: none;
+      padding: 10px 18px; border-radius: 12px; font-weight: 700; font-size: 13px; cursor: pointer;
+    }
+    .vad-timer-wrap { width: 100%; max-width: 420px; margin-top: 14px; }
+    .vad-timer-text { color: #fff; font-size: 13px; font-weight: 700; text-align: center; margin-bottom: 8px; }
+    .vad-timer-bar { height: 8px; background: rgba(255,255,255,0.15); border-radius: 8px; overflow: hidden; }
+    .vad-timer-bar > div { height: 100%; width: 0%; background: linear-gradient(90deg, #10b981, #3b82f6); transition: width 1s linear; }
+    .vad-claim {
+      width: 100%; max-width: 420px; margin-top: 14px; padding: 14px;
+      border: none; border-radius: 14px; font-weight: 800; font-size: 15px;
+      cursor: pointer; color: #fff; background: linear-gradient(135deg, #10b981, #059669);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .vad-claim:disabled { background: #475569; color: #cbd5e1; cursor: not-allowed; }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      max-width: 450px;
+      background: rgba(19, 27, 46, 0.94);
+      backdrop-filter: blur(16px);
+      height: 68px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      z-index: 95;
+    }
+    body.light-mode .bottom-nav { background: rgba(255, 255, 255, 0.95); }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .nav-item i { font-size: 18px; }
+    .nav-item.active { color: var(--primary); font-weight: 800; }
+
+    /* MODAL & TOAST */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 250;
+      padding: 16px;
+    }
+    .modal-backdrop.show { display: flex; }
+    .modal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      width: 100%;
+      max-width: 380px;
+      border-radius: 24px;
+      padding: 22px 18px;
+      position: relative;
+    }
+    .toast {
+      position: fixed;
+      bottom: 82px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #10b981;
+      color: #fff;
+      padding: 11px 20px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      display: none;
+      z-index: 400;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ==================== 1. FALLING BAG -> ROPE JUMP AUTH SCREEN ==================== -->
+  <div id="authScreen" class="auth-screen" style="display:none">
+    <!-- Hanging Rope Across Top -->
+    <div class="hanging-rope-container">
+      <div class="rope-line" id="ropeLine"></div>
+    </div>
+
+    <!-- Walking Character who jumps to pull rope and trigger file drop -->
+    <div class="walker-character" onclick="triggerRopeJumpAndDrop()" title="ট্যাপ করে দড়ি টানুন!">
+      <i class="fa-solid fa-person-walking"></i>
+      <span>দড়ি টানুন!</span>
+    </div>
+
+    <!-- Unfolded Official File (Registration & Login Page) -->
+    <div class="file-dossier-card" id="fileDossierCard">
+      <div class="file-folder-tab"><i class="fa-solid fa-file-shield"></i> OFFICIAL USER FILE</div>
+      <div class="file-header">
+        <h1 id="authBrandName">ইনকাম প্রতিদিন</h1>
+        <p>অ্যাকাউন্ট লগইন বা রেজিস্ট্রেশন ফাইল</p>
+      </div>
+
+      <div class="auth-tabs">
+        <div class="auth-tab active" id="tabLoginBtn" onclick="switchAuthMode('login')">লগইন (Sign In)</div>
+        <div class="auth-tab" id="tabRegBtn" onclick="switchAuthMode('register')">রেজিস্ট্রেশন (Sign Up)</div>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <div id="loginBox">
+        <div class="form-group">
+          <label class="form-label">ফোন নাম্বার অথবা জিমেইল <span class="req">*</span></label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-user prefix"></i>
+            <input type="text" id="loginIdInput" class="form-input" maxlength="80" autocomplete="username" placeholder="017XXXXXXXX বা example@gmail.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">পাসওয়ার্ড <span class="req">*</span></label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-lock prefix"></i>
+            <input type="password" id="loginPassInput" class="form-input" maxlength="64" autocomplete="current-password" placeholder="আপনার পাসওয়ার্ড দিন">
+          </div>
+        </div>
+        <div id="loginVerifyAlert" class="verify-alert"></div>
+        <button class="main-btn" onclick="doLogin()"><i class="fa-solid fa-right-to-bracket"></i> ফাইলে প্রবেশ করুন (Login)</button>
+      </div>
+
+      <!-- REGISTER FORM -->
+      <div id="registerBox" style="display:none">
+        <div class="form-group">
+          <label class="form-label">আপনার পূর্ণ নাম <span class="req">*</span></label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-id-badge prefix"></i>
+            <input type="text" id="regNameInput" class="form-input" maxlength="40" autocomplete="name" placeholder="আপনার নাম লিখুন">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">সচল মোবাইল নাম্বার <span class="req">*</span></label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-phone prefix"></i>
+            <input type="tel" id="regPhoneInput" class="form-input" maxlength="11" autocomplete="tel" placeholder="017XXXXXXXX">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">আসল জিমেইল অ্যাড্রেস <span class="req">*</span></label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-envelope prefix"></i>
+            <input type="email" id="regEmailInput" class="form-input" maxlength="80" autocomplete="email" placeholder="yourname@gmail.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">পাসওয়ার্ড <span class="req">*</span></label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-key prefix"></i>
+            <input type="password" id="regPassInput" class="form-input" minlength="6" maxlength="64" autocomplete="new-password" placeholder="কমপক্ষে ৬ অক্ষর">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">কনফার্ম পাসওয়ার্ড <span class="req">*</span></label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-shield-check prefix"></i>
+            <input type="password" id="regPassConfirmInput" class="form-input" minlength="6" maxlength="64" autocomplete="new-password" placeholder="পুনরায় পাসওয়ার্ড দিন">
+          </div>
+        </div>
+        <div id="regVerifyAlert" class="verify-alert"></div>
+        <button class="main-btn" id="regBtn" onclick="doRegister()"><i class="fa-solid fa-user-plus"></i> নতুন ফাইল রেজিস্ট্রেশন করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 2. THREE-LINE SIDE DRAWER ==================== -->
+  <div class="drawer-backdrop" id="drawerBackdrop" onclick="toggleDrawer(false)"></div>
+  <aside class="side-drawer" id="sideDrawer">
+    <div class="drawer-profile">
+      <div class="dp-avatar" id="drawerAvatar">U</div>
+      <h3 id="drawerName" style="font-size:17px;font-weight:800">User Name</h3>
+      <p id="drawerPhone" style="font-size:12px;opacity:0.9">01700000000</p>
+      <p id="drawerEmail" style="font-size:11.5px;opacity:0.8;margin-top:2px">user@gmail.com</p>
+      <div style="margin-top:10px;display:flex;align-items:center;gap:8px">
+        <span style="font-size:11px;background:rgba(0,0,0,0.28);padding:4px 10px;border-radius:8px" id="drawerUidText">UID: #1001</span>
+        <button class="copy-action-btn" style="padding:4px 9px;font-size:11px;background:rgba(255,255,255,0.25)" onclick="copyCurrentUid()">
+          <i class="fa-regular fa-copy"></i> Copy UID
+        </button>
+      </div>
+    </div>
+
+    <div class="drawer-menu">
+      <div class="drawer-item" onclick="toggleDrawer(false);openSettingsModal()">
+        <span><i class="fa-solid fa-user-gear left-ic"></i> প্রোফাইল ও পাসওয়ার্ড সেটিংস</span>
+        <i class="fa-solid fa-chevron-right" style="font-size:12px;color:var(--muted)"></i>
+      </div>
+      <div class="drawer-item" onclick="toggleThemeMode()">
+        <span><i class="fa-solid fa-moon left-ic"></i> ডার্ক / লাইট থিম পরিবর্তন</span>
+        <span id="themeStatusText" style="font-size:11px;color:var(--accent)">Dark</span>
+      </div>
+      <div class="drawer-item" onclick="toggleDrawer(false);switchTab('tasks')">
+        <span><i class="fa-solid fa-list-check left-ic"></i> ইজি ইনকাম ও স্পেশাল সার্ভিস</span>
+        <i class="fa-solid fa-chevron-right" style="font-size:12px;color:var(--muted)"></i>
+      </div>
+      <div class="drawer-item" onclick="toggleDrawer(false);switchTab('ads')">
+        <span><i class="fa-solid fa-rectangle-ad left-ic"></i> অ্যাড ওয়াচিং (Watch Ads)</span>
+        <i class="fa-solid fa-chevron-right" style="font-size:12px;color:var(--muted)"></i>
+      </div>
+      <div class="drawer-item" onclick="toggleDrawer(false);switchTab('gift')">
+        <span><i class="fa-solid fa-gift left-ic"></i> আজকের গিফট কোড</span>
+        <i class="fa-solid fa-chevron-right" style="font-size:12px;color:var(--muted)"></i>
+      </div>
+      <div class="drawer-item" onclick="toggleDrawer(false);switchTab('wallet')">
+        <span><i class="fa-solid fa-wallet left-ic"></i> আমার ওয়ালেট ও হিস্টোরি</span>
+        <i class="fa-solid fa-chevron-right" style="font-size:12px;color:var(--muted)"></i>
+      </div>
+      <div class="drawer-item" onclick="toggleDrawer(false);switchTab('support')">
+        <span><i class="fa-solid fa-headset left-ic"></i> ২৪/৭ লাইভ সাপোর্ট</span>
+        <i class="fa-solid fa-chevron-right" style="font-size:12px;color:var(--muted)"></i>
+      </div>
+
+      <div class="drawer-item logout-btn" onclick="doLogout()">
+        <span><i class="fa-solid fa-right-from-bracket left-ic"></i> অ্যাপ থেকে লগআউট করুন</span>
+        <i class="fa-solid fa-power-off"></i>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==================== 3. MAIN APPLICATION ==================== -->
+  <div id="mainAppContainer" style="display:none">
+    <header class="top-header">
+      <button class="icon-btn" onclick="toggleDrawer(true)" title="থ্রি-লাইন মেনু">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+      <div class="brand-wrap">
+        <span class="brand-dot"></span>
+        <div class="brand-title" id="headerAppName">ইনকাম প্রতিদিন</div>
+      </div>
+      <button class="icon-btn" onclick="toggleNoticeModal(true)" title="নোটিশ">
+        <i class="fa-solid fa-bell"></i>
+      </button>
+    </header>
+
+    <!-- HOME VIEW -->
+    <div id="view-home" class="view-page active">
+      <div class="hero-wallet">
+        <div class="hw-top">
+          <span class="hw-user" id="heroWelcomeUser">স্বাগতম, User</span>
+          <span class="hw-badge"><i class="fa-solid fa-shield-halved"></i> Verified</span>
+        </div>
+        <div class="hw-bal-row">
+          <div class="hw-bal">
+            <small>আপনার বর্তমান ব্যালেন্স</small>
+            <strong id="homeBalanceText">৳0.00</strong>
+          </div>
+          <div class="hw-btns">
+            <button class="hw-btn" onclick="openWalletSub('deposit')"><i class="fa-solid fa-plus"></i> ডিপোজিট</button>
+            <button class="hw-btn" onclick="openWalletSub('withdraw')"><i class="fa-solid fa-paper-plane"></i> উইথড্র</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="marquee-bar">
+        <span class="mq-badge">UPDATE</span>
+        <div class="mq-text"><span id="marqueeText"></span></div>
+      </div>
+
+      <div class="comm-strip">
+        <div class="comm-pill" onclick="openCommLink('telegram')"><i class="fa-brands fa-telegram" style="color:#38bdf8"></i><span>Telegram</span></div>
+        <div class="comm-pill" onclick="switchTab('ads')"><i class="fa-solid fa-rectangle-ad" style="color:#f59e0b"></i><span>Watch Ads</span></div>
+        <div class="comm-pill" onclick="openCommLink('facebook')"><i class="fa-brands fa-facebook" style="color:#3b82f6"></i><span>Facebook</span></div>
+        <div class="comm-pill" onclick="openCommLink('youtube')"><i class="fa-brands fa-youtube" style="color:#ef4444"></i><span>Tutorial</span></div>
+      </div>
+
+      <div id="homeAdCard"></div>
+
+      <div id="homeCategoriesContainer"></div>
+    </div>
+
+    <!-- PORTAL / CATEGORY DETAIL VIEW -->
+    <div id="view-portal" class="view-page">
+      <div class="page-pad" id="portalDetailBox"></div>
+    </div>
+
+    <!-- EASY INCOME, SPECIAL SERVICE & DAILY TASK VIEW -->
+    <div id="view-tasks" class="view-page">
+      <div class="page-pad">
+        <div class="portal-banner">
+          <span style="font-size:11px;background:rgba(0,0,0,0.25);padding:4px 10px;border-radius:20px;font-weight:700">ALL CATEGORIES HUB</span>
+          <h2 style="margin-top:8px;font-size:21px">ইজি ইনকাম, স্পেশাল সার্ভিস ও টাস্ক</h2>
+          <p style="font-size:12.5px;opacity:0.9;margin-top:4px">সকল প্রকার ইজি ইনকাম, স্পেশাল সার্ভিস ও ডেইলি টাস্কের তালিকা</p>
+        </div>
+        <div id="taskAndServiceContainer"></div>
+      </div>
+    </div>
+
+    <!-- ADS WATCHING VIEW (1 Ad = 1 Taka / 100 Ads Loop System with Limit) -->
+    <div id="view-ads" class="view-page">
+      <div class="page-pad">
+        <div class="portal-banner" style="background:linear-gradient(135deg,#059669,#2563eb)">
+          <span style="font-size:11px;background:rgba(0,0,0,0.25);padding:4px 10px;border-radius:20px;font-weight:700">ADVANCED AD SYSTEM</span>
+          <h2 style="margin-top:8px;font-size:21px">ভিডিও অ্যাড দেখে টাকা আয় করুন</h2>
+          <p style="font-size:12.5px;opacity:0.9;margin-top:4px">প্রতিটি অ্যাড সম্পূর্ণ দেখলে নির্ধারিত রিওয়ার্ড সরাসরি আপনার ওয়ালেটে জমা হবে</p>
+        </div>
+
+        <div class="card-box">
+          <div style="margin-bottom:12px">
+            <h3 style="color:#34d399;font-size:16px"><i class="fa-solid fa-play-circle"></i> ভিডিও ও স্পন্সর অ্যাড</h3>
+            <p style="font-size:12px;color:var(--muted)">টাইমার শেষ হলে Claim Reward বাটনে ক্লিক করে বোনাস নিন</p>
+          </div>
+          <div id="userAdsListContainer"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GIFT CODE VIEW -->
+    <div id="view-gift" class="view-page">
+      <div class="page-pad">
+        <div class="portal-banner" style="background:linear-gradient(135deg,#f97316,#db2777)">
+          <span style="font-size:11px;background:rgba(0,0,0,0.25);padding:4px 10px;border-radius:20px;font-weight:700">DAILY GIFT CODE</span>
+          <h2 style="margin-top:8px;font-size:21px">আজকের গিফট কোড বোনাস</h2>
+          <p style="font-size:12.5px;opacity:0.9;margin-top:4px">সবার আগে নিচের কোডটি কপি করে ক্লেইম করুন!</p>
+        </div>
+
+        <div id="giftLiveCardBox"></div>
+
+        <div class="card-box" id="giftInputCardBox">
+          <div class="form-group">
+            <label class="form-label">গিফট কোডটি এখানে বসান <span class="req">*</span></label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-ticket prefix"></i>
+              <input type="text" id="giftClaimInput" class="form-input" maxlength="32" placeholder="আজকের গিফট কোড লিখুন">
+            </div>
+          </div>
+          <button class="main-btn" onclick="claimGiftCode()"><i class="fa-solid fa-gift"></i> গিফট বোনাস ক্লেইম করুন</button>
+        </div>
+
+        <h4 style="margin:14px 0 8px;font-size:14px">আপনার গিফট ক্লেইম হিস্টোরি</h4>
+        <div id="giftClaimHistoryBox"></div>
+      </div>
+    </div>
+
+    <!-- WALLET VIEW -->
+    <div id="view-wallet" class="view-page">
+      <div class="page-pad">
+        <div id="walletMainSub">
+          <div class="portal-banner">
+            <p style="font-size:12px;opacity:0.85">কারেন্ট ওয়ালেট ব্যালেন্স</p>
+            <h2 style="font-size:32px;margin:6px 0 14px" id="walletMainBalance">৳0.00</h2>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <button class="hw-btn" style="justify-content:center;padding:11px" onclick="showWalletSub('deposit')"><i class="fa-solid fa-plus-circle"></i> Deposit</button>
+              <button class="hw-btn" style="justify-content:center;padding:11px" onclick="showWalletSub('withdraw')"><i class="fa-solid fa-paper-plane"></i> Withdraw</button>
+            </div>
+          </div>
+
+          <div class="list-row">
+            <div><strong style="font-size:14px">মোট এপ্রুভ ডিপোজিট</strong><p style="font-size:11.5px;color:var(--muted)">আপনার সফল ডিপোজিট</p></div>
+            <strong id="walletTotalDep" style="color:var(--accent)">৳0.00</strong>
+          </div>
+          <div class="list-row">
+            <div><strong style="font-size:14px">মোট পেইড উইথড্র</strong><p style="font-size:11.5px;color:var(--muted)">আপনার সফল উত্তোলন</p></div>
+            <strong id="walletTotalWit" style="color:#818cf8">৳0.00</strong>
+          </div>
+          <div class="list-row">
+            <div><strong style="font-size:14px">সর্বনিম্ন উইথড্র লিমিট</strong><p style="font-size:11.5px;color:var(--muted)">এর কম উইথড্র হবে না</p></div>
+            <strong id="walletMinWit" style="color:#f87171">৳50.00</strong>
+          </div>
+
+          <h4 style="margin:16px 0 8px;font-size:14px">লেনদেন হিস্টোরি</h4>
+          <div id="walletHistoryList"></div>
+        </div>
+
+        <!-- Deposit Sub -->
+        <div id="walletDepSub" style="display:none">
+          <div class="back-btn" onclick="showWalletSub('main')"><i class="fa-solid fa-arrow-left"></i> ওয়ালেটে ফিরুন</div>
+          <div class="copy-box-card">
+            <div class="cbc-head"><span>অ্যাডমিন বিকাশ / নগদ নাম্বার (Send Money)</span><span>TAP TO COPY</span></div>
+            <div class="cbc-row">
+              <span class="cbc-val" id="depAdminNumText">01700000000</span>
+              <button class="copy-action-btn" onclick="copyById('depAdminNumText', 'ডিপোজিট নাম্বার কপি হয়েছে!')"><i class="fa-regular fa-copy"></i> Copy</button>
+            </div>
+            <p style="font-size:12px;color:var(--muted);margin-top:8px" id="depAdminNoteText"></p>
+          </div>
+
+          <div class="card-box">
+            <div class="form-group">
+              <label class="form-label">পেমেন্ট মেথড</label>
+              <select id="depMethodInp" class="form-input" style="padding-left:14px">
+                <option value="bKash">bKash (বিকাশ)</option>
+                <option value="Nagad">Nagad (নগদ)</option>
+                <option value="Rocket">Rocket (রকেট)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">টাকার পরিমাণ (৳) <span class="req">*</span></label>
+              <div class="input-wrap"><i class="fa-solid fa-coins prefix"></i><input type="number" id="depAmountInp" class="form-input" min="10" max="500000" placeholder="100"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">প্রেরক নাম্বার <span class="req">*</span></label>
+              <div class="input-wrap"><i class="fa-solid fa-phone prefix"></i><input type="tel" id="depSenderInp" class="form-input" maxlength="15" placeholder="017XXXXXXXX"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Transaction ID (TrxID) <span class="req">*</span></label>
+              <div class="input-wrap"><i class="fa-solid fa-receipt prefix"></i><input type="text" id="depTrxInp" class="form-input" maxlength="40" placeholder="TrxID দিন"></div>
+            </div>
+            <button class="main-btn" onclick="submitDeposit()"><i class="fa-solid fa-check-circle"></i> ডিপোজিট সাবমিট করুন</button>
+          </div>
+        </div>
+
+        <!-- Withdraw Sub -->
+        <div id="walletWitSub" style="display:none">
+          <div class="back-btn" onclick="showWalletSub('main')"><i class="fa-solid fa-arrow-left"></i> ওয়ালেটে ফিরুন</div>
+          <div class="card-box">
+            <div class="form-group">
+              <label class="form-label">উইথড্র মেথড</label>
+              <select id="witMethodInp" class="form-input" style="padding-left:14px">
+                <option value="bKash">bKash (বিকাশ পার্সোনাল)</option>
+                <option value="Nagad">Nagad (নগদ পার্সোনাল)</option>
+                <option value="Rocket">Rocket (রকেট)</option>
+                <option value="Binance">Binance Pay</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">উইথড্র অ্যামাউন্ট (সর্বনিম্ন ৳<span id="witMinLabel">50</span>) <span class="req">*</span></label>
+              <div class="input-wrap"><i class="fa-solid fa-money-bill prefix"></i><input type="number" id="witAmountInp" class="form-input" min="1" max="500000" placeholder="50"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">আপনার রিসিভ নাম্বার <span class="req">*</span></label>
+              <div class="input-wrap"><i class="fa-solid fa-wallet prefix"></i><input type="text" id="witNumInp" class="form-input" maxlength="30" placeholder="017XXXXXXXX"></div>
+            </div>
+            <button class="main-btn" onclick="submitWithdraw()"><i class="fa-solid fa-paper-plane"></i> উইথড্র কনফার্ম করুন</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUPPORT VIEW -->
+    <div id="view-support" class="view-page">
+      <div class="page-pad">
+        <div class="card-box" style="text-align:center;padding:28px 18px">
+          <div style="width:64px;height:64px;border-radius:20px;background:rgba(99,102,241,0.18);color:#818cf8;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 12px">
+            <i class="fa-solid fa-headset"></i>
+          </div>
+          <h3>24/7 Live Support Center</h3>
+          <p style="font-size:13px;color:var(--muted);margin:8px 0 18px">যেকোনো সমস্যায় সরাসরি অ্যাডমিন সাপোর্টে মেসেজ দিন।</p>
+          <button class="main-btn" onclick="openCommLink('support')"><i class="fa-brands fa-telegram"></i> সরাসরি লাইভ চ্যাট করুন</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <div class="nav-item active" id="nav-home" onclick="switchTab('home')"><i class="fa-solid fa-house"></i><span>Home</span></div>
+      <div class="nav-item" id="nav-tasks" onclick="switchTab('tasks')"><i class="fa-solid fa-layer-group"></i><span>Categories</span></div>
+      <div class="nav-item" id="nav-ads" onclick="switchTab('ads')"><i class="fa-solid fa-rectangle-ad"></i><span>Watch Ads</span></div>
+      <div class="nav-item" id="nav-gift" onclick="switchTab('gift')"><i class="fa-solid fa-gift"></i><span>Gift Code</span></div>
+      <div class="nav-item" id="nav-support" onclick="switchTab('support')"><i class="fa-solid fa-headset"></i><span>Support</span></div>
+    </nav>
+  </div>
+</div>
+
+<!-- ==================== VIDEO / SPONSOR AD MODAL ==================== -->
+<div class="vad-modal" id="videoAdModal">
+  <div class="vad-top">
+    <div class="vad-title" id="adModalTitle">Sponsor Ad</div>
+    <button class="vad-close" onclick="closeAdModal()"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="vad-player" id="adPlayerContainer"></div>
+  <div class="vad-timer-wrap">
+    <div class="vad-timer-text" id="adTimerText">অপেক্ষা করুন...</div>
+    <div class="vad-timer-bar"><div id="adTimerBar"></div></div>
+  </div>
+  <button class="vad-claim" id="adClaimBtn" disabled onclick="claimAdReward()">
+    <i class="fa-solid fa-lock"></i> <span id="adClaimLabel">Claim Reward</span>
+  </button>
+</div>
+
+<!-- Profile Settings Modal -->
+<div class="modal-backdrop" id="settingsModal">
+  <div class="modal-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <h3 style="font-size:16px"><i class="fa-solid fa-user-gear"></i> প্রোফাইল সেটিংস</h3>
+      <button class="icon-btn" style="width:32px;height:32px" onclick="closeSettingsModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">আপনার নাম</label>
+      <input type="text" id="setProfName" class="form-input" maxlength="40" style="padding-left:14px">
+    </div>
+    <div class="form-group">
+      <label class="form-label">নতুন পাসওয়ার্ড</label>
+      <input type="password" id="setProfPass" class="form-input" minlength="6" maxlength="64" style="padding-left:14px" placeholder="নতুন পাসওয়ার্ড (না বদলাতে খালি রাখুন)" autocomplete="new-password">
+    </div>
+    <button class="main-btn" onclick="saveProfileSettings()"><i class="fa-solid fa-floppy-disk"></i> সেটিংস সেভ করুন</button>
+  </div>
+</div>
+
+<!-- Notice Modal -->
+<div class="modal-backdrop" id="noticeModal">
+  <div class="modal-card" style="text-align:center">
+    <h3 style="margin-bottom:8px;color:#818cf8"><i class="fa-solid fa-bullhorn"></i> জরুরী নোটিশ</h3>
+    <p id="popupNoticeBody" style="font-size:13.5px;color:var(--muted);line-height:1.5;margin-bottom:16px"></p>
+    <button class="main-btn" onclick="toggleNoticeModal(false)">বুঝতে পেরেছি</button>
+  </div>
+</div>
+
+<div class="toast" id="toastBox"></div>
+
+<!-- ==================== FIREBASE SDK & REALTIME SYNC ==================== -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+  // এখানে আপনার Firebase প্রজেক্টের আসল কনফিগারেশন বসান:
+  const firebaseConfig = {
+    apiKey: "AIzaSyAXXXuGMYkvbi2YN-8voBMR1YokJL8yqGA",
+    authDomain: "income-protidin-27a48.firebaseapp.com",
+    databaseURL: "https://income-protidin-27a48-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "income-protidin-27a48",
+    storageBucket: "income-protidin-27a48.firebasestorage.app",
+    messagingSenderId: "212029491700",
+    appId: "1:212029491700:web:3683e8e68e5dca9b8451a1"
+  };
+
+  try {
+    if (firebaseConfig.apiKey && firebaseConfig.apiKey !== "YOUR_API_KEY") {
+      firebase.initializeApp(firebaseConfig);
+      window._fbDBRef = firebase.database().ref('INCOME_PROTIDIN_2026_DB');
+    }
+  } catch (err) {
+    console.error('Firebase Init Error:', err);
+  }
+</script>
+
+<script>
+  // Safe storage: falls back to memory when localStorage is blocked (e.g. HopWeb / data: / null-origin WebViews)
+  let STORE_PERSISTENT = true;
+  const Store = (function () {
+    try {
+      const ls = window.localStorage;
+      ls.setItem('__probe', '1');
+      ls.removeItem('__probe');
+      return ls;
+    } catch (e) {
+      STORE_PERSISTENT = false;
+      const mem = {};
+      return {
+        getItem: k => (k in mem ? mem[k] : null),
+        setItem: (k, v) => { mem[k] = String(v); },
+        removeItem: k => { delete mem[k]; }
+      };
+    }
+  })();
+
+  const STORAGE_KEY = 'INCOME_PROTIDIN_2026_DB';
+  const SESSION_KEY = 'INCOME_PROTIDIN_2026_ACTIVE_SESSION';
+  const THEME_KEY = 'INCOME_PROTIDIN_2026_THEME';
+  const LEDGER_MIRROR_KEY = 'INCOME_PROTIDIN_2026_LEDGER_SEAL';
+  const syncChannel = (function () {
+    try { return new BroadcastChannel('income_protidin_2026_sync'); }
+    catch (e) { return { postMessage() {}, onmessage: null }; }
+  })();
+
+  // Universal Ad System state
+  let adTimerInterval = null;
+  let adSecondsLeft = 0;
+  let adTotalSeconds = 0;
+  let activeAdId = null;
+  let activeAdUrl = '';
+  let adClaimBusy = false;
+  let adStartedAt = 0;
+
+  // Trigger Rope Pull -> File Dossier Drop Animation
+  function triggerRopeJumpAndDrop() {
+    const rope = document.getElementById('ropeLine');
+    const dossier = document.getElementById('fileDossierCard');
+
+    rope.classList.add('pulled');
+    setTimeout(() => {
+      dossier.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      dossier.style.transform = 'translateY(0) scale(1)';
+      dossier.style.opacity = '1';
+    }, 250);
+  }
+
+  function universalCopy(text, successMsg) {
+    const str = String(text || '').trim();
+    if (!str) return showToast('কপি করার মতো কিছু নেই!');
+    const fallback = () => {
+      const ta = document.createElement('textarea');
+      ta.value = str;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '-9999px';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      ta.setSelectionRange(0, 99999);
+      try { document.execCommand('copy'); } catch (err) {}
+      document.body.removeChild(ta);
+      showToast(successMsg || 'কপি হয়েছে: ' + str);
+    };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(str).then(() => showToast(successMsg || 'কপি হয়েছে: ' + str)).catch(() => fallback());
+    } else {
+      fallback();
+    }
+  }
+
+  function copyById(elId, msg) {
+    const el = document.getElementById(elId);
+    if (el) universalCopy(el.textContent, msg);
+  }
+
+  function resolveDriveEmbed(url) {
+    if (!url) return 'https://www.w3schools.com/html/mov_bbb.mp4';
+    const trimmed = url.trim();
+    const m1 = trimmed.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    const m2 = trimmed.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    const id = (m1 && m1[1]) || (m2 && m2[1]);
+    if (id) {
+      return `https://drive.google.com/file/d/${id}/preview`;
+    }
+    return trimmed;
+  }
+
+  // ==================== SECURITY HELPERS ====================
+  function esc(v) {
+    return String(v == null ? '' : v).replace(/[&<>"'`]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '`': '&#96;' }[c]));
+  }
+
+  function isSafeHttps(u) {
+    try { return new URL(String(u).trim()).protocol === 'https:'; } catch (e) { return false; }
+  }
+
+  function isSafeHttp(u) {
+    try { const p = new URL(String(u).trim()).protocol; return p === 'https:' || p === 'http:'; } catch (e) { return false; }
+  }
+
+  function cleanText(s, max) {
+    return String(s == null ? '' : s).replace(/[\u0000-\u001f\u007f<>]/g, '').trim().slice(0, max || 100);
+  }
+
+  // Admin-provided icon: allow a plain <i class="fa-..."> tag or plain text only
+  function safeIcon(html, fallback) {
+    const h = String(html == null ? '' : html).trim();
+    if (!h) return fallback;
+    if (/^<i class="[A-Za-z0-9 _-]+"( style="[^"<>]*")?><\/i>$/.test(h)) return h;
+    if (h.indexOf('<') === -1) return esc(h);
+    return fallback;
+  }
+
+  function resolveDriveImg(url) {
+    if (!url) return '';
+    const s = String(url).trim();
+    const m1 = s.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    const m2 = s.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    const id = (m1 && m1[1]) || (m2 && m2[1]);
+    return id ? 'https://drive.google.com/thumbnail?id=' + id + '&sz=w400' : s;
+  }
+
+  function safeImgSrc(u) {
+    const r = resolveDriveImg(u);
+    return isSafeHttps(r) ? esc(r) : 'https://placehold.co/80x80?text=Icon';
+  }
+
+  // SHA-256 (pure JS, works on file:// and WebView without secure context)
+  const sha256 = (function () {
+    const K = new Uint32Array([
+      0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+      0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+      0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+      0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+      0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+      0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+      0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+      0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
+    ]);
+    const rotr = (x, n) => (x >>> n) | (x << (32 - n));
+    return function (str) {
+      const data = new TextEncoder().encode(str);
+      const l = data.length;
+      const total = (((l + 9 + 63) >> 6) << 6);
+      const buf = new Uint8Array(total);
+      buf.set(data);
+      buf[l] = 0x80;
+      const dv = new DataView(buf.buffer);
+      dv.setUint32(total - 8, Math.floor((l * 8) / 4294967296));
+      dv.setUint32(total - 4, (l * 8) >>> 0);
+      let h0 = 0x6a09e667, h1 = 0xbb67ae85, h2 = 0x3c6ef372, h3 = 0xa54ff53a,
+          h4 = 0x510e527f, h5 = 0x9b05688c, h6 = 0x1f83d9ab, h7 = 0x5be0cd19;
+      const w = new Uint32Array(64);
+      for (let off = 0; off < total; off += 64) {
+        for (let i = 0; i < 16; i++) w[i] = dv.getUint32(off + i * 4);
+        for (let i = 16; i < 64; i++) {
+          const s0 = rotr(w[i - 15], 7) ^ rotr(w[i - 15], 18) ^ (w[i - 15] >>> 3);
+          const s1 = rotr(w[i - 2], 17) ^ rotr(w[i - 2], 19) ^ (w[i - 2] >>> 10);
+          w[i] = (w[i - 16] + s0 + w[i - 7] + s1) | 0;
+        }
+        let a = h0, b = h1, c = h2, d = h3, e = h4, f = h5, g = h6, h = h7;
+        for (let i = 0; i < 64; i++) {
+          const S1 = rotr(e, 6) ^ rotr(e, 11) ^ rotr(e, 25);
+          const ch = (e & f) ^ (~e & g);
+          const t1 = (h + S1 + ch + K[i] + w[i]) | 0;
+          const S0 = rotr(a, 2) ^ rotr(a, 13) ^ rotr(a, 22);
+          const maj = (a & b) ^ (a & c) ^ (b & c);
+          const t2 = (S0 + maj) | 0;
+          h = g; g = f; f = e; e = (d + t1) | 0; d = c; c = b; b = a; a = (t1 + t2) | 0;
+        }
+        h0 = (h0 + a) | 0; h1 = (h1 + b) | 0; h2 = (h2 + c) | 0; h3 = (h3 + d) | 0;
+        h4 = (h4 + e) | 0; h5 = (h5 + f) | 0; h6 = (h6 + g) | 0; h7 = (h7 + h) | 0;
+      }
+      return [h0, h1, h2, h3, h4, h5, h6, h7].map(x => (x >>> 0).toString(16).padStart(8, '0')).join('');
+    };
+  })();
+
+  function randomHex(bytes) {
+    const a = new Uint8Array(bytes);
+    crypto.getRandomValues(a);
+    return Array.from(a, b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  const PW_ROUNDS = 3000;
+  function pwDigest(pass, salt) {
+    let h = sha256(salt + ':' + pass);
+    for (let i = 0; i < PW_ROUNDS; i++) h = sha256(h + salt + pass);
+    return h;
+  }
+
+  function hashPassword(pass) {
+    const salt = randomHex(16);
+    return 'h1$' + salt + '$' + pwDigest(pass, salt);
+  }
+
+  function safeEqual(a, b) {
+    a = String(a); b = String(b);
+    let diff = a.length ^ b.length;
+    const n = Math.max(a.length, b.length);
+    for (let i = 0; i < n; i++) diff |= (a.charCodeAt(i) || 0) ^ (b.charCodeAt(i) || 0);
+    return diff === 0;
+  }
+
+  function verifyPassword(stored, pass) {
+    stored = String(stored || '');
+    if (stored.indexOf('h1$') === 0) {
+      const parts = stored.split('$');
+      if (parts.length !== 3) return false;
+      return safeEqual(parts[2], pwDigest(pass, parts[1]));
+    }
+    return safeEqual(stored, pass); // legacy plaintext (upgraded on next login)
+  }
+
+  function secureUid(db) {
+    for (let i = 0; i < 25; i++) {
+      const r = new Uint32Array(1);
+      crypto.getRandomValues(r);
+      const id = 'UID' + (100000 + (r[0] % 900000));
+      if (!(db.users || []).some(u => u.id === id)) return id;
+    }
+    return 'UID' + randomHex(4).toUpperCase();
+  }
+
+  // Cryptographically secure ID generator for transactions/submissions (replaces Math.random/Date.now collisions)
+  function secureEntityId(prefix, existingList) {
+    for (let i = 0; i < 20; i++) {
+      const id = prefix + '_' + Date.now().toString(36).toUpperCase() + '_' + randomHex(4).toUpperCase();
+      if (!Array.isArray(existingList) || !existingList.some(item => item && item.id === id)) return id;
+    }
+    return prefix + '_' + randomHex(8).toUpperCase();
+  }
+
+  // ==================== TAMPER DETECTION & FUTURE SERVER / FIREBASE ADAPTER ====================
+  const INTEGRITY_PEPPER = 'IP2026_CLIENT_LEDGER_V1_9f4b2c7d';
+  function computeUserSeal(u) {
+    if (!u || !u.id) return '';
+    const bal = Number(u.balance || 0).toFixed(2);
+    return sha256(INTEGRITY_PEPPER + '|' + u.id + '|' + bal + '|' + String(u.phone || '') + '|' + String(u.email || '').toLowerCase());
+  }
+
+  function computeExpectedBalanceFromLedger(db, userId) {
+    const depSum = (db.deposits || [])
+      .filter(d => d.userId === userId && d.status === 'Approved')
+      .reduce((a, b) => a + (Number(b.amount) || 0), 0);
+    const subSum = (db.submissions || [])
+      .filter(s => s.userId === userId && s.status === 'Approved')
+      .reduce((a, b) => a + (Number(b.rate) || 0), 0);
+    const giftSum = (db.giftClaims || [])
+      .filter(g => g.userId === userId && g.status === 'Accepted')
+      .reduce((a, b) => a + (Number(b.amount) || 0), 0);
+    const witSum = (db.withdrawals || [])
+      .filter(w => w.userId === userId && (w.status === 'Pending' || w.status === 'Paid'))
+      .reduce((a, b) => a + (Number(b.amount) || 0), 0);
+    const u = (db.users || []).find(x => x.id === userId);
+    const adEarns = u ? Math.max(0, Number(u.totalIncome || 0)) : 0;
+    return Math.max(0, Number((depSum + subSum + giftSum + adEarns - witSum).toFixed(2)));
+  }
+
+  function sealAllUsers(db) {
+    if (!db || !Array.isArray(db.users)) return;
+    const mirror = {};
+    db.users.forEach(u => {
+      if (!u || !u.id) return;
+      const b = Number(u.balance);
+      u.balance = isFinite(b) && b >= 0 ? Number(b.toFixed(2)) : 0;
+      u._seal = computeUserSeal(u);
+      mirror[u.id] = { b: u.balance, s: u._seal };
+    });
+    try { Store.setItem(LEDGER_MIRROR_KEY, JSON.stringify(mirror)); } catch (e) {}
+  }
+
+  function verifyUsersIntegrity(db) {
+    if (!db || !Array.isArray(db.users)) return false;
+    let mirror = {};
+    try { mirror = JSON.parse(Store.getItem(LEDGER_MIRROR_KEY) || '{}') || {}; } catch (e) { mirror = {}; }
+    let changed = false;
+
+    db.users.forEach(u => {
+      if (!u || !u.id) return;
+      const numBal = Number(u.balance);
+      if (!isFinite(numBal) || numBal < 0) {
+        u.balance = 0;
+        u._seal = computeUserSeal(u);
+        changed = true;
+        return;
+      }
+      const expectedSeal = computeUserSeal(u);
+      if (!u._seal) {
+        u._seal = expectedSeal;
+        changed = true;
+      } else if (!safeEqual(u._seal, expectedSeal)) {
+        const m = mirror[u.id];
+        if (m && safeEqual(m.s, u._seal) && Number(u.balance) > Number(m.b)) {
+          const ledgerMax = computeExpectedBalanceFromLedger(db, u.id);
+          if (Number(u.balance) > Math.max(Number(m.b), ledgerMax)) {
+            u.balance = Number(m.b);
+          }
+        }
+        u._seal = computeUserSeal(u);
+        changed = true;
+      }
+    });
+    if (changed) sealAllUsers(db);
+    return changed;
+  }
+
+  // Ready-to-connect Backend / Firebase Adapter for server-side verification
+  const BackendSecurityAdapter = {
+    mode: 'firebase',
+    endpoint: '',
+    async verifyAndCommit(actionType, payload) {
+      if (this.mode === 'local' || !this.endpoint) {
+        return { ok: true, mode: this.mode, timestamp: Date.now(), actionType, payload };
+      }
+      return { ok: true };
+    }
+  };
+  window.BackendSecurityAdapter = BackendSecurityAdapter;
+
+  // Login brute-force throttle (per device)
+  const LOGIN_GUARD_KEY = 'income_login_guard_v1';
+  function getLoginGuard() {
+    try { return JSON.parse(Store.getItem(LOGIN_GUARD_KEY)) || { fails: 0, lockUntil: 0 }; }
+    catch (e) { return { fails: 0, lockUntil: 0 }; }
+  }
+  function setLoginGuard(g) { Store.setItem(LOGIN_GUARD_KEY, JSON.stringify(g)); }
+
+  const defaultDatabase = {
+    appName: 'ইনকাম প্রতিদিন',
+    marquee: 'স্বাগতম ইনকাম প্রতিদিন অ্যাপে! ইজি ইনকাম, স্পেশাল সার্ভিস, টেলিগ্রাম সেল এবং অ্যাড দেখে টাকা আয় করুন।',
+    popupNotice: 'প্রতিদিনের সেটআপ পাসওয়ার্ড ও গিফট কোড পেতে আমাদের টেলিগ্রাম চ্যানেলে যুক্ত থাকুন।',
+    minWithdraw: 50,
+    depositNumber: '01700000000',
+    depositNote: 'উপরের নাম্বারে Send Money করে সঠিক TrxID দিন।',
+    strictEmailCheck: true,
+    links: { telegram: 'https://t.me/', support: 'https://t.me/', facebook: 'https://facebook.com/', youtube: 'https://youtube.com/' },
+    users: [],
+    adSettings: {
+      status: 'ON',
+      rewardPerAd: 1,
+      dailyLimit: 15,
+      watchSeconds: 15,
+      adsList: [
+        { id: 'AD_1', title: 'Sample Video Ad', adUrl: 'https://www.w3schools.com/html/mov_bbb.mp4', views: 0, maxViews: 100 }
+      ]
+    },
+    categories: [
+      {
+        id: 'gmail-sell',
+        section: 'Special Account Selling',
+        name: 'Gmail Sell',
+        verifyType: 'gmail',
+        inputMode: 'type',
+        showPassword: true,
+        subtitle: 'ভেরিফাইড জিমেইল অ্যাকাউন্ট সেল করে ইনকাম',
+        rate: 12,
+        limit: 1000,
+        password: '@tamimhasan@17',
+        status: 'active',
+        offMessage: 'কাজ সাময়িক বন্ধ আছে।',
+        iconHtml: '<i class="fa-solid fa-envelope" style="color:#ea4335"></i>',
+        imageUrl: '',
+        fields: [{ label: 'Gmail Address', placeholder: 'example@gmail.com' }, { label: 'Password', placeholder: 'পাসওয়ার্ড' }],
+        rules: 'সচল জিমেইল ও পাসওয়ার্ড দিন।'
+      },
+      {
+        id: 'telegram-sell',
+        section: 'Special Account Selling',
+        name: 'Telegram Sell',
+        verifyType: 'none',
+        inputMode: 'notype',
+        showPassword: false,
+        subtitle: 'টেলিগ্রাম অ্যাকাউন্ট সেল করার তথ্য ও নির্দেশনা',
+        rate: 18,
+        limit: 500,
+        password: '',
+        status: 'active',
+        offMessage: 'টেলিগ্রাম সেল বন্ধ আছে।',
+        iconHtml: '<i class="fa-brands fa-telegram" style="color:#38bdf8"></i>',
+        imageUrl: '',
+        fields: [{ label: 'অফিসিয়াল টেলিগ্রাম বট ইউজারনেম', placeholder: '@IncomeBot' }],
+        rules: 'এখানে কিছু লিখতে হবে না। সরাসরি টেলিগ্রাম বটে জমা দিন।'
+      },
+      {
+        id: 'easy-income-1',
+        section: 'Easy Income (ইজি ইনকাম)',
+        name: 'Easy Watch & Like',
+        verifyType: 'none',
+        inputMode: 'type',
+        showPassword: false,
+        subtitle: 'সহজ কাজ সম্পন্ন করে প্রতিদিন ইজি ইনকাম করুন',
+        rate: 3,
+        limit: 100,
+        password: '',
+        status: 'active',
+        offMessage: 'কাজ বন্ধ আছে।',
+        iconHtml: '<i class="fa-solid fa-coins" style="color:#f59e0b"></i>',
+        imageUrl: '',
+        fields: [{ label: 'আপনার কাজের প্রুফ / ইউজারনেম', placeholder: 'নাম দিন' }],
+        rules: 'ভিডিও দেখে লাইক করুন।'
+      },
+      {
+        id: 'special-service-1',
+        section: 'Special Service (স্পেশাল সার্ভিস)',
+        name: 'Premium VPN & Tools',
+        verifyType: 'none',
+        inputMode: 'notype',
+        showPassword: false,
+        subtitle: 'হাই-স্পিড পেইড ভিপিএন ও স্পেশাল সার্ভিস বিস্তারিত',
+        rate: 45,
+        limit: 200,
+        password: '',
+        status: 'active',
+        offMessage: 'সার্ভিস বন্ধ আছে।',
+        iconHtml: '<i class="fa-solid fa-crown" style="color:#10b981"></i>',
+        imageUrl: '',
+        fields: [{ label: 'সাপোর্ট হেল্পলাইন', placeholder: '@Support' }],
+        rules: 'হেল্পলাইনে যোগাযোগ করুন।'
+      }
+    ],
+    activeGift: { code: 'SMART50', amount: 25, maxLimit: 2, claimedUserIds: [], active: true },
+    giftClaims: [],
+    submissions: [],
+    deposits: [],
+    withdrawals: []
+  };
+
+  function normalizeAdSettings(db) {
+    const def = defaultDatabase.adSettings;
+    const cur = (db.adSettings && typeof db.adSettings === 'object') ? db.adSettings : {};
+    const s = {
+      status: cur.status === 'OFF' ? 'OFF' : (cur.status === 'ON' ? 'ON' : def.status),
+      rewardPerAd: Number(cur.rewardPerAd) > 0 ? Number(cur.rewardPerAd) : def.rewardPerAd,
+      dailyLimit: Number(cur.dailyLimit) > 0 ? Number(cur.dailyLimit) : def.dailyLimit,
+      watchSeconds: Number(cur.watchSeconds) > 0 ? Number(cur.watchSeconds) : def.watchSeconds,
+      adsList: Array.isArray(cur.adsList) ? cur.adsList : JSON.parse(JSON.stringify(def.adsList))
+    };
+    if (!Array.isArray(cur.adsList) && Array.isArray(db.adsList) && db.adsList.length) {
+      s.adsList = db.adsList.map(a => ({
+        id: a.id, title: a.title, adUrl: a.videoUrl || a.targetUrl || '',
+        views: a.currentViews || 0, maxViews: a.maxViews || 100
+      }));
+    }
+    s.adsList = s.adsList.map(a => ({
+      id: a.id, title: a.title || 'Ad', adUrl: a.adUrl || '',
+      views: Number(a.views) || 0, maxViews: Number(a.maxViews) || 100
+    }));
+    return s;
+  }
+
+  function getDB() {
+    const raw = Store.getItem(STORAGE_KEY);
+    let db;
+    if (!raw) {
+      db = JSON.parse(JSON.stringify(defaultDatabase));
+      sealAllUsers(db);
+      Store.setItem(STORAGE_KEY, JSON.stringify(db));
+      return db;
+    }
+    try {
+      db = { ...defaultDatabase, ...JSON.parse(raw) };
+    } catch (e) {
+      db = JSON.parse(JSON.stringify(defaultDatabase));
+    }
+    db.adSettings = normalizeAdSettings(db);
+    if (verifyUsersIntegrity(db)) {
+      Store.setItem(STORAGE_KEY, JSON.stringify(db));
+    }
+    return db;
+  }
+
+  function saveDB(data) {
+    sealAllUsers(data);
+    Store.setItem(STORAGE_KEY, JSON.stringify(data));
+    if (window._fbDBRef) {
+      try { window._fbDBRef.set(JSON.parse(JSON.stringify(data))); } catch (e) {}
+    }
+    syncChannel.postMessage({ type: 'DB_UPDATED' });
+  }
+
+  const SESSION_TTL = 30 * 24 * 60 * 60 * 1000;
+
+  function getActiveUser() {
+    const savedSessionRaw = Store.getItem(SESSION_KEY);
+    if (!savedSessionRaw) return null;
+    try {
+      const sessionObj = JSON.parse(savedSessionRaw);
+      if (!sessionObj || typeof sessionObj.id !== 'string' || !sessionObj.id) {
+        Store.removeItem(SESSION_KEY);
+        return null;
+      }
+      if (!sessionObj.exp || Date.now() > Number(sessionObj.exp)) {
+        Store.removeItem(SESSION_KEY);
+        return null;
+      }
+      const db = getDB();
+      const found = (db.users || []).find(u => u.id === sessionObj.id) || null;
+      if (!found) {
+        Store.removeItem(SESSION_KEY);
+        return null;
+      }
+      return found;
+    } catch (e) {
+      Store.removeItem(SESSION_KEY);
+      return null;
+    }
+  }
+
+  // Session keeps ONLY the user id + 30-day expiry (never stores balance, password, or profile data)
+  function setActiveUser(userObj) {
+    if (!userObj || typeof userObj.id !== 'string' || !userObj.id) return;
+    Store.setItem(SESSION_KEY, JSON.stringify({ id: userObj.id, exp: Date.now() + SESSION_TTL }));
+  }
+
+  // ==================== AUTH & VERIFICATION ====================
+  function switchAuthMode(mode) {
+    document.getElementById('tabLoginBtn').classList.toggle('active', mode === 'login');
+    document.getElementById('tabRegBtn').classList.toggle('active', mode === 'register');
+    document.getElementById('loginBox').style.display = mode === 'login' ? 'block' : 'none';
+    document.getElementById('registerBox').style.display = mode === 'register' ? 'block' : 'none';
+  }
+
+  async function doRegister() {
+    const name = cleanText(document.getElementById('regNameInput').value, 40);
+    const phone = cleanText(document.getElementById('regPhoneInput').value, 15);
+    const email = cleanText(document.getElementById('regEmailInput').value, 80).toLowerCase();
+    const pass = document.getElementById('regPassInput').value;
+    const confirmPass = document.getElementById('regPassConfirmInput').value;
+    const alertEl = document.getElementById('regVerifyAlert');
+
+    if (!name || !phone || !email || !pass || !confirmPass) {
+      alertEl.className = 'verify-alert error';
+      alertEl.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> সবগুলো ঘর পূরণ করুন!';
+      return;
+    }
+    if (name.length < 2 || name.length > 40) {
+      alertEl.className = 'verify-alert error';
+      alertEl.innerHTML = '<i class="fa-solid fa-id-badge"></i> নাম ২ থেকে ৪০ অক্ষরের মধ্যে হতে হবে!';
+      return;
+    }
+    if (!/^01[3-9]\d{8}$/.test(phone)) {
+      alertEl.className = 'verify-alert error';
+      alertEl.innerHTML = '<i class="fa-solid fa-phone-slash"></i> সঠিক ১১ ডিজিটের মোবাইল নাম্বার দিন!';
+      return;
+    }
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+      alertEl.className = 'verify-alert error';
+      alertEl.innerHTML = '<i class="fa-solid fa-envelope"></i> সঠিক ইমেইল অ্যাড্রেস দিন!';
+      return;
+    }
+    if (pass.length < 6 || pass.length > 64) {
+      alertEl.className = 'verify-alert error';
+      alertEl.innerHTML = '<i class="fa-solid fa-lock"></i> পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের দিন!';
+      return;
+    }
+    if (pass !== confirmPass) {
+      alertEl.className = 'verify-alert error';
+      alertEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> পাসওয়ার্ড মেলেনি!';
+      return;
+    }
+
+    const db = getDB();
+    db.users = db.users || [];
+    if (db.users.find(u => u.phone === phone || String(u.email || '').toLowerCase() === email)) {
+      alertEl.className = 'verify-alert error';
+      alertEl.innerHTML = '<i class="fa-solid fa-user-check"></i> এই নাম্বার বা জিমেইল দিয়ে ইতিমধ্যে অ্যাকাউন্ট খোলা আছে!';
+      return;
+    }
+
+    const newUser = {
+      id: secureUid(db),
+      name, phone, email, password: hashPassword(pass), balance: 0,
+      todayIncome: 0, totalIncome: 0, adsWatchedToday: 0, lastAdDate: '', adIndex: 0,
+      joinedAt: new Date().toLocaleString('bn-BD')
+    };
+
+    await BackendSecurityAdapter.verifyAndCommit('USER_REGISTER', { id: newUser.id, phone, email });
+    db.users.unshift(newUser);
+    saveDB(db);
+    setActiveUser(newUser);
+    showToast('রেজিস্ট্রেশন সফল! স্বাগতম ' + name);
+    renderApp();
+  }
+
+  function doLogin() {
+    const idVal = cleanText(document.getElementById('loginIdInput').value, 80).toLowerCase();
+    const passVal = document.getElementById('loginPassInput').value;
+    const alertEl = document.getElementById('loginVerifyAlert');
+
+    if (!idVal || !passVal) {
+      alertEl.className = 'verify-alert error';
+      alertEl.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> ফোন নাম্বার/জিমেইল এবং পাসওয়ার্ড দিন!';
+      return;
+    }
+
+    const guard = getLoginGuard();
+    if (Date.now() < guard.lockUntil) {
+      const wait = Math.ceil((guard.lockUntil - Date.now()) / 1000);
+      alertEl.className = 'verify-alert error';
+      alertEl.innerHTML = '<i class="fa-solid fa-hourglass-half"></i> অনেকবার ভুল চেষ্টা! ' + wait + ' সেকেন্ড পর আবার চেষ্টা করুন।';
+      return;
+    }
+
+    const db = getDB();
+    const matched = (db.users || []).find(u => u.phone === idVal || String(u.email || '').toLowerCase() === idVal);
+    if (!matched || !verifyPassword(matched.password, passVal)) {
+      guard.fails = (guard.fails || 0) + 1;
+      if (guard.fails >= 5) {
+        guard.lockUntil = Date.now() + Math.min(900, 30 * Math.pow(2, guard.fails - 5)) * 1000;
+      }
+      setLoginGuard(guard);
+      alertEl.className = 'verify-alert error';
+      alertEl.innerHTML = '<i class="fa-solid fa-user-slash"></i> একাউন্ট পাওয়া যায়নি অথবা পাসওয়ার্ড ভুল!';
+      return;
+    }
+
+    setLoginGuard({ fails: 0, lockUntil: 0 });
+    if (String(matched.password).indexOf('h1$') !== 0) {
+      matched.password = hashPassword(passVal);
+      saveDB(db);
+    }
+    setActiveUser(matched);
+    document.getElementById('loginPassInput').value = '';
+    showToast('লগইন সফল হয়েছে!');
+    renderApp();
+  }
+
+  function doLogout() {
+    toggleDrawer(false);
+    Store.removeItem(SESSION_KEY);
+    showToast('লগআউট সম্পন্ন হয়েছে।');
+    renderApp();
+  }
+
+  function toggleDrawer(open) {
+    document.getElementById('drawerBackdrop').classList.toggle('open', open);
+    document.getElementById('sideDrawer').classList.toggle('open', open);
+  }
+
+  function copyCurrentUid() {
+    const u = getActiveUser();
+    if (u) universalCopy(u.id, 'UID কপি হয়েছে: ' + u.id);
+  }
+
+  function toggleThemeMode() {
+    document.body.classList.toggle('light-mode');
+    const isLight = document.body.classList.contains('light-mode');
+    Store.setItem(THEME_KEY, isLight ? 'light' : 'dark');
+    document.getElementById('themeStatusText').textContent = isLight ? 'Light' : 'Dark';
+  }
+
+  function openSettingsModal() {
+    const u = getActiveUser();
+    if (!u) return;
+    document.getElementById('setProfName').value = u.name;
+    document.getElementById('setProfPass').value = '';
+    document.getElementById('settingsModal').classList.add('show');
+  }
+
+  function closeSettingsModal() {
+    document.getElementById('settingsModal').classList.remove('show');
+  }
+
+  function saveProfileSettings() {
+    const u = getActiveUser();
+    if (!u) return;
+    const newName = cleanText(document.getElementById('setProfName').value, 40);
+    const newPass = document.getElementById('setProfPass').value;
+    if (!newName || newName.length < 2) return showToast('সঠিক নাম দিন (কমপক্ষে ২ অক্ষর)!');
+    if (newPass && (newPass.length < 6 || newPass.length > 64)) return showToast('পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের দিন!');
+
+    const db = getDB();
+    const target = (db.users || []).find(x => x.id === u.id);
+    if (target) {
+      target.name = newName;
+      if (newPass) target.password = hashPassword(newPass);
+      saveDB(db);
+      setActiveUser(target);
+      renderApp();
+      closeSettingsModal();
+      showToast('প্রোফাইল আপডেট হয়েছে!');
+    }
+  }
+
+  // ==================== RENDER APP ====================
+  let currentPortalId = null;
+
+  function renderApp() {
+    const db = getDB();
+    const user = getActiveUser();
+
+    document.getElementById('authBrandName').textContent = db.appName || 'ইনকাম প্রতিদিন';
+
+    if (!user) {
+      document.getElementById('authScreen').style.display = 'flex';
+      document.getElementById('mainAppContainer').style.display = 'none';
+      return;
+    }
+
+    setActiveUser(user);
+
+    document.getElementById('authScreen').style.display = 'none';
+    document.getElementById('mainAppContainer').style.display = 'block';
+
+    document.getElementById('headerAppName').textContent = db.appName || 'ইনকাম প্রতিদিন';
+    document.getElementById('heroWelcomeUser').textContent = `স্বাগতম, ${user.name}`;
+    document.getElementById('drawerAvatar').textContent = (user.name || 'U').charAt(0).toUpperCase();
+    document.getElementById('drawerName').textContent = user.name;
+    document.getElementById('drawerPhone').textContent = user.phone;
+    document.getElementById('drawerEmail').textContent = user.email;
+    document.getElementById('drawerUidText').textContent = `UID: ${user.id}`;
+
+    const balFormatted = '৳' + Number(user.balance || 0).toFixed(2);
+    document.getElementById('homeBalanceText').textContent = balFormatted;
+    document.getElementById('walletMainBalance').textContent = balFormatted;
+
+    document.getElementById('marqueeText').textContent = db.marquee || '';
+    document.getElementById('popupNoticeBody').textContent = db.popupNotice || '';
+    document.getElementById('depAdminNumText').textContent = db.depositNumber || '01700000000';
+    document.getElementById('depAdminNoteText').textContent = db.depositNote || '';
+
+    const minW = Number(db.minWithdraw || 50);
+    document.getElementById('walletMinWit').textContent = '৳' + minW.toFixed(2);
+    document.getElementById('witMinLabel').textContent = minW;
+
+    renderCategorySections(db);
+    renderAdsWatchingSection(db);
+    renderGiftSection(db, user);
+
+    const myDeps = (db.deposits || []).filter(d => d.userId === user.id);
+    const myWits = (db.withdrawals || []).filter(w => w.userId === user.id);
+    const sumDep = myDeps.filter(d => d.status === 'Approved').reduce((a, b) => a + Number(b.amount), 0);
+    const sumWit = myWits.filter(w => w.status === 'Paid').reduce((a, b) => a + Number(b.amount), 0);
+    document.getElementById('walletTotalDep').textContent = '৳' + sumDep.toFixed(2);
+    document.getElementById('walletTotalWit').textContent = '৳' + sumWit.toFixed(2);
+
+    const txAll = [
+      ...myDeps.map(d => ({ ...d, kind: 'Deposit' })),
+      ...myWits.map(w => ({ ...w, kind: 'Withdraw' }))
+    ];
+    document.getElementById('walletHistoryList').innerHTML = txAll.length ? txAll.map(t => `
+      <div class="list-row">
+        <div>
+          <strong style="font-size:13.5px">${esc(t.kind)}: ৳${esc(t.amount)} (${esc(t.method)})</strong>
+          <p style="font-size:11px;color:var(--muted)">${esc(t.time)}</p>
+        </div>
+        <span class="status-tag ${t.status==='Approved'||t.status==='Paid'?'ok':t.status==='Rejected'?'err':'wait'}">${esc(t.status)}</span>
+      </div>`).join('') : '<p style="font-size:12.5px;color:var(--muted)">কোনো লেনদেন নেই।</p>';
+
+    if (currentPortalId) renderPortalDetail(currentPortalId);
+  }
+
+  function renderCategorySections(db) {
+    const cats = db.categories || [];
+    const allSections = [...new Set(cats.map(c => c.section))];
+    const homeBox = document.getElementById('homeCategoriesContainer');
+    const taskBox = document.getElementById('taskAndServiceContainer');
+    homeBox.innerHTML = '';
+    taskBox.innerHTML = '';
+
+    allSections.forEach(sec => {
+      const items = cats.filter(c => c.section === sec);
+      if (!items.length) return;
+      const cardsHtml = items.map(cat => {
+        const icon = cat.imageUrl
+          ? `<img src="${safeImgSrc(cat.imageUrl)}" onerror="this.src='https://placehold.co/80x80?text=Icon'">`
+          : safeIcon(cat.iconHtml, '<i class="fa-solid fa-layer-group" style="color:#818cf8"></i>');
+        const isNoType = cat.inputMode === 'notype';
+        return `
+          <div class="bento-card" onclick="openPortal(this.dataset.id)" data-id="${esc(cat.id)}">
+            <span class="status-dot ${cat.status === 'off' ? 'off' : ''}"></span>
+            ${isNoType ? '<span class="notype-badge">View Only</span>' : ''}
+            <div class="bento-icon">${icon}</div>
+            <div class="bento-info">
+              <h4>${esc(cat.name)}</h4>
+              <p>৳${Number(cat.rate).toFixed(2)}</p>
+            </div>
+          </div>`;
+      }).join('');
+
+      const blockHtml = `
+        <div class="sec-block">
+          <div class="sec-head">
+            <div class="sec-title">${esc(sec)}</div>
+            <span class="sec-count">${items.length} Items</span>
+          </div>
+          <div class="bento-grid">${cardsHtml}</div>
+        </div>`;
+
+      homeBox.innerHTML += blockHtml;
+      taskBox.innerHTML += blockHtml;
+    });
+  }
+
+  // ==================== UNIVERSAL VIDEO & AD NETWORK REWARD SYSTEM ====================
+  function adTodayStr() {
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+
+  function ensureUserAdFields(u) {
+    if (!u) return u;
+    if (typeof u.adsWatchedToday !== 'number') u.adsWatchedToday = 0;
+    if (typeof u.adIndex !== 'number') u.adIndex = 0;
+    if (typeof u.todayIncome !== 'number') u.todayIncome = Number(u.todayIncome) || 0;
+    if (typeof u.totalIncome !== 'number') u.totalIncome = Number(u.totalIncome) || 0;
+    if (u.lastAdDate !== adTodayStr()) {
+      u.adsWatchedToday = 0;
+    }
+    return u;
+  }
+
+  function getAvailableAds(settings) {
+    return (settings.adsList || []).filter(a => isSafeHttps(a.adUrl) && (a.views || 0) < (a.maxViews || 0));
+  }
+
+  function adEsc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  function renderAdsWatchingSection(db) {
+    const s = db.adSettings;
+    const user = ensureUserAdFields(getActiveUser());
+    const watched = user ? Number(user.adsWatchedToday || 0) : 0;
+    const limit = Math.max(1, Number(s.dailyLimit || 15));
+    const watchSecs = Math.max(1, Number(s.watchSeconds || 15));
+    const isOn = s.status === 'ON';
+    const avail = getAvailableAds(s).length;
+    const limitDone = watched >= limit;
+    const canWatch = isOn && !limitDone && avail > 0;
+
+    const home = document.getElementById('homeAdCard');
+    if (home) {
+      home.innerHTML = `
+        <div class="vad-home-card ${isOn ? '' : 'off'}" onclick="startAdWatch()">
+          <div class="vad-ic"><i class="fa-solid fa-circle-play"></i></div>
+          <div class="vad-info">
+            <h4>Watch Ads / ভিডিও ও স্পন্সর অ্যাড</h4>
+            <p>প্রতি অ্যাডে ৳${Number(s.rewardPerAd).toFixed(2)} ইনকাম${isOn ? '' : ' • সাময়িক বন্ধ'}</p>
+          </div>
+          <div class="vad-count">${esc(watched)}/${esc(limit)}</div>
+        </div>`;
+    }
+
+    const box = document.getElementById('userAdsListContainer');
+    if (!box) return;
+    const pct = Math.min(100, Math.round((watched / limit) * 100));
+    let note = '';
+    if (!isOn) note = 'অ্যাড সিস্টেম বর্তমানে বন্ধ আছে।';
+    else if (limitDone) note = 'আজকের ডেইলি লিমিট শেষ! আগামীকাল আবার চেষ্টা করুন।';
+    else if (!avail) note = 'বর্তমানে কোনো অ্যাড উপলব্ধ নেই।';
+
+    box.innerHTML = `
+      <div class="vad-stats">
+        <div class="vad-stat"><strong>৳${Number(s.rewardPerAd).toFixed(2)}</strong><small>প্রতি অ্যাড</small></div>
+        <div class="vad-stat"><strong>${esc(watched)}/${esc(limit)}</strong><small>আজকের অ্যাড</small></div>
+        <div class="vad-stat"><strong>${esc(watchSecs)}s</strong><small>দেখার সময়</small></div>
+      </div>
+      <div class="vad-progress"><div style="width:${pct}%"></div></div>
+      ${note ? `<p style="font-size:12.5px;color:#f87171;text-align:center;margin-bottom:12px">${esc(note)}</p>` : ''}
+      <button class="main-btn" ${canWatch ? '' : 'disabled style="opacity:.55;cursor:not-allowed"'} onclick="startAdWatch()">
+        <i class="fa-solid fa-play"></i> ${canWatch ? 'পরবর্তী অ্যাড দেখুন' : 'অ্যাড দেখা সম্ভব নয়'}
+      </button>`;
+  }
+
+  function detectAdType(url) {
+    const u = String(url || '').trim();
+    if (!isSafeHttps(u)) return { type: 'invalid', src: '' };
+    if (/\.(mp4|webm|ogg)(\?.*)?(#.*)?$/i.test(u)) return { type: 'video', src: u };
+
+    const yt = u.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/i);
+    if (yt) return { type: 'youtube', src: 'https://www.youtube.com/embed/' + yt[1] + '?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1' };
+
+    if (/drive\.google\.com/i.test(u)) {
+      const m1 = u.match(/\/file\/d\/([A-Za-z0-9_-]+)/);
+      const m2 = u.match(/[?&]id=([A-Za-z0-9_-]+)/);
+      const id = (m1 && m1[1]) || (m2 && m2[1]);
+      if (id) return { type: 'drive', src: 'https://drive.google.com/file/d/' + id + '/preview' };
+    }
+    return { type: 'web', src: u };
+  }
+
+  function renderAdPlayer(url) {
+    const box = document.getElementById('adPlayerContainer');
+    box.innerHTML = '';
+    if (!isSafeHttps(url)) return;
+    const info = detectAdType(url);
+    if (info.type === 'invalid') return;
+
+    if (info.type === 'video') {
+      const v = document.createElement('video');
+      v.src = info.src;
+      v.autoplay = true;
+      v.muted = true;
+      v.loop = true;
+      v.playsInline = true;
+      v.setAttribute('playsinline', '');
+      v.setAttribute('autoplay', '');
+      v.setAttribute('muted', '');
+      v.controls = false;
+      box.appendChild(v);
+      const p = v.play(); if (p && p.catch) p.catch(() => {});
+    } else if (info.type === 'youtube' || info.type === 'drive') {
+      const f = document.createElement('iframe');
+      f.src = info.src;
+      f.allow = 'autoplay; encrypted-media; picture-in-picture';
+      f.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+      f.setAttribute('referrerpolicy', 'no-referrer');
+      f.setAttribute('allowfullscreen', '');
+      box.appendChild(f);
+    } else {
+      const f = document.createElement('iframe');
+      f.src = info.src;
+      f.setAttribute('referrerpolicy', 'no-referrer');
+      f.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-popups');
+      box.appendChild(f);
+
+      const msg = document.createElement('div');
+      msg.className = 'vad-web-msg';
+      msg.innerHTML = '<div><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:26px;color:#34d399"></i></div>' +
+        '<div>বিজ্ঞাপনটি ওপেন হয়েছে, বোনাস পেতে টাইমার শেষ হওয়া পর্যন্ত অপেক্ষা করুন</div>';
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Re-open Ad';
+      btn.onclick = reopenAd;
+      msg.appendChild(btn);
+      box.appendChild(msg);
+
+      if (isSafeHttps(info.src)) {
+        try { window.open(info.src, '_blank', 'noopener,noreferrer'); } catch (e) {}
+      }
+    }
+  }
+
+  function reopenAd() {
+    if (activeAdUrl && isSafeHttps(activeAdUrl)) {
+      try { window.open(activeAdUrl, '_blank', 'noopener,noreferrer'); } catch (e) {}
+    }
+  }
+
+  function startAdWatch() {
+    const db = getDB();
+    const s = db.adSettings;
+    const user = ensureUserAdFields(getActiveUser());
+    if (!user) return showToast('আগে লগইন করুন!');
+
+    if (s.status !== 'ON') return showToast('অ্যাড সিস্টেম বর্তমানে বন্ধ আছে!');
+    if (user.adsWatchedToday >= s.dailyLimit) return showToast('আজকের ডেইলি অ্যাড লিমিট শেষ!');
+
+    const avail = getAvailableAds(s);
+    if (!avail.length) return showToast('বর্তমানে কোনো অ্যাড উপলব্ধ নেই!');
+
+    const ad = avail[(user.adIndex || 0) % avail.length];
+    if (!isSafeHttps(ad.adUrl)) return showToast('নিরাপদ (HTTPS) বিজ্ঞাপন লিংক পাওয়া যায়নি!');
+
+    activeAdId = ad.id;
+    activeAdUrl = ad.adUrl;
+    adSecondsLeft = Math.max(1, Number(s.watchSeconds) || 15);
+    adTotalSeconds = adSecondsLeft;
+    adClaimBusy = false;
+    adStartedAt = Date.now();
+
+    document.getElementById('adModalTitle').textContent = ad.title || 'Sponsor Ad';
+    updateAdTimerUI();
+    setClaimState(false);
+    document.getElementById('videoAdModal').classList.add('show');
+    renderAdPlayer(ad.adUrl);
+
+    if (adTimerInterval) clearInterval(adTimerInterval);
+    adTimerInterval = setInterval(() => {
+      const elapsedSec = Math.floor((Date.now() - adStartedAt) / 1000);
+      adSecondsLeft = Math.max(0, adTotalSeconds - elapsedSec);
+      if (adSecondsLeft <= 0) {
+        adSecondsLeft = 0;
+        clearInterval(adTimerInterval);
+        adTimerInterval = null;
+        setClaimState(true);
+        showToast('টাইমার শেষ! Claim Reward বাটনে ক্লিক করুন।');
+      }
+      updateAdTimerUI();
+    }, 1000);
+  }
+
+  function updateAdTimerUI() {
+    const txt = document.getElementById('adTimerText');
+    const bar = document.getElementById('adTimerBar');
+    if (adSecondsLeft > 0) {
+      txt.textContent = 'আর ' + adSecondsLeft + ' সেকেন্ড অপেক্ষা করুন';
+    } else {
+      txt.textContent = 'সময় শেষ! এখন রিওয়ার্ড ক্লেইম করুন';
+    }
+    const done = adTotalSeconds ? ((adTotalSeconds - adSecondsLeft) / adTotalSeconds) * 100 : 0;
+    bar.style.width = done + '%';
+  }
+
+  function setClaimState(ready) {
+    const btn = document.getElementById('adClaimBtn');
+    btn.disabled = !ready;
+    btn.querySelector('i').className = ready ? 'fa-solid fa-gift' : 'fa-solid fa-lock';
+  }
+
+  function closeAdModal(silent) {
+    const early = adSecondsLeft > 0 && document.getElementById('videoAdModal').classList.contains('show');
+    if (adTimerInterval) { clearInterval(adTimerInterval); adTimerInterval = null; }
+    document.getElementById('videoAdModal').classList.remove('show');
+    document.getElementById('adPlayerContainer').innerHTML = '';
+    activeAdId = null;
+    activeAdUrl = '';
+    adStartedAt = 0;
+    if (early && !silent) showToast('টাইমার শেষ হওয়ার আগে বন্ধ করায় কোনো বোনাস যোগ হয়নি।');
+  }
+
+  async function claimAdReward() {
+    if (adClaimBusy || adSecondsLeft > 0 || !activeAdId || !adStartedAt) return;
+    const db = getDB();
+    const s = db.adSettings;
+    const needMs = Math.max(1, Number(s.watchSeconds) || 15) * 1000;
+    if (Date.now() - adStartedAt < needMs) {
+      return showToast('টাইমার শেষ না হওয়া পর্যন্ত রিওয়ার্ড দেওয়া যাবে না!');
+    }
+    adClaimBusy = true;
+
+    const sessionUser = getActiveUser();
+    const dbUser = sessionUser && (db.users || []).find(u => u.id === sessionUser.id);
+    if (!dbUser) { adClaimBusy = false; return showToast('ইউজার পাওয়া যায়নি!'); }
+    ensureUserAdFields(dbUser);
+
+    const ad = (s.adsList || []).find(a => a.id === activeAdId);
+    if (s.status !== 'ON' || dbUser.adsWatchedToday >= s.dailyLimit || !ad || !isSafeHttps(ad.adUrl) || ad.views >= ad.maxViews) {
+      closeAdModal(true);
+      return showToast('এই মুহূর্তে রিওয়ার্ড দেওয়া সম্ভব নয়।');
+    }
+
+    const reward = Math.max(0, Number(s.rewardPerAd) || 0);
+    await BackendSecurityAdapter.verifyAndCommit('AD_REWARD_CLAIM', { userId: dbUser.id, adId: ad.id, reward, elapsedMs: Date.now() - adStartedAt });
+
+    dbUser.balance = Number(dbUser.balance || 0) + reward;
+    dbUser.todayIncome = Number(dbUser.todayIncome || 0) + reward;
+    dbUser.totalIncome = Number(dbUser.totalIncome || 0) + reward;
+    dbUser.adsWatchedToday = (dbUser.adsWatchedToday || 0) + 1;
+    dbUser.adIndex = (dbUser.adIndex || 0) + 1;
+    dbUser.lastAdDate = adTodayStr();
+    ad.views = (ad.views || 0) + 1;
+
+    db.adSettings = s;
+    saveDB(db);
+    setActiveUser(dbUser);
+
+    closeAdModal(true);
+    showToast('অভিনন্দন! ৳' + reward.toFixed(2) + ' আপনার ব্যালেন্সে যোগ হয়েছে।');
+    renderApp();
+  }
+
+  // ==================== PORTAL DETAIL (TYPE / NO-TYPE & PASSWORD ON/OFF) ====================
+  function openPortal(catId) {
+    currentPortalId = catId;
+    document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
+    document.getElementById('view-portal').classList.add('active');
+    window.scrollTo(0, 0);
+    renderPortalDetail(catId);
+  }
+
+  function renderPortalDetail(catId) {
+    const db = getDB();
+    const user = getActiveUser();
+    const cat = (db.categories || []).find(c => c.id === catId);
+    if (!cat || !user) return;
+
+    const mySubs = (db.submissions || []).filter(s => s.catId === cat.id && s.userId === user.id);
+    const rulesHtml = (cat.rules || '').split('|').filter(Boolean).map(r => `<li style="margin-bottom:4px">${esc(r)}</li>`).join('');
+
+    const showPwd = cat.showPassword !== false && cat.password && cat.password !== 'N/A' && cat.password !== 'OFF';
+    const passwordCardHtml = showPwd ? `
+      <div class="copy-box-card">
+        <div class="cbc-head"><span>TODAY'S SETUP PASSWORD / CODE</span><span>ONE-TAP COPY</span></div>
+        <div class="cbc-row">
+          <span class="cbc-val" id="portalSetupPassText">${esc(cat.password)}</span>
+          <button type="button" class="copy-action-btn" onclick="copyById('portalSetupPassText', 'পাসওয়ার্ড কপি হয়েছে!')">
+            <i class="fa-regular fa-copy"></i> Copy Password
+          </button>
+        </div>
+        <p style="font-size:11.5px;color:var(--muted);margin-top:8px">* আইডি খোলার সময় অবশ্যই এই পাসওয়ার্ডটি ব্যবহার করবেন।</p>
+      </div>` : '';
+
+    let mainActionArea = '';
+    if (cat.status === 'off') {
+      mainActionArea = `
+        <div class="card-box" style="text-align:center;padding:28px 16px;border-color:rgba(239,68,68,0.4)">
+          <i class="fa-solid fa-lock" style="font-size:32px;color:#f87171;margin-bottom:10px"></i>
+          <h3 style="font-size:18px">কাজ সাময়িক বন্ধ আছে</h3>
+          <p style="font-size:13px;color:var(--muted);margin-top:6px">${esc(cat.offMessage || 'এই ক্যাটাগরির কাজ আপাতত বন্ধ আছে।')}</p>
+        </div>`;
+    } else if (cat.inputMode === 'notype') {
+      const infoItems = (cat.fields || []).map(f => {
+        const lbl = typeof f === 'string' ? f : f.label;
+        const val = typeof f === 'string' ? '' : (f.placeholder || '');
+        const safeVal = esc(String(val || lbl));
+        return `
+          <div class="nts-item">
+            <div>
+              <small style="color:var(--muted);display:block;font-size:11px">${esc(lbl)}</small>
+              <strong style="font-size:13.5px;color:var(--text)">${esc(val || lbl)}</strong>
+            </div>
+            ${val ? `<button type="button" class="copy-action-btn" style="padding:6px 11px;font-size:11.5px" data-copy="${safeVal}" onclick="universalCopy(this.dataset.copy, 'কপি হয়েছে!')"><i class="fa-regular fa-copy"></i> Copy</button>` : ''}
+          </div>`;
+      }).join('');
+
+      mainActionArea = `
+        <div class="notype-showcase-card">
+          <div class="nts-badge"><i class="fa-solid fa-eye"></i> শুধুমাত্র দেখার জন্য (এখানে কিছু লিখতে হবে না)</div>
+          <h4 style="font-size:16px;margin-bottom:4px">${esc(cat.name)} - বিস্তারিত তথ্য</h4>
+          <p style="font-size:12.5px;color:var(--muted);line-height:1.5">
+            এই অপশনে আপনাকে কিছু টাইপ করতে হবে না। নিচের তথ্য ও নিয়মাবলী দেখে সরাসরি কাজ সম্পন্ন করুন:
+          </p>
+          ${infoItems}
+        </div>`;
+    } else {
+      const fields = (cat.fields || []).map(f => typeof f === 'string' ? { label: f, placeholder: f } : f);
+      const inputs = fields.map(f => `
+        <div class="form-group">
+          <label class="form-label">${esc(f.label)} <span class="req">* আবশ্যক</span></label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-pen-nib prefix"></i>
+            <input type="text" class="form-input dyn-sub-input" maxlength="160" data-label="${esc(f.label)}" placeholder="${esc(f.placeholder || f.label)}">
+          </div>
+        </div>`).join('');
+
+      mainActionArea = `
+        <div class="card-box">
+          <h4 style="margin-bottom:12px;font-size:14.5px;color:#818cf8"><i class="fa-solid fa-cloud-arrow-up"></i> ${esc(cat.name)} সাবমিট ফর্ম</h4>
+          ${inputs}
+          <div id="portalVerifyAlert" class="verify-alert"></div>
+          <button class="main-btn" id="portalSubmitBtn" data-id="${esc(cat.id)}" onclick="submitCategoryData(this.dataset.id)">
+            <i class="fa-solid fa-paper-plane"></i> সাবমিট করুন (${esc(cat.name)})
+          </button>
+        </div>`;
+    }
+
+    const subHistory = mySubs.map(s => `
+      <div class="list-row">
+        <div>
+          <strong style="font-size:13px">${esc(s.summary)}</strong>
+          <p style="font-size:11px;color:var(--muted)">${esc(s.time)}</p>
+        </div>
+        <span class="status-tag ${s.status==='Approved'?'ok':s.status==='Rejected'?'err':'wait'}">${esc(s.status)}</span>
+      </div>`).join('');
+
+    document.getElementById('portalDetailBox').innerHTML = `
+      <div class="back-btn" onclick="switchTab('home')"><i class="fa-solid fa-arrow-left"></i> ড্যাশবোর্ডে ফিরুন</div>
+
+      <div class="portal-banner">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:11px;background:rgba(0,0,0,0.28);padding:4px 10px;border-radius:20px;font-weight:700">${esc(cat.section)}</span>
+          <span style="font-size:11px;background:#fff;color:#0f172a;padding:4px 10px;border-radius:20px;font-weight:800">${cat.status === 'off' ? 'CLOSED' : (cat.inputMode === 'notype' ? 'VIEW ONLY' : 'ACTIVE')}</span>
+        </div>
+        <h2 style="font-size:22px;margin-top:10px">${esc(cat.name)}</h2>
+        <p style="font-size:12.5px;opacity:0.9;margin-top:3px">${esc(cat.subtitle || '')}</p>
+        <div class="pb-stats">
+          <div class="pb-stat"><small>RATE</small><strong>৳${Number(cat.rate).toFixed(2)}</strong></div>
+          <div class="pb-stat"><small>LIMIT</small><strong>${esc(cat.limit)}</strong></div>
+          <div class="pb-stat"><small>MODE</small><strong>${cat.inputMode === 'notype' ? 'No-Type' : 'Submit'}</strong></div>
+        </div>
+      </div>
+
+      ${passwordCardHtml}
+      ${mainActionArea}
+
+      <div class="card-box">
+        <h4 style="font-size:14px;color:#fbbf24;margin-bottom:8px"><i class="fa-solid fa-circle-info"></i> বিস্তারিত নিয়মাবলী:</h4>
+        <ul style="padding-left:18px;font-size:13px;color:var(--muted);line-height:1.6">${rulesHtml || '<li>নিয়মাবলী অনুসরণ করে কাজ করুন।</li>'}</ul>
+      </div>
+
+      ${mySubs.length ? `<h4 style="margin:14px 0 8px;font-size:14px">আপনার সাবমিট হিস্টোরি (${mySubs.length})</h4>${subHistory}` : ''}
+    `;
+  }
+
+  async function submitCategoryData(catId) {
+    const user = getActiveUser();
+    if (!user) return;
+    const inputs = document.querySelectorAll('.dyn-sub-input');
+    const details = {};
+    let hasEmpty = false;
+
+    inputs.forEach(inp => {
+      inp.classList.remove('invalid');
+      const v = cleanText(inp.value, 160);
+      if (!v) {
+        hasEmpty = true;
+        inp.classList.add('invalid');
+      }
+      const lbl = cleanText(inp.getAttribute('data-label'), 60) || 'Field';
+      details[lbl] = v;
+    });
+
+    const alertBox = document.getElementById('portalVerifyAlert');
+
+    if (hasEmpty) {
+      alertBox.className = 'verify-alert error';
+      alertBox.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> সবগুলো ঘর পূরণ করুন!';
+      return;
+    }
+
+    const db = getDB();
+    const cat = (db.categories || []).find(c => c.id === catId);
+    if (!cat || cat.status === 'off') {
+      alertBox.className = 'verify-alert error';
+      alertBox.innerHTML = '<i class="fa-solid fa-ban"></i> এই ক্যাটাগরির কাজ বর্তমানে বন্ধ আছে!';
+      return;
+    }
+
+    const primaryInput = String(Object.values(details)[0] || '').trim();
+    if (cat.verifyType === 'gmail' && !/^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(primaryInput)) {
+      alertBox.className = 'verify-alert error';
+      alertBox.innerHTML = '<i class="fa-solid fa-envelope"></i> সঠিক @gmail.com অ্যাড্রেস দিন!';
+      return;
+    }
+
+    if (cat.verifyType !== 'none' && db.strictEmailCheck !== false) {
+      const isDup = (db.submissions || []).some(
+        s => s.status !== 'Rejected' && String(Object.values(s.details || {})[0] || '').trim().toLowerCase() === primaryInput.toLowerCase()
+      );
+      if (isDup) {
+        alertBox.className = 'verify-alert error';
+        alertBox.innerHTML = '<i class="fa-solid fa-ban"></i> এই অ্যাকাউন্টটি ইতিমধ্যে একবার জমা দেওয়া হয়েছে!';
+        return;
+      }
+    }
+
+    db.submissions = db.submissions || [];
+    const subEntry = {
+      id: secureEntityId('SUB', db.submissions),
+      userId: user.id,
+      userName: user.name,
+      userPhone: user.phone,
+      catId: cat.id,
+      catName: cat.name,
+      rate: Number(cat.rate),
+      details,
+      summary: `${cat.name}: ${primaryInput}`,
+      time: new Date().toLocaleString('bn-BD'),
+      status: 'Pending'
+    };
+
+    await BackendSecurityAdapter.verifyAndCommit('TASK_SUBMIT', { id: subEntry.id, userId: user.id, catId: cat.id });
+    db.submissions.unshift(subEntry);
+
+    saveDB(db);
+    alertBox.className = 'verify-alert success';
+    alertBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> সফলভাবে জমা হয়েছে!';
+    showToast('সফলভাবে সাবমিট হয়েছে!');
+    setTimeout(() => renderPortalDetail(catId), 600);
+  }
+
+  // ==================== GIFT CODE SECTION ====================
+  function renderGiftSection(db, user) {
+    const gift = db.activeGift || { code: 'NONE', amount: 0, maxLimit: 2, claimedUserIds: [], active: false };
+    const claimedList = Array.isArray(gift.claimedUserIds) ? gift.claimedUserIds : [];
+    const maxLim = Math.max(1, Number(gift.maxLimit || 2));
+    const isExpired = !gift.active || claimedList.length >= maxLim;
+    const claimedByMe = claimedList.includes(user.id);
+
+    const liveBox = document.getElementById('giftLiveCardBox');
+    const inpCard = document.getElementById('giftInputCardBox');
+
+    if (isExpired && !claimedByMe) {
+      liveBox.innerHTML = `
+        <div class="card-box" style="text-align:center;border-color:rgba(239,68,68,0.4)">
+          <i class="fa-solid fa-hourglass-end" style="font-size:30px;color:#f87171;margin-bottom:8px"></i>
+          <h3 style="color:#f87171">গিফট কোডের মেয়াদ শেষ!</h3>
+          <p style="font-size:13px;color:var(--muted);margin-top:4px">আজকের প্রথম <b>${esc(maxLim)} জন ইউজারের লিমিট</b> পূর্ণ হয়ে গেছে।</p>
+        </div>`;
+      inpCard.style.display = 'none';
+    } else {
+      liveBox.innerHTML = `
+        <div class="copy-box-card">
+          <div class="cbc-head"><span>আজকের গিফট কোড (বোনাস: ৳${esc(gift.amount)})</span><span>লিমিট: ${esc(claimedList.length)}/${esc(maxLim)} জন</span></div>
+          <div class="cbc-row">
+            <span class="cbc-val" id="todayGiftCodeText">${esc(gift.code)}</span>
+            <button type="button" class="copy-action-btn" data-code="${esc(gift.code)}" onclick="copyAndPasteGift(this.dataset.code)"><i class="fa-regular fa-copy"></i> Copy Code</button>
+          </div>
+        </div>`;
+      inpCard.style.display = claimedByMe ? 'none' : 'block';
+    }
+
+    const myClaims = (db.giftClaims || []).filter(c => c.userId === user.id);
+    document.getElementById('giftClaimHistoryBox').innerHTML = myClaims.length ? myClaims.map(c => `
+      <div class="list-row">
+        <div><strong style="font-size:13.5px">Code: ${esc(c.code)} (৳${esc(c.amount)})</strong><p style="font-size:11px;color:var(--muted)">${esc(c.time)}</p></div>
+        <span class="status-tag ${c.status==='Accepted'?'ok':c.status==='Rejected'?'err':'wait'}">${esc(c.status)}</span>
+      </div>`).join('') : '<p style="font-size:12.5px;color:var(--muted)">কোনো গিফট ক্লেইম হিস্টোরি নেই।</p>';
+  }
+
+  function copyAndPasteGift(code) {
+    universalCopy(code, 'গিফট কোড কপি ও বসানো হয়েছে!');
+    const inp = document.getElementById('giftClaimInput');
+    if (inp) inp.value = cleanText(code, 32);
+  }
+
+  async function claimGiftCode() {
+    const user = getActiveUser();
+    if (!user) return;
+    const codeInp = cleanText(document.getElementById('giftClaimInput').value, 32).toUpperCase();
+    if (!codeInp) return showToast('গিফট কোডটি লিখুন!');
+
+    const db = getDB();
+    const gift = db.activeGift;
+    if (!gift || !gift.active || codeInp !== String(gift.code || '').toUpperCase()) {
+      return showToast('সঠিক গিফট কোড দিন!');
+    }
+    gift.claimedUserIds = gift.claimedUserIds || [];
+    if (gift.claimedUserIds.includes(user.id)) return showToast('আপনি ইতিমধ্যে ক্লেইম করেছেন!');
+    if (gift.claimedUserIds.length >= Number(gift.maxLimit || 2)) {
+      renderApp();
+      return showToast('গিফট কোডের মেয়াদ শেষ!');
+    }
+
+    db.giftClaims = db.giftClaims || [];
+    const claimEntry = {
+      id: secureEntityId('GC', db.giftClaims),
+      userId: user.id,
+      userName: user.name,
+      userPhone: user.phone,
+      code: gift.code,
+      amount: Number(gift.amount),
+      time: new Date().toLocaleString('bn-BD'),
+      status: 'Pending'
+    };
+
+    await BackendSecurityAdapter.verifyAndCommit('GIFT_CLAIM', { id: claimEntry.id, userId: user.id, code: gift.code });
+    gift.claimedUserIds.push(user.id);
+    db.giftClaims.unshift(claimEntry);
+    saveDB(db);
+    renderApp();
+    showToast('গিফট কোড ক্লেইম জমা হয়েছে!');
+  }
+
+  // ==================== WALLET ====================
+  function openWalletSub(sub) {
+    switchTab('wallet');
+    showWalletSub(sub);
+  }
+
+  function showWalletSub(sub) {
+    document.getElementById('walletMainSub').style.display = sub === 'main' ? 'block' : 'none';
+    document.getElementById('walletDepSub').style.display = sub === 'deposit' ? 'block' : 'none';
+    document.getElementById('walletWitSub').style.display = sub === 'withdraw' ? 'block' : 'none';
+  }
+
+  async function submitDeposit() {
+    const user = getActiveUser();
+    if (!user) return;
+    const methodRaw = document.getElementById('depMethodInp').value;
+    const allowedMethods = ['bKash', 'Nagad', 'Rocket'];
+    const method = allowedMethods.includes(methodRaw) ? methodRaw : 'bKash';
+    const amount = Number(document.getElementById('depAmountInp').value);
+    const sender = cleanText(document.getElementById('depSenderInp').value, 15);
+    const trx = cleanText(document.getElementById('depTrxInp').value, 40);
+
+    if (!amount || amount < 10 || !sender || !trx) return showToast('সবগুলো তথ্য পূরণ করুন!');
+    if (!isFinite(amount) || amount > 500000) return showToast('সঠিক টাকার পরিমাণ দিন!');
+    if (!/^01[3-9]\d{8}$/.test(sender)) return showToast('সঠিক ১১ ডিজিটের প্রেরক মোবাইল নাম্বার দিন!');
+    if (!/^[A-Za-z0-9_-]{4,40}$/.test(trx)) return showToast('সঠিক Transaction ID (TrxID) দিন (৪-৪০ অক্ষর)!');
+
+    const db = getDB();
+    db.deposits = db.deposits || [];
+    if (db.deposits.some(d => String(d.trx || '').trim().toLowerCase() === trx.toLowerCase())) {
+      return showToast('এই TrxID দিয়ে আগেই রিকোয়েস্ট করা হয়েছে!');
+    }
+
+    const depEntry = {
+      id: secureEntityId('DEP', db.deposits),
+      userId: user.id,
+      userName: user.name,
+      userPhone: user.phone,
+      method,
+      amount: Number(amount.toFixed(2)),
+      sender,
+      trx,
+      time: new Date().toLocaleString('bn-BD'),
+      status: 'Pending'
+    };
+
+    await BackendSecurityAdapter.verifyAndCommit('DEPOSIT_SUBMIT', { id: depEntry.id, userId: user.id, amount: depEntry.amount, trx });
+    db.deposits.unshift(depEntry);
+    document.getElementById('depAmountInp').value = '';
+    document.getElementById('depSenderInp').value = '';
+    document.getElementById('depTrxInp').value = '';
+    saveDB(db);
+    renderApp();
+    showWalletSub('main');
+    showToast('ডিপোজিট রিকোয়েস্ট জমা হয়েছে!');
+  }
+
+  async function submitWithdraw() {
+    const user = getActiveUser();
+    if (!user) return;
+    const db = getDB();
+    const minW = Math.max(1, Number(db.minWithdraw || 50));
+    const methodRaw = document.getElementById('witMethodInp').value;
+    const allowedMethods = ['bKash', 'Nagad', 'Rocket', 'Binance'];
+    const method = allowedMethods.includes(methodRaw) ? methodRaw : 'bKash';
+    const amount = Number(document.getElementById('witAmountInp').value);
+    const number = cleanText(document.getElementById('witNumInp').value, 30);
+
+    if (!isFinite(amount) || amount <= 0 || amount < minW || amount > 500000) {
+      return showToast(`সর্বনিম্ন ${minW} টাকা ছাড়া উইথড্র হবে না!`);
+    }
+    const dbUser = (db.users || []).find(u => u.id === user.id);
+    if (!dbUser || amount > Number(dbUser.balance || 0)) return showToast('পর্যাপ্ত ব্যালেন্স নেই!');
+    if (!number || number.length < 8 || number.length > 30) return showToast('সঠিক রিসিভ নাম্বার দিন!');
+    if (method !== 'Binance' && !/^01[3-9]\d{8,9}$/.test(number)) {
+      return showToast('সঠিক মোবাইল ব্যাংকিং নাম্বার দিন (01XXXXXXXXX)!');
+    }
+
+    const cleanAmt = Number(amount.toFixed(2));
+    db.withdrawals = db.withdrawals || [];
+    const witEntry = {
+      id: secureEntityId('WIT', db.withdrawals),
+      userId: user.id,
+      userName: user.name,
+      userPhone: user.phone,
+      method,
+      amount: cleanAmt,
+      number,
+      time: new Date().toLocaleString('bn-BD'),
+      status: 'Pending'
+    };
+
+    await BackendSecurityAdapter.verifyAndCommit('WITHDRAW_SUBMIT', { id: witEntry.id, userId: user.id, amount: cleanAmt, method, number });
+    dbUser.balance = Math.max(0, Number((Number(dbUser.balance) - cleanAmt).toFixed(2)));
+    db.withdrawals.unshift(witEntry);
+    document.getElementById('witAmountInp').value = '';
+    document.getElementById('witNumInp').value = '';
+    saveDB(db);
+    setActiveUser(dbUser);
+    renderApp();
+    showWalletSub('main');
+    showToast('উইথড্র রিকোয়েস্ট সফলভাবে জমা হয়েছে!');
+  }
+
+  function switchTab(tab) {
+    currentPortalId = null;
+    document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('view-' + tab).classList.add('active');
+    const nav = document.getElementById('nav-' + tab);
+    if (nav) nav.classList.add('active');
+    if (tab === 'wallet') showWalletSub('main');
+    window.scrollTo(0, 0);
+  }
+
+  function openCommLink(key) {
+    const db = getDB();
+    const url = db.links && db.links[key];
+    if (url && isSafeHttps(url)) window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
+  function toggleNoticeModal(show) {
+    document.getElementById('noticeModal').classList.toggle('show', show);
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toastBox');
+    t.textContent = msg;
+    t.style.display = 'block';
+    clearTimeout(window._tTimer);
+    window._tTimer = setTimeout(() => { t.style.display = 'none'; }, 2800);
+  }
+
+  syncChannel.onmessage = () => renderApp();
+  window.addEventListener('storage', () => renderApp());
+
+  // Firebase Real-Time Sync Listener
+  if (window._fbDBRef) {
+    window._fbDBRef.on('value', (snap) => {
+      const remoteData = snap.val();
+      if (remoteData && typeof remoteData === 'object') {
+        sealAllUsers(remoteData);
+        Store.setItem(STORAGE_KEY, JSON.stringify(remoteData));
+        renderApp();
+      } else {
+        const currentDB = getDB();
+        try { window._fbDBRef.set(JSON.parse(JSON.stringify(currentDB))); } catch (e) {}
+      }
+    });
+  }
+
+  // Register Service Worker for GitHub PWA Install
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    if (Store.getItem(THEME_KEY) === 'light') {
+      document.body.classList.add('light-mode');
+      document.getElementById('themeStatusText').textContent = 'Light';
+    }
+    if (!STORE_PERSISTENT) setTimeout(() => showToast('সতর্কতা: এই মোডে ডাটা সেভ থাকবে না। ফাইল হিসেবে ব্রাউজারে খুলুন।'), 600);
+    renderApp();
+  });
+</script>
+</body>
+</html>
