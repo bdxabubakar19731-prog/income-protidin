@@ -147,7 +147,7 @@
     @keyframes walkAcross {
       0% { left: -90px; transform: scaleX(1); }
       45% { left: calc(50% - 25px); transform: scaleX(1); }
-      48% { left: calc(50% - 25px); transform: scaleX(1) translateY(-35px); } /* Jump & Grab Rope! */
+      48% { left: calc(50% - 25px); transform: scaleX(1) translateY(-35px); }
       52% { left: calc(50% - 25px); transform: scaleX(1) translateY(0); }
       95% { left: 105%; transform: scaleX(1); }
       96% { left: 105%; transform: scaleX(-1); }
@@ -684,96 +684,12 @@
     .status-tag.err { background: rgba(239, 68, 68, 0.18); color: #f87171; }
     .status-tag.wait { background: rgba(245, 158, 11, 0.18); color: #fbbf24; }
 
-    /* ==================== AD WATCHING SYSTEM (MODAL / FULLSCREEN) ==================== */
-    .ad-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(5, 8, 17, 0.95);
-      z-index: 300;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-    }
-    .ad-overlay.show { display: flex; }
-    .ad-video-container {
-      width: 100%;
-      max-width: 420px;
-      height: 250px;
-      background: #000;
-      border-radius: 18px;
-      overflow: hidden;
-      position: relative;
-      border: 2px solid var(--border);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-    }
-    .ad-video-container video, .ad-video-container iframe {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border: none;
-    }
-    .ad-top-bar {
-      width: 100%;
-      max-width: 420px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-    .ad-timer-badge {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .ad-close-btn {
-      background: var(--danger);
-      color: #fff;
-      border: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      font-size: 16px;
-      cursor: pointer;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.5);
-    }
-    .ad-close-btn.ready { display: flex; animation: pulseGlow 1.2s infinite; }
-    @keyframes pulseGlow { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-
-    .ad-target-btn {
-      width: 100%;
-      max-width: 420px;
-      margin-top: 14px;
-      padding: 13px;
-      background: var(--grad-main);
-      color: #fff;
-      border: none;
-      border-radius: 14px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    /* ==================== UNIVERSAL VIDEO & AD NETWORK REWARD SYSTEM ==================== */
+    /* ==================== DIRECT LINK / SMARTLINK WATCH & EARN SYSTEM ==================== */
     .vad-home-card {
       background: linear-gradient(135deg, #059669 0%, #2563eb 100%);
       border-radius: 20px;
       padding: 16px;
-      margin: 0 16px 16px;
+      margin: 0 12px 16px;
       color: #fff;
       display: flex;
       align-items: center;
@@ -837,7 +753,7 @@
     .vad-web-msg {
       position: absolute; inset: 0; display: flex; flex-direction: column;
       align-items: center; justify-content: center; text-align: center;
-      padding: 18px; gap: 12px; background: rgba(0,0,0,0.78); color: #fff;
+      padding: 18px; gap: 12px; background: rgba(0,0,0,0.85); color: #fff;
       font-size: 13px; line-height: 1.55;
     }
     .vad-web-msg button {
@@ -845,16 +761,25 @@
       padding: 10px 18px; border-radius: 12px; font-weight: 700; font-size: 13px; cursor: pointer;
     }
     .vad-timer-wrap { width: 100%; max-width: 420px; margin-top: 14px; }
-    .vad-timer-text { color: #fff; font-size: 13px; font-weight: 700; text-align: center; margin-bottom: 8px; }
+    .vad-timer-text { color: #fff; font-size: 13.5px; font-weight: 700; text-align: center; margin-bottom: 8px; }
+    .vad-timer-text.failed {
+      color: #f87171;
+      background: rgba(239, 68, 68, 0.16);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      padding: 10px 12px;
+      border-radius: 12px;
+    }
     .vad-timer-bar { height: 8px; background: rgba(255,255,255,0.15); border-radius: 8px; overflow: hidden; }
-    .vad-timer-bar > div { height: 100%; width: 0%; background: linear-gradient(90deg, #10b981, #3b82f6); transition: width 1s linear; }
+    .vad-timer-bar > div { height: 100%; width: 0%; background: linear-gradient(90deg, #10b981, #3b82f6); transition: width 0.4s ease; }
+    .vad-timer-bar > div.failed { background: #ef4444; }
     .vad-claim {
       width: 100%; max-width: 420px; margin-top: 14px; padding: 14px;
       border: none; border-radius: 14px; font-weight: 800; font-size: 15px;
       cursor: pointer; color: #fff; background: linear-gradient(135deg, #10b981, #059669);
       display: flex; align-items: center; justify-content: center; gap: 8px;
+      box-shadow: 0 8px 22px rgba(16, 185, 129, 0.35);
     }
-    .vad-claim:disabled { background: #475569; color: #cbd5e1; cursor: not-allowed; }
+    .vad-claim:disabled { background: #475569; color: #cbd5e1; cursor: not-allowed; box-shadow: none; }
 
     /* BOTTOM NAV */
     .bottom-nav {
@@ -931,18 +856,15 @@
 
   <!-- ==================== 1. FALLING BAG -> ROPE JUMP AUTH SCREEN ==================== -->
   <div id="authScreen" class="auth-screen" style="display:none">
-    <!-- Hanging Rope Across Top -->
     <div class="hanging-rope-container">
       <div class="rope-line" id="ropeLine"></div>
     </div>
 
-    <!-- Walking Character who jumps to pull rope and trigger file drop -->
     <div class="walker-character" onclick="triggerRopeJumpAndDrop()" title="ট্যাপ করে দড়ি টানুন!">
       <i class="fa-solid fa-person-walking"></i>
       <span>দড়ি টানুন!</span>
     </div>
 
-    <!-- Unfolded Official File (Registration & Login Page) -->
     <div class="file-dossier-card" id="fileDossierCard">
       <div class="file-folder-tab"><i class="fa-solid fa-file-shield"></i> OFFICIAL USER FILE</div>
       <div class="file-header">
@@ -1112,11 +1034,12 @@
 
       <div class="comm-strip">
         <div class="comm-pill" onclick="openCommLink('telegram')"><i class="fa-brands fa-telegram" style="color:#38bdf8"></i><span>Telegram</span></div>
-        <div class="comm-pill" onclick="switchTab('ads')"><i class="fa-solid fa-rectangle-ad" style="color:#f59e0b"></i><span>Watch Ads</span></div>
+        <div class="comm-pill" onclick="startAdWatch()"><i class="fa-solid fa-rectangle-ad" style="color:#f59e0b"></i><span>Play Ad</span></div>
         <div class="comm-pill" onclick="openCommLink('facebook')"><i class="fa-brands fa-facebook" style="color:#3b82f6"></i><span>Facebook</span></div>
         <div class="comm-pill" onclick="openCommLink('youtube')"><i class="fa-brands fa-youtube" style="color:#ef4444"></i><span>Tutorial</span></div>
       </div>
 
+      <!-- হোমপেজ ইনকাম ব্যানার -->
       <div id="homeAdCard"></div>
 
       <div id="homeCategoriesContainer"></div>
@@ -1139,19 +1062,19 @@
       </div>
     </div>
 
-    <!-- ADS WATCHING VIEW (1 Ad = 1 Taka / 100 Ads Loop System with Limit) -->
+    <!-- ADS WATCHING VIEW -->
     <div id="view-ads" class="view-page">
       <div class="page-pad">
         <div class="portal-banner" style="background:linear-gradient(135deg,#059669,#2563eb)">
-          <span style="font-size:11px;background:rgba(0,0,0,0.25);padding:4px 10px;border-radius:20px;font-weight:700">ADVANCED AD SYSTEM</span>
-          <h2 style="margin-top:8px;font-size:21px">ভিডিও অ্যাড দেখে টাকা আয় করুন</h2>
-          <p style="font-size:12.5px;opacity:0.9;margin-top:4px">প্রতিটি অ্যাড সম্পূর্ণ দেখলে নির্ধারিত রিওয়ার্ড সরাসরি আপনার ওয়ালেটে জমা হবে</p>
+          <span style="font-size:11px;background:rgba(0,0,0,0.25);padding:4px 10px;border-radius:20px;font-weight:700">DIRECT LINK & SMARTLINK ADS</span>
+          <h2 style="margin-top:8px;font-size:21px">অ্যাড দেখে টাকা আয় করুন</h2>
+          <p style="font-size:12.5px;opacity:0.9;margin-top:4px">নির্ধারিত টাইমার পূর্ণ হওয়া পর্যন্ত অপেক্ষা করলে রিওয়ার্ড আপনার ওয়ালেটে জমা হবে</p>
         </div>
 
         <div class="card-box">
           <div style="margin-bottom:12px">
-            <h3 style="color:#34d399;font-size:16px"><i class="fa-solid fa-play-circle"></i> ভিডিও ও স্পন্সর অ্যাড</h3>
-            <p style="font-size:12px;color:var(--muted)">টাইমার শেষ হলে Claim Reward বাটনে ক্লিক করে বোনাস নিন</p>
+            <h3 style="color:#34d399;font-size:16px"><i class="fa-solid fa-play-circle"></i> ডাইরেক্ট লিঙ্ক ও ভিডিও অ্যাড</h3>
+            <p style="font-size:12px;color:var(--muted)">টাইমার শেষ হওয়ার আগে ফিরে এলে বা কেটে দিলে কোনো বোনাস যোগ হবে না</p>
           </div>
           <div id="userAdsListContainer"></div>
         </div>
@@ -1304,19 +1227,19 @@
   </div>
 </div>
 
-<!-- ==================== VIDEO / SPONSOR AD MODAL ==================== -->
-<div class="vad-modal" id="videoAdModal">
-  <div class="vad-top">
+<!-- ==================== DIRECT LINK / SMARTLINK WATCH & EARN MODAL ==================== -->
+<div class="vad-modal" id="videoAdModal" onclick="handleAdBackdropClick(event)">
+  <div class="vad-top" onclick="event.stopPropagation()">
     <div class="vad-title" id="adModalTitle">Sponsor Ad</div>
-    <button class="vad-close" onclick="closeAdModal()"><i class="fa-solid fa-xmark"></i></button>
+    <button type="button" class="vad-close" onclick="closeAdModal()"><i class="fa-solid fa-xmark"></i></button>
   </div>
-  <div class="vad-player" id="adPlayerContainer"></div>
-  <div class="vad-timer-wrap">
+  <div class="vad-player" id="adPlayerContainer" onclick="event.stopPropagation()"></div>
+  <div class="vad-timer-wrap" onclick="event.stopPropagation()">
     <div class="vad-timer-text" id="adTimerText">অপেক্ষা করুন...</div>
     <div class="vad-timer-bar"><div id="adTimerBar"></div></div>
   </div>
-  <button class="vad-claim" id="adClaimBtn" disabled onclick="claimAdReward()">
-    <i class="fa-solid fa-lock"></i> <span id="adClaimLabel">Claim Reward</span>
+  <button type="button" class="vad-claim" id="adClaimBtn" disabled onclick="event.stopPropagation();claimAdReward()">
+    <i class="fa-solid fa-lock"></i> <span id="adClaimLabel">বোনাস ক্লেম করুন</span>
   </button>
 </div>
 
@@ -1354,7 +1277,6 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
-  // এখানে আপনার Firebase প্রজেক্টের আসল কনফিগারেশন বসান:
   const firebaseConfig = {
     apiKey: "AIzaSyAXXXuGMYkvbi2YN-8voBMR1YokJL8yqGA",
     authDomain: "income-protidin-27a48.firebaseapp.com",
@@ -1368,7 +1290,7 @@
   try {
     if (firebaseConfig.apiKey && firebaseConfig.apiKey !== "YOUR_API_KEY") {
       firebase.initializeApp(firebaseConfig);
-      window._fbDBRef = firebase.database().ref('INCOME_PROTIDIN_2026_DB');
+      window._fbDBRef = firebase.database().ref('INCOME_PROTIDIB_DB_V2');
     }
   } catch (err) {
     console.error('Firebase Init Error:', err);
@@ -1376,7 +1298,6 @@
 </script>
 
 <script>
-  // Safe storage: falls back to memory when localStorage is blocked (e.g. HopWeb / data: / null-origin WebViews)
   let STORE_PERSISTENT = true;
   const Store = (function () {
     try {
@@ -1395,25 +1316,56 @@
     }
   })();
 
-  const STORAGE_KEY = 'INCOME_PROTIDIN_2026_DB';
+  const STORAGE_KEY = 'INCOME_PROTIDIB_DB_V2';
   const SESSION_KEY = 'INCOME_PROTIDIN_2026_ACTIVE_SESSION';
   const THEME_KEY = 'INCOME_PROTIDIN_2026_THEME';
   const LEDGER_MIRROR_KEY = 'INCOME_PROTIDIN_2026_LEDGER_SEAL';
+  const AD_WATCH_STATE_KEY = 'INCOME_PROTIDIB_AD_WATCH_STATE_V2';
+  const ACTIVE_TAB_STATE_KEY = 'INCOME_PROTIDIB_ACTIVE_TAB_V2';
+
   const syncChannel = (function () {
     try { return new BroadcastChannel('income_protidin_2026_sync'); }
     catch (e) { return { postMessage() {}, onmessage: null }; }
   })();
 
-  // Universal Ad System state
+  // Direct Link / SmartLink Ad System state & Strict Timer Flags
   let adTimerInterval = null;
   let adSecondsLeft = 0;
   let adTotalSeconds = 0;
   let activeAdId = null;
   let activeAdUrl = '';
+  let activeAdTitle = '';
   let adClaimBusy = false;
   let adStartedAt = 0;
+  let adWentBackground = false;
+  let adTimerFailed = false;
+  let currentActiveTab = Store.getItem(ACTIVE_TAB_STATE_KEY) || 'home';
+  let currentWalletSub = 'main';
+  let currentPortalId = null;
 
-  // Trigger Rope Pull -> File Dossier Drop Animation
+  function savePendingAdWatchState() {
+    if (!activeAdId || !adStartedAt) {
+      Store.removeItem(AD_WATCH_STATE_KEY);
+      return;
+    }
+    try {
+      Store.setItem(AD_WATCH_STATE_KEY, JSON.stringify({
+        adId: activeAdId,
+        adUrl: activeAdUrl,
+        adTitle: activeAdTitle,
+        startedAt: adStartedAt,
+        totalSeconds: adTotalSeconds,
+        tab: currentActiveTab,
+        wentBg: adWentBackground,
+        failed: adTimerFailed
+      }));
+    } catch (e) {}
+  }
+
+  function clearPendingAdWatchState() {
+    Store.removeItem(AD_WATCH_STATE_KEY);
+  }
+
   function triggerRopeJumpAndDrop() {
     const rope = document.getElementById('ropeLine');
     const dossier = document.getElementById('fileDossierCard');
@@ -1485,7 +1437,6 @@
     return String(s == null ? '' : s).replace(/[\u0000-\u001f\u007f<>]/g, '').trim().slice(0, max || 100);
   }
 
-  // Admin-provided icon: allow a plain <i class="fa-..."> tag or plain text only
   function safeIcon(html, fallback) {
     const h = String(html == null ? '' : html).trim();
     if (!h) return fallback;
@@ -1508,7 +1459,6 @@
     return isSafeHttps(r) ? esc(r) : 'https://placehold.co/80x80?text=Icon';
   }
 
-  // SHA-256 (pure JS, works on file:// and WebView without secure context)
   const sha256 = (function () {
     const K = new Uint32Array([
       0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
@@ -1591,7 +1541,7 @@
       if (parts.length !== 3) return false;
       return safeEqual(parts[2], pwDigest(pass, parts[1]));
     }
-    return safeEqual(stored, pass); // legacy plaintext (upgraded on next login)
+    return safeEqual(stored, pass);
   }
 
   function secureUid(db) {
@@ -1604,7 +1554,6 @@
     return 'UID' + randomHex(4).toUpperCase();
   }
 
-  // Cryptographically secure ID generator for transactions/submissions (replaces Math.random/Date.now collisions)
   function secureEntityId(prefix, existingList) {
     for (let i = 0; i < 20; i++) {
       const id = prefix + '_' + Date.now().toString(36).toUpperCase() + '_' + randomHex(4).toUpperCase();
@@ -1613,7 +1562,7 @@
     return prefix + '_' + randomHex(8).toUpperCase();
   }
 
-  // ==================== TAMPER DETECTION & FUTURE SERVER / FIREBASE ADAPTER ====================
+  // ==================== TAMPER DETECTION & FIREBASE ADAPTER ====================
   const INTEGRITY_PEPPER = 'IP2026_CLIENT_LEDGER_V1_9f4b2c7d';
   function computeUserSeal(u) {
     if (!u || !u.id) return '';
@@ -1687,7 +1636,6 @@
     return changed;
   }
 
-  // Ready-to-connect Backend / Firebase Adapter for server-side verification
   const BackendSecurityAdapter = {
     mode: 'firebase',
     endpoint: '',
@@ -1700,7 +1648,6 @@
   };
   window.BackendSecurityAdapter = BackendSecurityAdapter;
 
-  // Login brute-force throttle (per device)
   const LOGIN_GUARD_KEY = 'income_login_guard_v1';
   function getLoginGuard() {
     try { return JSON.parse(Store.getItem(LOGIN_GUARD_KEY)) || { fails: 0, lockUntil: 0 }; }
@@ -1720,11 +1667,11 @@
     users: [],
     adSettings: {
       status: 'ON',
-      rewardPerAd: 1,
+      rewardPerAd: 2,
       dailyLimit: 15,
       watchSeconds: 15,
       adsList: [
-        { id: 'AD_1', title: 'Sample Video Ad', adUrl: 'https://www.w3schools.com/html/mov_bbb.mp4', views: 0, maxViews: 100 }
+        { id: 'AD_1', title: 'Direct SmartLink Sponsor Ad #1', adUrl: 'https://www.highperformanceformat.com/', views: 0, maxViews: 1000 }
       ]
     },
     categories: [
@@ -1820,13 +1767,13 @@
     };
     if (!Array.isArray(cur.adsList) && Array.isArray(db.adsList) && db.adsList.length) {
       s.adsList = db.adsList.map(a => ({
-        id: a.id, title: a.title, adUrl: a.videoUrl || a.targetUrl || '',
+        id: a.id, title: a.title, adUrl: a.adUrl || a.videoUrl || a.targetUrl || '',
         views: a.currentViews || 0, maxViews: a.maxViews || 100
       }));
     }
     s.adsList = s.adsList.map(a => ({
-      id: a.id, title: a.title || 'Ad', adUrl: a.adUrl || '',
-      views: Number(a.views) || 0, maxViews: Number(a.maxViews) || 100
+      id: a.id, title: a.title || 'Direct Link Ad', adUrl: a.adUrl || a.url || '',
+      views: Number(a.views) || 0, maxViews: Number(a.maxViews) || 1000
     }));
     return s;
   }
@@ -1889,7 +1836,6 @@
     }
   }
 
-  // Session keeps ONLY the user id + 30-day expiry (never stores balance, password, or profile data)
   function setActiveUser(userObj) {
     if (!userObj || typeof userObj.id !== 'string' || !userObj.id) return;
     Store.setItem(SESSION_KEY, JSON.stringify({ id: userObj.id, exp: Date.now() + SESSION_TTL }));
@@ -2010,6 +1956,7 @@
 
   function doLogout() {
     toggleDrawer(false);
+    clearPendingAdWatchState();
     Store.removeItem(SESSION_KEY);
     showToast('লগআউট সম্পন্ন হয়েছে।');
     renderApp();
@@ -2065,8 +2012,25 @@
     }
   }
 
-  // ==================== RENDER APP ====================
-  let currentPortalId = null;
+  // ==================== RENDER APP (PRESERVING CURRENT PAGE / TAB STATE) ====================
+  function restoreActiveViewState() {
+    if (currentPortalId) {
+      document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
+      document.getElementById('view-portal').classList.add('active');
+      return;
+    }
+    const validTabs = ['home', 'tasks', 'ads', 'gift', 'wallet', 'support'];
+    const targetTab = validTabs.includes(currentActiveTab) ? currentActiveTab : 'home';
+    document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const viewEl = document.getElementById('view-' + targetTab);
+    if (viewEl) viewEl.classList.add('active');
+    const navEl = document.getElementById('nav-' + targetTab);
+    if (navEl) navEl.classList.add('active');
+    if (targetTab === 'wallet') {
+      showWalletSub(currentWalletSub || 'main');
+    }
+  }
 
   function renderApp() {
     const db = getDB();
@@ -2084,6 +2048,8 @@
 
     document.getElementById('authScreen').style.display = 'none';
     document.getElementById('mainAppContainer').style.display = 'block';
+
+    restoreActiveViewState();
 
     document.getElementById('headerAppName').textContent = db.appName || 'ইনকাম প্রতিদিন';
     document.getElementById('heroWelcomeUser').textContent = `স্বাগতম, ${user.name}`;
@@ -2175,7 +2141,7 @@
     });
   }
 
-  // ==================== UNIVERSAL VIDEO & AD NETWORK REWARD SYSTEM ====================
+  // ==================== ১, ২, ৩ ও ৪. STRICT AD TIMER & REWARD SYSTEM ====================
   function adTodayStr() {
     const d = new Date();
     return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
@@ -2194,11 +2160,7 @@
   }
 
   function getAvailableAds(settings) {
-    return (settings.adsList || []).filter(a => isSafeHttps(a.adUrl) && (a.views || 0) < (a.maxViews || 0));
-  }
-
-  function adEsc(s) {
-    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    return (settings.adsList || []).filter(a => isSafeHttps(a.adUrl) && (a.views || 0) < (a.maxViews || 1000));
   }
 
   function renderAdsWatchingSection(db) {
@@ -2218,8 +2180,8 @@
         <div class="vad-home-card ${isOn ? '' : 'off'}" onclick="startAdWatch()">
           <div class="vad-ic"><i class="fa-solid fa-circle-play"></i></div>
           <div class="vad-info">
-            <h4>Watch Ads / ভিডিও ও স্পন্সর অ্যাড</h4>
-            <p>প্রতি অ্যাডে ৳${Number(s.rewardPerAd).toFixed(2)} ইনকাম${isOn ? '' : ' • সাময়িক বন্ধ'}</p>
+            <h4>Play Ad • Watch & Earn</h4>
+            <p>প্রতি অ্যাডে ৳${Number(s.rewardPerAd).toFixed(2)} ইনকাম • পুরো ${watchSecs} সেকেন্ড অপেক্ষা করুন${isOn ? '' : ' • সাময়িক বন্ধ'}</p>
           </div>
           <div class="vad-count">${esc(watched)}/${esc(limit)}</div>
         </div>`;
@@ -2231,18 +2193,18 @@
     let note = '';
     if (!isOn) note = 'অ্যাড সিস্টেম বর্তমানে বন্ধ আছে।';
     else if (limitDone) note = 'আজকের ডেইলি লিমিট শেষ! আগামীকাল আবার চেষ্টা করুন।';
-    else if (!avail) note = 'বর্তমানে কোনো অ্যাড উপলব্ধ নেই।';
+    else if (!avail) note = 'বর্তমানে কোনো অ্যাড লিঙ্ক উপলব্ধ নেই।';
 
     box.innerHTML = `
       <div class="vad-stats">
         <div class="vad-stat"><strong>৳${Number(s.rewardPerAd).toFixed(2)}</strong><small>প্রতি অ্যাড</small></div>
         <div class="vad-stat"><strong>${esc(watched)}/${esc(limit)}</strong><small>আজকের অ্যাড</small></div>
-        <div class="vad-stat"><strong>${esc(watchSecs)}s</strong><small>দেখার সময়</small></div>
+        <div class="vad-stat"><strong>${esc(watchSecs)}s</strong><small>টাইমার</small></div>
       </div>
       <div class="vad-progress"><div style="width:${pct}%"></div></div>
       ${note ? `<p style="font-size:12.5px;color:#f87171;text-align:center;margin-bottom:12px">${esc(note)}</p>` : ''}
       <button class="main-btn" ${canWatch ? '' : 'disabled style="opacity:.55;cursor:not-allowed"'} onclick="startAdWatch()">
-        <i class="fa-solid fa-play"></i> ${canWatch ? 'পরবর্তী অ্যাড দেখুন' : 'অ্যাড দেখা সম্ভব নয়'}
+        <i class="fa-solid fa-play"></i> ${canWatch ? 'Play Ad (বিজ্ঞাপন দেখুন)' : 'অ্যাড দেখা সম্ভব নয়'}
       </button>`;
   }
 
@@ -2263,12 +2225,16 @@
     return { type: 'web', src: u };
   }
 
-  function renderAdPlayer(url) {
+  function renderAdPlayer(url, shouldOpenExternalTab) {
     const box = document.getElementById('adPlayerContainer');
     box.innerHTML = '';
     if (!isSafeHttps(url)) return;
     const info = detectAdType(url);
     if (info.type === 'invalid') return;
+
+    if (shouldOpenExternalTab) {
+      try { window.open(url, '_blank', 'noopener,noreferrer'); } catch (e) {}
+    }
 
     if (info.type === 'video') {
       const v = document.createElement('video');
@@ -2300,27 +2266,74 @@
 
       const msg = document.createElement('div');
       msg.className = 'vad-web-msg';
-      msg.innerHTML = '<div><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:26px;color:#34d399"></i></div>' +
-        '<div>বিজ্ঞাপনটি ওপেন হয়েছে, বোনাস পেতে টাইমার শেষ হওয়া পর্যন্ত অপেক্ষা করুন</div>';
+      msg.innerHTML = '<div><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:28px;color:#34d399"></i></div>' +
+        '<div>ডাইরেক্ট লিঙ্ক ওপেন হয়েছে। বোনাস পেতে পুরো টাইমার শেষ হওয়া পর্যন্ত অপেক্ষা করুন! সময়ের আগে ফিরে এলে রিওয়ার্ড পাবেন না।</div>';
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Re-open Ad';
-      btn.onclick = reopenAd;
+      btn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> নতুন করে আবার চেষ্টা করুন';
+      btn.onclick = startAdWatch;
       msg.appendChild(btn);
       box.appendChild(msg);
+    }
+  }
 
-      if (isSafeHttps(info.src)) {
-        try { window.open(info.src, '_blank', 'noopener,noreferrer'); } catch (e) {}
+  // ২ ও ৩. সময়ের আগে ফিরে এলে টাইমার ফেল্ড করার ফাংশন
+  function failAdWatchEarlyReturn() {
+    if (adTimerInterval) {
+      clearInterval(adTimerInterval);
+      adTimerInterval = null;
+    }
+    adTimerFailed = true;
+
+    const txt = document.getElementById('adTimerText');
+    const bar = document.getElementById('adTimerBar');
+    if (txt) {
+      txt.className = 'vad-timer-text failed';
+      txt.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> সময়ের আগেই ফিরে এসেছেন, রিওয়ার্ড দেওয়া হবে না।';
+    }
+    if (bar) {
+      bar.className = 'failed';
+      bar.style.width = '100%';
+    }
+
+    setClaimState(false);
+    savePendingAdWatchState();
+    showToast('সময়ের আগেই ফিরে এসেছেন, রিওয়ার্ড দেওয়া হবে না।');
+  }
+
+  // ৪. পুরো সময় অপেক্ষা করলে বোনাস ক্লেম বাটন সচল করার ফাংশন
+  function unlockAdClaimAfterFullWait() {
+    if (adTimerFailed) return;
+    adSecondsLeft = 0;
+    if (adTimerInterval) {
+      clearInterval(adTimerInterval);
+      adTimerInterval = null;
+    }
+    updateAdTimerUI();
+    setClaimState(true);
+    savePendingAdWatchState();
+  }
+
+  function startAdTimerLoop() {
+    if (adTimerInterval) clearInterval(adTimerInterval);
+    adTimerInterval = setInterval(() => {
+      if (!activeAdId || !adStartedAt || adTimerFailed) {
+        clearInterval(adTimerInterval);
+        adTimerInterval = null;
+        return;
       }
-    }
+      const elapsedSec = Math.floor((Date.now() - adStartedAt) / 1000);
+      adSecondsLeft = Math.max(0, adTotalSeconds - elapsedSec);
+      if (adSecondsLeft <= 0) {
+        unlockAdClaimAfterFullWait();
+        showToast('টাইমার শেষ! এখন বোনাস ক্লেম করুন বাটনে ক্লিক করুন।');
+      } else {
+        updateAdTimerUI();
+      }
+    }, 500);
   }
 
-  function reopenAd() {
-    if (activeAdUrl && isSafeHttps(activeAdUrl)) {
-      try { window.open(activeAdUrl, '_blank', 'noopener,noreferrer'); } catch (e) {}
-    }
-  }
-
+  // ১. Play Ad-এ ক্লিক করলে ডাইরেক্ট লিংকে যাবে এবং মডালে টাইমার শুরু হবে
   function startAdWatch() {
     const db = getDB();
     const s = db.adSettings;
@@ -2338,100 +2351,227 @@
 
     activeAdId = ad.id;
     activeAdUrl = ad.adUrl;
+    activeAdTitle = ad.title || 'Direct Link Sponsor Ad';
     adSecondsLeft = Math.max(1, Number(s.watchSeconds) || 15);
     adTotalSeconds = adSecondsLeft;
     adClaimBusy = false;
     adStartedAt = Date.now();
+    adWentBackground = false;
+    adTimerFailed = false;
 
-    document.getElementById('adModalTitle').textContent = ad.title || 'Sponsor Ad';
+    const txt = document.getElementById('adTimerText');
+    const bar = document.getElementById('adTimerBar');
+    if (txt) txt.className = 'vad-timer-text';
+    if (bar) bar.className = '';
+
+    savePendingAdWatchState();
+
+    document.getElementById('adModalTitle').textContent = activeAdTitle;
     updateAdTimerUI();
     setClaimState(false);
     document.getElementById('videoAdModal').classList.add('show');
-    renderAdPlayer(ad.adUrl);
+    renderAdPlayer(ad.adUrl, true);
+    startAdTimerLoop();
+  }
 
-    if (adTimerInterval) clearInterval(adTimerInterval);
-    adTimerInterval = setInterval(() => {
-      const elapsedSec = Math.floor((Date.now() - adStartedAt) / 1000);
-      adSecondsLeft = Math.max(0, adTotalSeconds - elapsedSec);
-      if (adSecondsLeft <= 0) {
-        adSecondsLeft = 0;
-        clearInterval(adTimerInterval);
-        adTimerInterval = null;
-        setClaimState(true);
-        showToast('টাইমার শেষ! Claim Reward বাটনে ক্লিক করুন।');
+  // ২ ও ৩. ইউজার ব্রাউজার থেকে অ্যাপে ফিরে এলে চেক করবে টাইমার শেষ হয়েছে কি না
+  function handleVisibilityAndFocusCheck() {
+    let saved = null;
+    try {
+      saved = JSON.parse(Store.getItem(AD_WATCH_STATE_KEY) || 'null');
+    } catch (e) { saved = null; }
+
+    if (!activeAdId && saved && saved.adId) {
+      activeAdId = saved.adId;
+      activeAdUrl = saved.adUrl || '';
+      activeAdTitle = saved.adTitle || 'Direct Link Sponsor Ad';
+      adStartedAt = Number(saved.startedAt) || Date.now();
+      adTotalSeconds = Number(saved.totalSeconds) || 15;
+      adWentBackground = Boolean(saved.wentBg);
+      adTimerFailed = Boolean(saved.failed);
+      if (saved.tab) {
+        currentActiveTab = saved.tab;
+        Store.setItem(ACTIVE_TAB_STATE_KEY, currentActiveTab);
       }
+    }
+
+    if (!activeAdId || !adStartedAt) return;
+
+    const modalEl = document.getElementById('videoAdModal');
+    if (modalEl && !modalEl.classList.contains('show')) {
+      document.getElementById('adModalTitle').textContent = activeAdTitle || 'Sponsor Ad';
+      modalEl.classList.add('show');
+      renderAdPlayer(activeAdUrl, false);
+    }
+
+    if (adTimerFailed) {
+      failAdWatchEarlyReturn();
+      return;
+    }
+
+    const elapsedSec = Math.floor((Date.now() - adStartedAt) / 1000);
+
+    // যদি ইউজার ব্রাউজার/অন্য ট্যাবে গিয়ে নির্ধারিত সময়ের আগেই ফিরে আসে -> সাথে সাথে টাইমার ফেল্ড!
+    if (adWentBackground && elapsedSec < adTotalSeconds) {
+      failAdWatchEarlyReturn();
+      return;
+    }
+
+    // যদি পুরো সময় (যেমন: ১৫ সেকেন্ড) পার হয়ে থাকে -> ক্লেম বাটন সচল হবে
+    if (elapsedSec >= adTotalSeconds) {
+      unlockAdClaimAfterFullWait();
+      showToast('টাইমার সম্পন্ন! এখন বোনাস ক্লেম করুন।');
+    } else {
+      adSecondsLeft = Math.max(0, adTotalSeconds - elapsedSec);
       updateAdTimerUI();
-    }, 1000);
+      startAdTimerLoop();
+    }
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (activeAdId && !adTimerFailed) {
+        adWentBackground = true;
+        savePendingAdWatchState();
+      }
+    } else {
+      handleVisibilityAndFocusCheck();
+    }
+  });
+
+  window.addEventListener('blur', () => {
+    if (activeAdId && !adTimerFailed) {
+      adWentBackground = true;
+      savePendingAdWatchState();
+    }
+  });
+
+  window.addEventListener('focus', () => {
+    if (activeAdId || Store.getItem(AD_WATCH_STATE_KEY)) {
+      handleVisibilityAndFocusCheck();
+    }
+  });
+
+  window.addEventListener('pageshow', () => {
+    if (activeAdId || Store.getItem(AD_WATCH_STATE_KEY)) {
+      handleVisibilityAndFocusCheck();
+    }
+  });
+
+  function handleAdBackdropClick(e) {
+    if (e && e.target === document.getElementById('videoAdModal')) {
+      e.stopPropagation();
+      if (adTimerFailed) {
+        showToast('সময়ের আগেই ফিরে এসেছেন, রিওয়ার্ড দেওয়া হবে না।');
+      } else if (adSecondsLeft <= 0 && activeAdId) {
+        showToast('বোনাস পেতে নিচের সবুজ "বোনাস ক্লেম করুন" বাটনে ক্লিক করুন!');
+      } else {
+        showToast('টাইমার চলছে! পুরো সময় অপেক্ষা করুন...');
+      }
+    }
   }
 
   function updateAdTimerUI() {
+    if (adTimerFailed) return;
     const txt = document.getElementById('adTimerText');
     const bar = document.getElementById('adTimerBar');
+    txt.className = 'vad-timer-text';
+    bar.className = '';
     if (adSecondsLeft > 0) {
-      txt.textContent = 'আর ' + adSecondsLeft + ' সেকেন্ড অপেক্ষা করুন';
+      txt.textContent = 'আর ' + adSecondsLeft + ' সেকেন্ড অপেক্ষা করুন...';
     } else {
-      txt.textContent = 'সময় শেষ! এখন রিওয়ার্ড ক্লেইম করুন';
+      txt.textContent = 'টাইমার শেষ! এখন বোনাস ক্লেম করুন';
     }
-    const done = adTotalSeconds ? ((adTotalSeconds - adSecondsLeft) / adTotalSeconds) * 100 : 0;
-    bar.style.width = done + '%';
+    const done = adTotalSeconds ? ((adTotalSeconds - adSecondsLeft) / adTotalSeconds) * 100 : 100;
+    bar.style.width = Math.min(100, Math.max(0, done)) + '%';
   }
 
   function setClaimState(ready) {
     const btn = document.getElementById('adClaimBtn');
-    btn.disabled = !ready;
-    btn.querySelector('i').className = ready ? 'fa-solid fa-gift' : 'fa-solid fa-lock';
+    const lbl = document.getElementById('adClaimLabel');
+    const allow = Boolean(ready && !adTimerFailed);
+    btn.disabled = !allow;
+    btn.querySelector('i').className = allow ? 'fa-solid fa-gift' : 'fa-solid fa-lock';
+    if (lbl) lbl.textContent = allow ? 'বোনাস ক্লেম করুন' : 'বোনাস ক্লেম করুন (লকড)';
   }
 
+  // ২. মডাল ক্লোজ করে দিলে টাইমার সাথে সাথে বন্ধ ও ফেল্ড হয়ে যাবে এবং কোনো রিওয়ার্ড যোগ হবে না
   function closeAdModal(silent) {
-    const early = adSecondsLeft > 0 && document.getElementById('videoAdModal').classList.contains('show');
-    if (adTimerInterval) { clearInterval(adTimerInterval); adTimerInterval = null; }
+    const wasRunningOrFailed = (adSecondsLeft > 0 || adTimerFailed) && document.getElementById('videoAdModal').classList.contains('show');
+    if (adTimerInterval) {
+      clearInterval(adTimerInterval);
+      adTimerInterval = null;
+    }
     document.getElementById('videoAdModal').classList.remove('show');
     document.getElementById('adPlayerContainer').innerHTML = '';
     activeAdId = null;
     activeAdUrl = '';
+    activeAdTitle = '';
     adStartedAt = 0;
-    if (early && !silent) showToast('টাইমার শেষ হওয়ার আগে বন্ধ করায় কোনো বোনাস যোগ হয়নি।');
+    adWentBackground = false;
+    adTimerFailed = false;
+    clearPendingAdWatchState();
+    if (wasRunningOrFailed && !silent) {
+      showToast('অ্যাড বাতিল করা হয়েছে, কোনো রিওয়ার্ড যোগ হয়নি।');
+    }
   }
 
+  // ৪. পুরো সময় অপেক্ষা করে টাইমার শেষ হলেই কেবল বোনাস ক্লেম হবে
   async function claimAdReward() {
-    if (adClaimBusy || adSecondsLeft > 0 || !activeAdId || !adStartedAt) return;
+    if (adClaimBusy || !activeAdId) return;
+    if (adTimerFailed) {
+      return showToast('সময়ের আগেই ফিরে এসেছেন, রিওয়ার্ড দেওয়া হবে না।');
+    }
+
     const db = getDB();
     const s = db.adSettings;
     const needMs = Math.max(1, Number(s.watchSeconds) || 15) * 1000;
-    if (Date.now() - adStartedAt < needMs) {
-      return showToast('টাইমার শেষ না হওয়া পর্যন্ত রিওয়ার্ড দেওয়া যাবে না!');
+    if (adSecondsLeft > 0 || !adStartedAt || (Date.now() - adStartedAt) < needMs) {
+      return showToast('পুরো টাইমার শেষ না হওয়া পর্যন্ত রিওয়ার্ড দেওয়া হবে না!');
     }
     adClaimBusy = true;
 
     const sessionUser = getActiveUser();
     const dbUser = sessionUser && (db.users || []).find(u => u.id === sessionUser.id);
-    if (!dbUser) { adClaimBusy = false; return showToast('ইউজার পাওয়া যায়নি!'); }
+    if (!dbUser) {
+      adClaimBusy = false;
+      return showToast('ইউজার পাওয়া যায়নি!');
+    }
     ensureUserAdFields(dbUser);
 
-    const ad = (s.adsList || []).find(a => a.id === activeAdId);
-    if (s.status !== 'ON' || dbUser.adsWatchedToday >= s.dailyLimit || !ad || !isSafeHttps(ad.adUrl) || ad.views >= ad.maxViews) {
+    const ad = (s.adsList || []).find(a => a.id === activeAdId) || (s.adsList || [])[0];
+    if (s.status !== 'ON' || dbUser.adsWatchedToday >= s.dailyLimit || !ad) {
+      adClaimBusy = false;
       closeAdModal(true);
       return showToast('এই মুহূর্তে রিওয়ার্ড দেওয়া সম্ভব নয়।');
     }
 
     const reward = Math.max(0, Number(s.rewardPerAd) || 0);
-    await BackendSecurityAdapter.verifyAndCommit('AD_REWARD_CLAIM', { userId: dbUser.id, adId: ad.id, reward, elapsedMs: Date.now() - adStartedAt });
+    await BackendSecurityAdapter.verifyAndCommit('AD_REWARD_CLAIM', {
+      userId: dbUser.id,
+      adId: ad.id,
+      reward,
+      elapsedMs: Date.now() - adStartedAt
+    });
 
-    dbUser.balance = Number(dbUser.balance || 0) + reward;
-    dbUser.todayIncome = Number(dbUser.todayIncome || 0) + reward;
-    dbUser.totalIncome = Number(dbUser.totalIncome || 0) + reward;
+    dbUser.balance = Number((Number(dbUser.balance || 0) + reward).toFixed(2));
+    dbUser.todayIncome = Number((Number(dbUser.todayIncome || 0) + reward).toFixed(2));
+    dbUser.totalIncome = Number((Number(dbUser.totalIncome || 0) + reward).toFixed(2));
     dbUser.adsWatchedToday = (dbUser.adsWatchedToday || 0) + 1;
     dbUser.adIndex = (dbUser.adIndex || 0) + 1;
     dbUser.lastAdDate = adTodayStr();
     ad.views = (ad.views || 0) + 1;
 
     db.adSettings = s;
+    clearPendingAdWatchState();
+    closeAdModal(true);
+    adClaimBusy = false;
+
     saveDB(db);
     setActiveUser(dbUser);
 
-    closeAdModal(true);
-    showToast('অভিনন্দন! ৳' + reward.toFixed(2) + ' আপনার ব্যালেন্সে যোগ হয়েছে।');
     renderApp();
+    showToast('অভিনন্দন! ৳' + reward.toFixed(2) + ' আপনার ব্যালেন্সে যোগ হয়েছে!');
   }
 
   // ==================== PORTAL DETAIL (TYPE / NO-TYPE & PASSWORD ON/OFF) ====================
@@ -2724,6 +2864,7 @@
   }
 
   function showWalletSub(sub) {
+    currentWalletSub = sub;
     document.getElementById('walletMainSub').style.display = sub === 'main' ? 'block' : 'none';
     document.getElementById('walletDepSub').style.display = sub === 'deposit' ? 'block' : 'none';
     document.getElementById('walletWitSub').style.display = sub === 'withdraw' ? 'block' : 'none';
@@ -2769,8 +2910,8 @@
     document.getElementById('depSenderInp').value = '';
     document.getElementById('depTrxInp').value = '';
     saveDB(db);
-    renderApp();
     showWalletSub('main');
+    renderApp();
     showToast('ডিপোজিট রিকোয়েস্ট জমা হয়েছে!');
   }
 
@@ -2816,16 +2957,19 @@
     document.getElementById('witNumInp').value = '';
     saveDB(db);
     setActiveUser(dbUser);
-    renderApp();
     showWalletSub('main');
+    renderApp();
     showToast('উইথড্র রিকোয়েস্ট সফলভাবে জমা হয়েছে!');
   }
 
   function switchTab(tab) {
     currentPortalId = null;
+    currentActiveTab = tab;
+    Store.setItem(ACTIVE_TAB_STATE_KEY, tab);
     document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    document.getElementById('view-' + tab).classList.add('active');
+    const viewEl = document.getElementById('view-' + tab);
+    if (viewEl) viewEl.classList.add('active');
     const nav = document.getElementById('nav-' + tab);
     if (nav) nav.classList.add('active');
     if (tab === 'wallet') showWalletSub('main');
@@ -2853,7 +2997,6 @@
   syncChannel.onmessage = () => renderApp();
   window.addEventListener('storage', () => renderApp());
 
-  // Firebase Real-Time Sync Listener
   if (window._fbDBRef) {
     window._fbDBRef.on('value', (snap) => {
       const remoteData = snap.val();
@@ -2868,7 +3011,6 @@
     });
   }
 
-  // Register Service Worker for GitHub PWA Install
   if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('sw.js').catch(() => {});
@@ -2882,6 +3024,9 @@
     }
     if (!STORE_PERSISTENT) setTimeout(() => showToast('সতর্কতা: এই মোডে ডাটা সেভ থাকবে না। ফাইল হিসেবে ব্রাউজারে খুলুন।'), 600);
     renderApp();
+    if (Store.getItem(AD_WATCH_STATE_KEY)) {
+      setTimeout(() => handleVisibilityAndFocusCheck(), 250);
+    }
   });
 </script>
 </body>
