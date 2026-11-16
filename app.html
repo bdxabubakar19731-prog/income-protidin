@@ -931,7 +931,7 @@
           <label class="form-label">আপনার পূর্ণ নাম <span class="req">*</span></label>
           <div class="input-wrap">
             <i class="fa-solid fa-id-badge prefix"></i>
-            <input type="text" id="regNameInput" class="form-input" maxlength="40" autocomplete="name" placeholder="আপনার নাম লিখুন">
+            <input type="text" id="regNameInput" class="form-input" maxlength="40" autocomplete="name" placeholder="Ex: Siyam / Rahim">
           </div>
         </div>
         <div class="form-group">
@@ -962,12 +962,12 @@
             <input type="password" id="regPassConfirmInput" class="form-input" minlength="6" maxlength="64" autocomplete="new-password" placeholder="পুনরায় পাসওয়ার্ড দিন">
           </div>
         </div>
-        <!-- ১. রেফার কোড ইনপুট ফিল্ড (লিংক থেকে আসলে অটোমেটিক বসবে ও লকড/রিডঅনলি থাকবে) -->
+        <!-- রেফার কোড ইনপুট ফিল্ড (?ref=Name123 থেকে অটোমেটিক বসবে ও লকড/রিডঅনলি থাকবে) -->
         <div class="form-group">
           <label class="form-label">রেফার কোড (Referral Code) <span id="refLockBadge" style="font-size:11px;color:#34d399">ঐচ্ছিক</span></label>
           <div class="input-wrap">
             <i class="fa-solid fa-user-group prefix" id="refInputIcon"></i>
-            <input type="text" id="regRefCodeInput" class="form-input" maxlength="30" placeholder="রেফার কোড থাকলে দিন">
+            <input type="text" id="regRefCodeInput" class="form-input" maxlength="30" placeholder="Ex: Siyam786 / Rahim123">
           </div>
         </div>
         <div id="regVerifyAlert" class="verify-alert"></div>
@@ -984,10 +984,10 @@
       <h3 id="drawerName" style="font-size:17px;font-weight:800">User Name</h3>
       <p id="drawerPhone" style="font-size:12px;opacity:0.9">01700000000</p>
       <p id="drawerEmail" style="font-size:11.5px;opacity:0.8;margin-top:2px">user@gmail.com</p>
-      <div style="margin-top:10px;display:flex;align-items:center;gap:8px">
-        <span style="font-size:11px;background:rgba(0,0,0,0.28);padding:4px 10px;border-radius:8px" id="drawerUidText">UID: #1001</span>
-        <button class="copy-action-btn" style="padding:4px 9px;font-size:11px;background:rgba(255,255,255,0.25)" onclick="copyCurrentUid()">
-          <i class="fa-regular fa-copy"></i> Copy UID
+      <div style="margin-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-size:11px;background:rgba(0,0,0,0.28);padding:4px 10px;border-radius:8px" id="drawerUidText">Ref: Siyam786</span>
+        <button class="copy-action-btn" style="padding:4px 9px;font-size:11px;background:rgba(255,255,255,0.25)" onclick="copyCurrentReferCode()">
+          <i class="fa-regular fa-copy"></i> Copy Ref
         </button>
       </div>
     </div>
@@ -1053,7 +1053,7 @@
       <div class="hero-wallet">
         <div class="hw-top">
           <span class="hw-user" id="heroWelcomeUser">স্বাগতম, User</span>
-          <span class="hw-badge"><i class="fa-solid fa-shield-halved"></i> Verified</span>
+          <span class="hw-badge"><i class="fa-solid fa-shield-halved"></i> <span id="heroRefCodeBadge">Ref: User123</span></span>
         </div>
         <div class="hw-bal-row">
           <div class="hw-bal">
@@ -1082,7 +1082,7 @@
       <!-- হোমপেজ অ্যাড ইনকাম ব্যানার -->
       <div id="homeAdCard"></div>
 
-      <!-- হোমপেজ রেফার ইনকাম ব্যানার -->
+      <!-- হোমপেজ রেফার ইনকাম ব্যানার (নামের সাথে সংখ্যাযুক্ত রেফার কোড ও লিংকসহ) -->
       <div id="homeReferBanner"></div>
 
       <div id="homeCategoriesContainer"></div>
@@ -1112,22 +1112,22 @@
           </div>
         </div>
 
-        <!-- ইউনিক রেফার কোড বক্স -->
+        <!-- ১ ও ২. ইউনিক নাম+সংখ্যা রেফার কোড বক্স (যেমন: Siyam786 / Rahim123) -->
         <div class="copy-box-card">
           <div class="cbc-head"><span>আপনার ইউনিক রেফার কোড (REFER CODE)</span><span>TAP TO COPY</span></div>
           <div class="cbc-row">
-            <span class="cbc-val" id="myReferCodeText">01700000000</span>
+            <span class="cbc-val" id="myReferCodeText">Siyam786</span>
             <button type="button" class="copy-action-btn" onclick="copyById('myReferCodeText', 'রেফার কোড কপি হয়েছে!')">
               <i class="fa-regular fa-copy"></i> Copy Code
             </button>
           </div>
         </div>
 
-        <!-- শেয়ার করার উপযোগী রেফার লিংক (?ref=USER_PHONE) -->
+        <!-- ২. শেয়ার করার উপযোগী রেফার লিংক (?ref=Name123) -->
         <div class="copy-box-card">
           <div class="cbc-head"><span>আপনার রেফারেল লিংক (REFERRAL LINK)</span><span>AUTO-TRACKING</span></div>
           <div class="cbc-row">
-            <span class="cbc-val" id="myReferLinkText" style="font-size:12.5px">https://...</span>
+            <span class="cbc-val" id="myReferLinkText" style="font-size:12.5px">https://...?ref=Siyam786</span>
             <button type="button" class="copy-action-btn" onclick="copyById('myReferLinkText', 'রেফার লিংক কপি হয়েছে!')">
               <i class="fa-regular fa-copy"></i> Copy Link
             </button>
@@ -1145,7 +1145,7 @@
         <div class="card-box">
           <h4 style="font-size:14px;color:#fbbf24;margin-bottom:8px"><i class="fa-solid fa-circle-info"></i> রেফার বোনাস পাওয়ার শর্তাবলী:</h4>
           <ul style="padding-left:18px;font-size:13px;color:var(--muted);line-height:1.6">
-            <li>আপনার শেয়ার করা রেফার লিংকে ক্লিক করে নতুন ইউজারকে একাউন্ট খুলতে হবে।</li>
+            <li>আপনার শেয়ার করা রেফার লিংকে (যেমন: <b>?ref=Name123</b>) ক্লিক করে নতুন ইউজারকে একাউন্ট খুলতে হবে।</li>
             <li>শুধুমাত্র একাউন্ট খুললেই সাথে সাথে রেফার বোনাস যোগ হবে না।</li>
             <li>নতুন ইউজার লগইন করে <b>Gmail Sell</b> সেকশনে গিয়ে অন্তত ১টি জিমেইল সফলভাবে সাবমিট করলেই আপনার মূল ব্যালেন্সে অটোমেটিক রেফার বোনাস যোগ হয়ে যাবে!</li>
           </ul>
@@ -1453,7 +1453,60 @@
   let currentWalletSub = 'main';
   let currentPortalId = null;
 
-  // ==================== ১. URL থেকে রেফার কোড (?ref=...) ট্র্যাক ও লক করার ফাংশন ====================
+  // ==================== ১. ইউজারের নাম + ইউনিক সংখ্যা দিয়ে রেফার কোড জেনারেশন (যেমন: Siyam786 / Rahim123) ====================
+  function generateNameBasedReferralCode(name, email, existingUsers) {
+    // প্রথমে নামের প্রথম অংশ থেকে ইংরেজি অক্ষর নেওয়া হবে
+    const firstWord = String(name || '').trim().split(/\s+/)[0] || '';
+    let base = firstWord.replace(/[^a-zA-Z]/g, '');
+
+    // যদি ইউজার বাংলায় নাম লেখে (যেমন: সিয়াম), তবে জিমেইলের @ এর আগের অংশ থেকে নাম নেওয়া হবে
+    if (base.length < 2 && email) {
+      const emailPrefix = String(email).split('@')[0].replace(/[^a-zA-Z]/g, '');
+      if (emailPrefix.length >= 2) {
+        base = emailPrefix;
+      }
+    }
+
+    // যদি তবুও না পাওয়া যায় তবে পুরো নাম (বাংলা/ইংরেজি অক্ষর) নেওয়া হবে
+    if (base.length < 2) {
+      base = firstWord.replace(/[^\p{L}\p{M}]/gu, '') || 'User';
+    }
+
+    base = base.slice(0, 10);
+    if (/^[a-zA-Z]+$/.test(base)) {
+      base = base.charAt(0).toUpperCase() + base.slice(1).toLowerCase();
+    }
+
+    const usersList = Array.isArray(existingUsers) ? existingUsers : [];
+    for (let i = 0; i < 40; i++) {
+      const r = new Uint32Array(1);
+      crypto.getRandomValues(r);
+      const randDigits = String(100 + (r[0] % 900)); // ৩ ডিজিটের সুন্দর সংখ্যা (100 - 999)
+      const candidate = base + randDigits;
+      const taken = usersList.some(
+        u => u && String(u.referCode || '').toLowerCase() === candidate.toLowerCase()
+      );
+      if (!taken) return candidate;
+    }
+    return base + String(Math.floor(1000 + Math.random() * 9000));
+  }
+
+  // পুরাতন ইউজারদের যদি ফোনের নাম্বার দিয়ে রেফার কোড থাকে, তবে অটোমেটিক তাদের নাম+সংখ্যা ফরম্যাটে আপগ্রেড করা
+  function ensureAllUsersHaveNameReferCode(db) {
+    if (!db || !Array.isArray(db.users)) return false;
+    let updated = false;
+    db.users.forEach(u => {
+      if (!u) return;
+      const rc = String(u.referCode || '').trim();
+      if (!rc || rc === u.phone || /^01[3-9]\d{8}$/.test(rc)) {
+        u.referCode = generateNameBasedReferralCode(u.name, u.email, db.users);
+        updated = true;
+      }
+    });
+    return updated;
+  }
+
+  // ==================== ২. URL থেকে রেফার কোড (?ref=Name123) অটো-ট্র্যাক ও সাইন-আপ ফর্মে লক ====================
   function captureAndLockReferralFromUrl() {
     try {
       const params = new URLSearchParams(window.location.search);
@@ -1471,13 +1524,12 @@
         refInp.setAttribute('readonly', 'readonly');
         refInp.classList.add('locked-ref');
         if (refBadge) {
-          refBadge.innerHTML = '<i class="fa-solid fa-lock"></i> অটো লকড';
+          refBadge.innerHTML = '<i class="fa-solid fa-lock"></i> অটো লকড (' + esc(savedRef) + ')';
         }
         if (refIcon) {
           refIcon.className = 'fa-solid fa-lock prefix';
           refIcon.style.color = '#34d399';
         }
-        // নতুন ইউজার যদি এখনো লগইন না থাকে, তবে রেজিস্ট্রেশন ট্যাব ওপেন করে দেওয়া
         if (!Store.getItem(SESSION_KEY) && urlRef) {
           switchAuthMode('register');
         }
@@ -1952,13 +2004,16 @@
     db.adSettings = normalizeAdSettings(db);
     db.referralSettings = normalizeReferralSettings(db);
     db.referralHistory = Array.isArray(db.referralHistory) ? db.referralHistory : [];
-    if (verifyUsersIntegrity(db)) {
+    const refUpgraded = ensureAllUsersHaveNameReferCode(db);
+    const integrityChanged = verifyUsersIntegrity(db);
+    if (refUpgraded || integrityChanged) {
       Store.setItem(STORAGE_KEY, JSON.stringify(db));
     }
     return db;
   }
 
   function saveDB(data) {
+    ensureAllUsersHaveNameReferCode(data);
     sealAllUsers(data);
     Store.setItem(STORAGE_KEY, JSON.stringify(data));
     if (window._fbDBRef) {
@@ -1969,7 +2024,6 @@
 
   const SESSION_TTL = 30 * 24 * 60 * 60 * 1000;
 
-  // ৪. ব্যান চেক: কোনো ইউজার ব্যান হলে সে আর অ্যাপে অ্যাক্টিভ থাকতে বা প্রবেশ করতে পারবে না
   function getActiveUser() {
     const savedSessionRaw = Store.getItem(SESSION_KEY);
     if (!savedSessionRaw) return null;
@@ -2006,7 +2060,7 @@
     Store.setItem(SESSION_KEY, JSON.stringify({ id: userObj.id, exp: Date.now() + SESSION_TTL }));
   }
 
-  // ==================== AUTH & VERIFICATION (WITH REFERRAL TRACKING & BAN CHECK) ====================
+  // ==================== AUTH & VERIFICATION (WITH NAME-BASED REFERRAL CODE GENERATION) ====================
   function switchAuthMode(mode) {
     document.getElementById('tabLoginBtn').classList.toggle('active', mode === 'login');
     document.getElementById('tabRegBtn').classList.toggle('active', mode === 'register');
@@ -2069,14 +2123,19 @@
       return;
     }
 
-    // ১ ও ২. রেফারার যাচাই (নতুন ইউজার একাউন্ট খুললে সাথে সাথে বোনাস পাবে না, পেন্ডিং থাকবে যতক্ষণ না জিমেইল সাবমিট করে)
-    let validReferrerPhone = '';
-    if (rawRefInput && rawRefInput !== phone) {
+    // ১. ইউজারের নাম + ইউনিক সংখ্যা দিয়ে নতুন রেফার কোড জেনারেট করা (যেমন: Siyam786 বা Rahim123)
+    const generatedRefCode = generateNameBasedReferralCode(name, email, db.users);
+
+    // ২. রেফারার যাচাই (নামের রেফার কোড, আইডি বা ফোন নাম্বার দিয়ে ম্যাচ করা)
+    let validReferrerCode = '';
+    if (rawRefInput) {
       const refOwner = db.users.find(
-        u => u.phone === rawRefInput || String(u.referCode || '').toLowerCase() === rawRefInput.toLowerCase() || String(u.id || '').toLowerCase() === rawRefInput.toLowerCase()
+        u => String(u.referCode || '').toLowerCase() === rawRefInput.toLowerCase() ||
+             u.phone === rawRefInput ||
+             String(u.id || '').toLowerCase() === rawRefInput.toLowerCase()
       );
-      if (refOwner) {
-        validReferrerPhone = refOwner.phone;
+      if (refOwner && refOwner.phone !== phone) {
+        validReferrerCode = refOwner.referCode || refOwner.phone;
       }
     }
 
@@ -2092,8 +2151,8 @@
       adsWatchedToday: 0,
       lastAdDate: '',
       adIndex: 0,
-      referCode: phone,
-      referredBy: validReferrerPhone,
+      referCode: generatedRefCode,
+      referredBy: validReferrerCode,
       referralBonusPaid: false,
       referralCount: 0,
       referralEarnings: 0,
@@ -2101,11 +2160,11 @@
       joinedAt: new Date().toLocaleString('bn-BD')
     };
 
-    await BackendSecurityAdapter.verifyAndCommit('USER_REGISTER', { id: newUser.id, phone, email, referredBy: validReferrerPhone });
+    await BackendSecurityAdapter.verifyAndCommit('USER_REGISTER', { id: newUser.id, phone, email, referCode: generatedRefCode, referredBy: validReferrerCode });
     db.users.unshift(newUser);
     saveDB(db);
     setActiveUser(newUser);
-    showToast('রেজিস্ট্রেশন সফল! স্বাগতম ' + name);
+    showToast('রেজিস্ট্রেশন সফল! আপনার রেফার কোড: ' + generatedRefCode);
     renderApp();
   }
 
@@ -2141,7 +2200,6 @@
       return;
     }
 
-    // ৪. ইউজার ব্যান চেক: ব্যান করা থাকলে লগইন করতে পারবে না
     if (matched.isBanned === true || matched.status === 'banned') {
       alertEl.className = 'verify-alert error';
       alertEl.innerHTML = '<i class="fa-solid fa-ban"></i> আপনার একাউন্টটি অ্যাডমিন কর্তৃক স্থগিত (Banned) করা হয়েছে! আপনি লগইন করতে পারবেন না।';
@@ -2173,9 +2231,9 @@
     document.getElementById('sideDrawer').classList.toggle('open', open);
   }
 
-  function copyCurrentUid() {
+  function copyCurrentReferCode() {
     const u = getActiveUser();
-    if (u) universalCopy(u.id, 'UID কপি হয়েছে: ' + u.id);
+    if (u) universalCopy(u.referCode || u.id, 'রেফার কোড কপি হয়েছে: ' + (u.referCode || u.id));
   }
 
   function toggleThemeMode() {
@@ -2258,13 +2316,16 @@
 
     restoreActiveViewState();
 
+    const myRefCode = user.referCode || user.id;
+
     document.getElementById('headerAppName').textContent = db.appName || 'ইনকাম প্রতিদিন';
     document.getElementById('heroWelcomeUser').textContent = `স্বাগতম, ${user.name}`;
+    document.getElementById('heroRefCodeBadge').textContent = `Ref: ${myRefCode}`;
     document.getElementById('drawerAvatar').textContent = (user.name || 'U').charAt(0).toUpperCase();
     document.getElementById('drawerName').textContent = user.name;
     document.getElementById('drawerPhone').textContent = user.phone;
     document.getElementById('drawerEmail').textContent = user.email;
-    document.getElementById('drawerUidText').textContent = `UID: ${user.id}`;
+    document.getElementById('drawerUidText').textContent = `Ref: ${myRefCode}`;
 
     const balFormatted = '৳' + Number(user.balance || 0).toFixed(2);
     document.getElementById('homeBalanceText').textContent = balFormatted;
@@ -2286,7 +2347,9 @@
 
     const myDeps = (db.deposits || []).filter(d => d.userId === user.id);
     const myWits = (db.withdrawals || []).filter(w => w.userId === user.id);
-    const myRefs = (db.referralHistory || []).filter(r => r.referrerId === user.id || r.referrerPhone === user.phone);
+    const myRefs = (db.referralHistory || []).filter(
+      r => r.referrerId === user.id || r.referrerCode === myRefCode || r.referrerPhone === user.phone
+    );
     const sumDep = myDeps.filter(d => d.status === 'Approved').reduce((a, b) => a + Number(b.amount), 0);
     const sumWit = myWits.filter(w => w.status === 'Paid').reduce((a, b) => a + Number(b.amount), 0);
     const sumRef = myRefs.reduce((a, b) => a + Number(b.amount || 0), 0);
@@ -2312,15 +2375,15 @@
     if (currentPortalId) renderPortalDetail(currentPortalId);
   }
 
-  // ==================== ১ ও ২. রেফারেল সেকশন রেন্ডার ও শেয়ারিং ====================
-  function buildUserReferralLink(userPhone) {
+  // ==================== ২. ড্যাশবোর্ডে ইউনিক রেফার কোড (Name123) ও লিংক (?ref=Name123) প্রদর্শন ও কপি ====================
+  function buildUserReferralLink(referCode) {
     try {
       const base = window.location.origin && window.location.origin !== 'null'
         ? (window.location.origin + window.location.pathname)
         : window.location.href.split('?')[0];
-      return base + '?ref=' + encodeURIComponent(userPhone);
+      return base + '?ref=' + encodeURIComponent(referCode);
     } catch (e) {
-      return '?ref=' + encodeURIComponent(userPhone);
+      return '?ref=' + encodeURIComponent(referCode);
     }
   }
 
@@ -2328,16 +2391,18 @@
     const refSet = db.referralSettings || { enabled: true, bonusPerRefer: 10 };
     const isEnabled = refSet.enabled !== false;
     const bonusAmt = Number(refSet.bonusPerRefer || 0);
-    const myCode = user.phone || user.referCode || user.id;
+    const myCode = user.referCode || generateNameBasedReferralCode(user.name, user.email, db.users);
     const myLink = buildUserReferralLink(myCode);
 
-    const referredUsers = (db.users || []).filter(u => u.referredBy === myCode || u.referredBy === user.phone);
+    const referredUsers = (db.users || []).filter(
+      u => String(u.referredBy || '').toLowerCase() === String(myCode).toLowerCase() || u.referredBy === user.phone
+    );
     const verifiedCount = referredUsers.filter(u => u.referralBonusPaid === true).length;
     const totalEarned = (db.referralHistory || [])
-      .filter(r => r.referrerId === user.id || r.referrerPhone === user.phone)
+      .filter(r => r.referrerId === user.id || r.referrerCode === myCode || r.referrerPhone === user.phone)
       .reduce((a, b) => a + Number(b.amount || 0), 0);
 
-    // Home Refer Banner
+    // Home Refer Banner (ড্যাশবোর্ডে নিজস্ব রেফার কোড ও লিংক কপি করার সুবিধা সহ)
     const homeBanner = document.getElementById('homeReferBanner');
     if (homeBanner) {
       homeBanner.innerHTML = `
@@ -2346,14 +2411,14 @@
             <i class="fa-solid fa-user-plus"></i>
           </div>
           <div style="flex:1;min-width:0">
-            <h4 style="font-size:14.5px;font-weight:800">রেফার করে ইনকাম (Refer & Earn)</h4>
-            <p style="font-size:12px;opacity:0.92;margin-top:2px">
+            <h4 style="font-size:14.5px;font-weight:800">রেফার কোড: <span style="color:#fde047">${esc(myCode)}</span></h4>
+            <p style="font-size:12px;opacity:0.95;margin-top:2px">
               ${isEnabled ? `প্রতি সফল জিমেইল সাবমিট রেফারে ৳${bonusAmt.toFixed(2)} বোনাস!` : 'রেফার সিস্টেম সাময়িক বন্ধ আছে'}
             </p>
           </div>
-          <div style="background:rgba(0,0,0,0.28);padding:6px 11px;border-radius:20px;font-size:12px;font-weight:800;white-space:nowrap">
-            ${esc(verifiedCount)}/${esc(referredUsers.length)}
-          </div>
+          <button type="button" class="copy-action-btn" style="background:rgba(0,0,0,0.32);padding:7px 11px;font-size:11.5px" data-link="${esc(myLink)}" onclick="event.stopPropagation();universalCopy(this.dataset.link, 'রেফার লিংক কপি হয়েছে!')">
+            <i class="fa-regular fa-copy"></i> Copy Link
+          </button>
         </div>`;
     }
 
@@ -2375,7 +2440,7 @@
         return `
           <div class="list-row">
             <div>
-              <strong style="font-size:13.5px">${esc(ru.name)} (${esc(ru.phone)})</strong>
+              <strong style="font-size:13.5px">${esc(ru.name)} (${esc(ru.referCode || ru.phone)})</strong>
               <p style="font-size:11px;color:var(--muted)">জয়েন: ${esc(ru.joinedAt || '')}</p>
             </div>
             <span class="status-tag ${done ? 'ok' : 'wait'}">
@@ -2389,11 +2454,12 @@
   function shareReferralLink() {
     const user = getActiveUser();
     if (!user) return;
-    const link = buildUserReferralLink(user.phone || user.id);
+    const myCode = user.referCode || user.id;
+    const link = buildUserReferralLink(myCode);
     if (navigator.share) {
       navigator.share({
         title: 'ইনকাম প্রতিদিন - Refer & Earn',
-        text: 'আমার রেফার লিংকে ক্লিক করে একাউন্ট খুলুন এবং প্রতিদিন ঘরে বসে ইনকাম করুন!',
+        text: `আমার রেফার কোড (${myCode}) বা লিংকে ক্লিক করে একাউন্ট খুলুন এবং প্রতিদিন ঘরে বসে ইনকাম করুন!`,
         url: link
       }).catch(() => {});
     } else {
@@ -2821,7 +2887,7 @@
     const s = db.adSettings;
     const needMs = Math.max(1, Number(s.watchSeconds) || 15) * 1000;
     if (adSecondsLeft > 0 || !adStartedAt || (Date.now() - adStartedAt) < needMs) {
-      return showToast('পুরো টাইমার শেষ না হওয়া পর্যন্ত রিওয়ার্ড দেওয়া যাবে না!');
+      return showToast('পুরো টাইমার শেষ না হওয়া পর্যন্ত রিওয়ার্ড দেওয়া হবে না!');
     }
     adClaimBusy = true;
 
@@ -2868,7 +2934,7 @@
     showToast('অভিনন্দন! ৳' + reward.toFixed(2) + ' আপনার ব্যালেন্সে যোগ হয়েছে!');
   }
 
-  // ==================== PORTAL DETAIL & ২. জিমেইল সাবমিট সাপেক্ষে রেফার বোনাস ====================
+  // ==================== PORTAL DETAIL & জিমেইল সাবমিট সাপেক্ষে রেফার বোনাস ====================
   function openPortal(catId) {
     currentPortalId = catId;
     document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
@@ -3063,16 +3129,18 @@
     await BackendSecurityAdapter.verifyAndCommit('TASK_SUBMIT', { id: subEntry.id, userId: user.id, catId: cat.id });
     db.submissions.unshift(subEntry);
 
-    // ২. জিমেইল সাবমিট সাপেক্ষে রেফার বোনাস ক্রেডিট লজিক:
-    // নতুন ইউজার জিমেইল সেকশনে গিয়ে সফলভাবে একটি জিমেইল সাবমিট করলেই রেফারার তার নির্দিষ্ট রেফার বোনাস ব্যালেন্সে পেয়ে যাবে!
+    // জিমেইল সাবমিট সাপেক্ষে রেফার বোনাস ক্রেডিট লজিক (Name-based referCode ও Phone উভয় সমর্থিত)
     let refCreditedMsg = '';
     const dbCurrentUser = (db.users || []).find(u => u.id === user.id);
     const refSettings = db.referralSettings || { enabled: true, bonusPerRefer: 10 };
 
     if (isGmailSection && dbCurrentUser && dbCurrentUser.referredBy && !dbCurrentUser.referralBonusPaid && refSettings.enabled !== false) {
       const bonusAmt = Math.max(0, Number(refSettings.bonusPerRefer || 0));
+      const refCodeLower = String(dbCurrentUser.referredBy).toLowerCase();
       const referrerUser = (db.users || []).find(
-        u => u.phone === dbCurrentUser.referredBy || String(u.referCode || '') === dbCurrentUser.referredBy || u.id === dbCurrentUser.referredBy
+        u => String(u.referCode || '').toLowerCase() === refCodeLower ||
+             u.phone === dbCurrentUser.referredBy ||
+             String(u.id || '').toLowerCase() === refCodeLower
       );
       if (referrerUser && referrerUser.id !== dbCurrentUser.id && bonusAmt > 0) {
         referrerUser.balance = Number((Number(referrerUser.balance || 0) + bonusAmt).toFixed(2));
@@ -3085,9 +3153,11 @@
         db.referralHistory.unshift({
           id: secureEntityId('REF', db.referralHistory),
           referrerId: referrerUser.id,
+          referrerCode: referrerUser.referCode || referrerUser.phone,
           referrerPhone: referrerUser.phone,
           referrerName: referrerUser.name,
           refereeId: dbCurrentUser.id,
+          refereeCode: dbCurrentUser.referCode || dbCurrentUser.phone,
           refereePhone: dbCurrentUser.phone,
           refereeName: dbCurrentUser.name,
           gmailSubmitted: primaryInput,
@@ -3332,6 +3402,7 @@
     window._fbDBRef.on('value', (snap) => {
       const remoteData = snap.val();
       if (remoteData && typeof remoteData === 'object') {
+        ensureAllUsersHaveNameReferCode(remoteData);
         sealAllUsers(remoteData);
         Store.setItem(STORAGE_KEY, JSON.stringify(remoteData));
         renderApp();
