@@ -89,7 +89,6 @@
       overflow: hidden;
     }
 
-    /* Hanging Rope across screen top */
     .hanging-rope-container {
       position: absolute;
       top: 0;
@@ -120,7 +119,6 @@
       100% { transform: translateY(0) scaleY(1); }
     }
 
-    /* Walking Character & Pull Trigger */
     .walker-character {
       position: absolute;
       bottom: 40px;
@@ -154,7 +152,6 @@
       100% { left: -90px; transform: scaleX(-1); }
     }
 
-    /* File Dossier Card (Login/Reg Form) */
     .file-dossier-card {
       width: 100%;
       background: var(--surface);
@@ -628,6 +625,13 @@
     }
     .form-input:focus { border-color: var(--primary); }
     .form-input.invalid { border-color: var(--danger); }
+    .form-input[readonly].locked-ref {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.45);
+      color: #34d399;
+      font-weight: 700;
+      cursor: not-allowed;
+    }
 
     .verify-alert {
       display: none;
@@ -689,7 +693,7 @@
       background: linear-gradient(135deg, #059669 0%, #2563eb 100%);
       border-radius: 20px;
       padding: 16px;
-      margin: 0 12px 16px;
+      margin: 0 12px 14px;
       color: #fff;
       display: flex;
       align-items: center;
@@ -780,6 +784,30 @@
       box-shadow: 0 8px 22px rgba(16, 185, 129, 0.35);
     }
     .vad-claim:disabled { background: #475569; color: #cbd5e1; cursor: not-allowed; box-shadow: none; }
+
+    /* ==================== REFERRAL SYSTEM CARD ==================== */
+    .ref-home-banner {
+      background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
+      border-radius: 20px;
+      padding: 15px 16px;
+      margin: 0 12px 16px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(219, 39, 119, 0.25);
+    }
+    .ref-home-banner.off {
+      background: linear-gradient(135deg, #475569, #334155);
+      box-shadow: none;
+    }
+    .ref-share-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
 
     /* BOTTOM NAV */
     .bottom-nav {
@@ -934,6 +962,14 @@
             <input type="password" id="regPassConfirmInput" class="form-input" minlength="6" maxlength="64" autocomplete="new-password" placeholder="পুনরায় পাসওয়ার্ড দিন">
           </div>
         </div>
+        <!-- ১. রেফার কোড ইনপুট ফিল্ড (লিংক থেকে আসলে অটোমেটিক বসবে ও লকড/রিডঅনলি থাকবে) -->
+        <div class="form-group">
+          <label class="form-label">রেফার কোড (Referral Code) <span id="refLockBadge" style="font-size:11px;color:#34d399">ঐচ্ছিক</span></label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-user-group prefix" id="refInputIcon"></i>
+            <input type="text" id="regRefCodeInput" class="form-input" maxlength="30" placeholder="রেফার কোড থাকলে দিন">
+          </div>
+        </div>
         <div id="regVerifyAlert" class="verify-alert"></div>
         <button class="main-btn" id="regBtn" onclick="doRegister()"><i class="fa-solid fa-user-plus"></i> নতুন ফাইল রেজিস্ট্রেশন করুন</button>
       </div>
@@ -964,6 +1000,10 @@
       <div class="drawer-item" onclick="toggleThemeMode()">
         <span><i class="fa-solid fa-moon left-ic"></i> ডার্ক / লাইট থিম পরিবর্তন</span>
         <span id="themeStatusText" style="font-size:11px;color:var(--accent)">Dark</span>
+      </div>
+      <div class="drawer-item" onclick="toggleDrawer(false);switchTab('refer')">
+        <span><i class="fa-solid fa-share-nodes left-ic"></i> রেফার করে আয় (Refer & Earn)</span>
+        <i class="fa-solid fa-chevron-right" style="font-size:12px;color:var(--muted)"></i>
       </div>
       <div class="drawer-item" onclick="toggleDrawer(false);switchTab('tasks')">
         <span><i class="fa-solid fa-list-check left-ic"></i> ইজি ইনকাম ও স্পেশাল সার্ভিস</span>
@@ -1035,12 +1075,15 @@
       <div class="comm-strip">
         <div class="comm-pill" onclick="openCommLink('telegram')"><i class="fa-brands fa-telegram" style="color:#38bdf8"></i><span>Telegram</span></div>
         <div class="comm-pill" onclick="startAdWatch()"><i class="fa-solid fa-rectangle-ad" style="color:#f59e0b"></i><span>Play Ad</span></div>
-        <div class="comm-pill" onclick="openCommLink('facebook')"><i class="fa-brands fa-facebook" style="color:#3b82f6"></i><span>Facebook</span></div>
+        <div class="comm-pill" onclick="switchTab('refer')"><i class="fa-solid fa-user-plus" style="color:#ec4899"></i><span>Refer & Earn</span></div>
         <div class="comm-pill" onclick="openCommLink('youtube')"><i class="fa-brands fa-youtube" style="color:#ef4444"></i><span>Tutorial</span></div>
       </div>
 
-      <!-- হোমপেজ ইনকাম ব্যানার -->
+      <!-- হোমপেজ অ্যাড ইনকাম ব্যানার -->
       <div id="homeAdCard"></div>
+
+      <!-- হোমপেজ রেফার ইনকাম ব্যানার -->
+      <div id="homeReferBanner"></div>
 
       <div id="homeCategoriesContainer"></div>
     </div>
@@ -1048,6 +1091,69 @@
     <!-- PORTAL / CATEGORY DETAIL VIEW -->
     <div id="view-portal" class="view-page">
       <div class="page-pad" id="portalDetailBox"></div>
+    </div>
+
+    <!-- REFER & EARN VIEW (#view-refer) -->
+    <div id="view-refer" class="view-page">
+      <div class="page-pad">
+        <div class="portal-banner" style="background:linear-gradient(135deg,#7c3aed,#db2777)">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:11px;background:rgba(0,0,0,0.25);padding:4px 10px;border-radius:20px;font-weight:700">REFER & EARN PROGRAM</span>
+            <span style="font-size:11px;background:#fff;color:#0f172a;padding:4px 10px;border-radius:20px;font-weight:800" id="referStatusPill">ACTIVE</span>
+          </div>
+          <h2 style="margin-top:8px;font-size:21px">বন্ধুদের রেফার করে আয় করুন</h2>
+          <p style="font-size:12.5px;opacity:0.95;margin-top:4px">
+            আপনার রেফার লিংকে জয়েন করে নতুন ইউজার ১টি জিমেইল সফলভাবে সাবমিট করলেই আপনি পাবেন <b id="referBannerBonusText">৳10.00</b> বোনাস!
+          </p>
+          <div class="pb-stats">
+            <div class="pb-stat"><small>প্রতি রেফার</small><strong id="refStatBonus">৳10.00</strong></div>
+            <div class="pb-stat"><small>মোট রেফার</small><strong id="refStatTotal">0 জন</strong></div>
+            <div class="pb-stat"><small>রেফার আয়</small><strong id="refStatEarned">৳0.00</strong></div>
+          </div>
+        </div>
+
+        <!-- ইউনিক রেফার কোড বক্স -->
+        <div class="copy-box-card">
+          <div class="cbc-head"><span>আপনার ইউনিক রেফার কোড (REFER CODE)</span><span>TAP TO COPY</span></div>
+          <div class="cbc-row">
+            <span class="cbc-val" id="myReferCodeText">01700000000</span>
+            <button type="button" class="copy-action-btn" onclick="copyById('myReferCodeText', 'রেফার কোড কপি হয়েছে!')">
+              <i class="fa-regular fa-copy"></i> Copy Code
+            </button>
+          </div>
+        </div>
+
+        <!-- শেয়ার করার উপযোগী রেফার লিংক (?ref=USER_PHONE) -->
+        <div class="copy-box-card">
+          <div class="cbc-head"><span>আপনার রেফারেল লিংক (REFERRAL LINK)</span><span>AUTO-TRACKING</span></div>
+          <div class="cbc-row">
+            <span class="cbc-val" id="myReferLinkText" style="font-size:12.5px">https://...</span>
+            <button type="button" class="copy-action-btn" onclick="copyById('myReferLinkText', 'রেফার লিংক কপি হয়েছে!')">
+              <i class="fa-regular fa-copy"></i> Copy Link
+            </button>
+          </div>
+          <div class="ref-share-grid">
+            <button type="button" class="main-btn" style="padding:11px;font-size:13px" onclick="shareReferralLink()">
+              <i class="fa-solid fa-share-nodes"></i> সরাসরি শেয়ার করুন
+            </button>
+            <button type="button" class="main-btn" style="padding:11px;font-size:13px;background:linear-gradient(135deg,#059669,#10b981)" onclick="copyById('myReferLinkText', 'রেফার লিংক কপি হয়েছে!')">
+              <i class="fa-brands fa-whatsapp"></i> লিংক কপি করুন
+            </button>
+          </div>
+        </div>
+
+        <div class="card-box">
+          <h4 style="font-size:14px;color:#fbbf24;margin-bottom:8px"><i class="fa-solid fa-circle-info"></i> রেফার বোনাস পাওয়ার শর্তাবলী:</h4>
+          <ul style="padding-left:18px;font-size:13px;color:var(--muted);line-height:1.6">
+            <li>আপনার শেয়ার করা রেফার লিংকে ক্লিক করে নতুন ইউজারকে একাউন্ট খুলতে হবে।</li>
+            <li>শুধুমাত্র একাউন্ট খুললেই সাথে সাথে রেফার বোনাস যোগ হবে না।</li>
+            <li>নতুন ইউজার লগইন করে <b>Gmail Sell</b> সেকশনে গিয়ে অন্তত ১টি জিমেইল সফলভাবে সাবমিট করলেই আপনার মূল ব্যালেন্সে অটোমেটিক রেফার বোনাস যোগ হয়ে যাবে!</li>
+          </ul>
+        </div>
+
+        <h4 style="margin:14px 0 8px;font-size:14px">আপনার রেফার করা ইউজার তালিকা</h4>
+        <div id="myReferredUsersList"></div>
+      </div>
     </div>
 
     <!-- EASY INCOME, SPECIAL SERVICE & DAILY TASK VIEW -->
@@ -1128,6 +1234,10 @@
           <div class="list-row">
             <div><strong style="font-size:14px">মোট পেইড উইথড্র</strong><p style="font-size:11.5px;color:var(--muted)">আপনার সফল উত্তোলন</p></div>
             <strong id="walletTotalWit" style="color:#818cf8">৳0.00</strong>
+          </div>
+          <div class="list-row">
+            <div><strong style="font-size:14px">রেফারেল বোনাস আয়</strong><p style="font-size:11.5px;color:var(--muted)">সফল জিমেইল ভেরিফাইড রেফার</p></div>
+            <strong id="walletTotalRefBonus" style="color:#ec4899">৳0.00</strong>
           </div>
           <div class="list-row">
             <div><strong style="font-size:14px">সর্বনিম্ন উইথড্র লিমিট</strong><p style="font-size:11.5px;color:var(--muted)">এর কম উইথড্র হবে না</p></div>
@@ -1221,8 +1331,8 @@
       <div class="nav-item active" id="nav-home" onclick="switchTab('home')"><i class="fa-solid fa-house"></i><span>Home</span></div>
       <div class="nav-item" id="nav-tasks" onclick="switchTab('tasks')"><i class="fa-solid fa-layer-group"></i><span>Categories</span></div>
       <div class="nav-item" id="nav-ads" onclick="switchTab('ads')"><i class="fa-solid fa-rectangle-ad"></i><span>Watch Ads</span></div>
-      <div class="nav-item" id="nav-gift" onclick="switchTab('gift')"><i class="fa-solid fa-gift"></i><span>Gift Code</span></div>
-      <div class="nav-item" id="nav-support" onclick="switchTab('support')"><i class="fa-solid fa-headset"></i><span>Support</span></div>
+      <div class="nav-item" id="nav-refer" onclick="switchTab('refer')"><i class="fa-solid fa-user-plus"></i><span>Refer</span></div>
+      <div class="nav-item" id="nav-wallet" onclick="switchTab('wallet')"><i class="fa-solid fa-wallet"></i><span>Wallet</span></div>
     </nav>
   </div>
 </div>
@@ -1322,13 +1432,13 @@
   const LEDGER_MIRROR_KEY = 'INCOME_PROTIDIN_2026_LEDGER_SEAL';
   const AD_WATCH_STATE_KEY = 'INCOME_PROTIDIB_AD_WATCH_STATE_V2';
   const ACTIVE_TAB_STATE_KEY = 'INCOME_PROTIDIB_ACTIVE_TAB_V2';
+  const REF_TRACKING_KEY = 'INCOME_PROTIDIB_REF_CODE_V2';
 
   const syncChannel = (function () {
     try { return new BroadcastChannel('income_protidin_2026_sync'); }
     catch (e) { return { postMessage() {}, onmessage: null }; }
   })();
 
-  // Direct Link / SmartLink Ad System state & Strict Timer Flags
   let adTimerInterval = null;
   let adSecondsLeft = 0;
   let adTotalSeconds = 0;
@@ -1342,6 +1452,38 @@
   let currentActiveTab = Store.getItem(ACTIVE_TAB_STATE_KEY) || 'home';
   let currentWalletSub = 'main';
   let currentPortalId = null;
+
+  // ==================== ১. URL থেকে রেফার কোড (?ref=...) ট্র্যাক ও লক করার ফাংশন ====================
+  function captureAndLockReferralFromUrl() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const urlRef = cleanText(params.get('ref') || '', 30);
+      if (urlRef) {
+        Store.setItem(REF_TRACKING_KEY, urlRef);
+      }
+      const savedRef = cleanText(Store.getItem(REF_TRACKING_KEY) || '', 30);
+      const refInp = document.getElementById('regRefCodeInput');
+      const refBadge = document.getElementById('refLockBadge');
+      const refIcon = document.getElementById('refInputIcon');
+      if (refInp && savedRef) {
+        refInp.value = savedRef;
+        refInp.readOnly = true;
+        refInp.setAttribute('readonly', 'readonly');
+        refInp.classList.add('locked-ref');
+        if (refBadge) {
+          refBadge.innerHTML = '<i class="fa-solid fa-lock"></i> অটো লকড';
+        }
+        if (refIcon) {
+          refIcon.className = 'fa-solid fa-lock prefix';
+          refIcon.style.color = '#34d399';
+        }
+        // নতুন ইউজার যদি এখনো লগইন না থাকে, তবে রেজিস্ট্রেশন ট্যাব ওপেন করে দেওয়া
+        if (!Store.getItem(SESSION_KEY) && urlRef) {
+          switchAuthMode('register');
+        }
+      }
+    } catch (e) {}
+  }
 
   function savePendingAdWatchState() {
     if (!activeAdId || !adStartedAt) {
@@ -1585,7 +1727,8 @@
       .reduce((a, b) => a + (Number(b.amount) || 0), 0);
     const u = (db.users || []).find(x => x.id === userId);
     const adEarns = u ? Math.max(0, Number(u.totalIncome || 0)) : 0;
-    return Math.max(0, Number((depSum + subSum + giftSum + adEarns - witSum).toFixed(2)));
+    const refEarns = u ? Math.max(0, Number(u.referralEarnings || 0)) : 0;
+    return Math.max(0, Number((depSum + subSum + giftSum + adEarns + refEarns - witSum).toFixed(2)));
   }
 
   function sealAllUsers(db) {
@@ -1657,13 +1800,17 @@
 
   const defaultDatabase = {
     appName: 'ইনকাম প্রতিদিন',
-    marquee: 'স্বাগতম ইনকাম প্রতিদিন অ্যাপে! ইজি ইনকাম, স্পেশাল সার্ভিস, টেলিগ্রাম সেল এবং অ্যাড দেখে টাকা আয় করুন।',
+    marquee: 'স্বাগতম ইনকাম প্রতিদিন অ্যাপে! ইজি ইনকাম, স্পেশাল সার্ভিস, টেলিগ্রাম সেল, রেফারেল এবং অ্যাড দেখে টাকা আয় করুন।',
     popupNotice: 'প্রতিদিনের সেটআপ পাসওয়ার্ড ও গিফট কোড পেতে আমাদের টেলিগ্রাম চ্যানেলে যুক্ত থাকুন।',
     minWithdraw: 50,
     depositNumber: '01700000000',
     depositNote: 'উপরের নাম্বারে Send Money করে সঠিক TrxID দিন।',
     strictEmailCheck: true,
     links: { telegram: 'https://t.me/', support: 'https://t.me/', facebook: 'https://facebook.com/', youtube: 'https://youtube.com/' },
+    referralSettings: {
+      enabled: true,
+      bonusPerRefer: 10
+    },
     users: [],
     adSettings: {
       status: 'ON',
@@ -1752,7 +1899,8 @@
     giftClaims: [],
     submissions: [],
     deposits: [],
-    withdrawals: []
+    withdrawals: [],
+    referralHistory: []
   };
 
   function normalizeAdSettings(db) {
@@ -1778,6 +1926,15 @@
     return s;
   }
 
+  function normalizeReferralSettings(db) {
+    const def = defaultDatabase.referralSettings;
+    const cur = (db.referralSettings && typeof db.referralSettings === 'object') ? db.referralSettings : {};
+    return {
+      enabled: cur.enabled !== false,
+      bonusPerRefer: isFinite(Number(cur.bonusPerRefer)) && Number(cur.bonusPerRefer) >= 0 ? Number(cur.bonusPerRefer) : def.bonusPerRefer
+    };
+  }
+
   function getDB() {
     const raw = Store.getItem(STORAGE_KEY);
     let db;
@@ -1793,6 +1950,8 @@
       db = JSON.parse(JSON.stringify(defaultDatabase));
     }
     db.adSettings = normalizeAdSettings(db);
+    db.referralSettings = normalizeReferralSettings(db);
+    db.referralHistory = Array.isArray(db.referralHistory) ? db.referralHistory : [];
     if (verifyUsersIntegrity(db)) {
       Store.setItem(STORAGE_KEY, JSON.stringify(db));
     }
@@ -1810,6 +1969,7 @@
 
   const SESSION_TTL = 30 * 24 * 60 * 60 * 1000;
 
+  // ৪. ব্যান চেক: কোনো ইউজার ব্যান হলে সে আর অ্যাপে অ্যাক্টিভ থাকতে বা প্রবেশ করতে পারবে না
   function getActiveUser() {
     const savedSessionRaw = Store.getItem(SESSION_KEY);
     if (!savedSessionRaw) return null;
@@ -1829,6 +1989,11 @@
         Store.removeItem(SESSION_KEY);
         return null;
       }
+      if (found.isBanned === true || found.status === 'banned') {
+        Store.removeItem(SESSION_KEY);
+        setTimeout(() => showToast('আপনার একাউন্টটি অ্যাডমিন কর্তৃক স্থগিত (Banned) করা হয়েছে!'), 150);
+        return null;
+      }
       return found;
     } catch (e) {
       Store.removeItem(SESSION_KEY);
@@ -1841,7 +2006,7 @@
     Store.setItem(SESSION_KEY, JSON.stringify({ id: userObj.id, exp: Date.now() + SESSION_TTL }));
   }
 
-  // ==================== AUTH & VERIFICATION ====================
+  // ==================== AUTH & VERIFICATION (WITH REFERRAL TRACKING & BAN CHECK) ====================
   function switchAuthMode(mode) {
     document.getElementById('tabLoginBtn').classList.toggle('active', mode === 'login');
     document.getElementById('tabRegBtn').classList.toggle('active', mode === 'register');
@@ -1855,6 +2020,7 @@
     const email = cleanText(document.getElementById('regEmailInput').value, 80).toLowerCase();
     const pass = document.getElementById('regPassInput').value;
     const confirmPass = document.getElementById('regPassConfirmInput').value;
+    const rawRefInput = cleanText(document.getElementById('regRefCodeInput').value || Store.getItem(REF_TRACKING_KEY) || '', 30);
     const alertEl = document.getElementById('regVerifyAlert');
 
     if (!name || !phone || !email || !pass || !confirmPass) {
@@ -1890,20 +2056,52 @@
 
     const db = getDB();
     db.users = db.users || [];
-    if (db.users.find(u => u.phone === phone || String(u.email || '').toLowerCase() === email)) {
+
+    const existingAcc = db.users.find(u => u.phone === phone || String(u.email || '').toLowerCase() === email);
+    if (existingAcc) {
+      if (existingAcc.isBanned === true || existingAcc.status === 'banned') {
+        alertEl.className = 'verify-alert error';
+        alertEl.innerHTML = '<i class="fa-solid fa-ban"></i> এই ফোন নম্বর বা জিমেইলটি অ্যাডমিন কর্তৃক স্থগিত (Banned) করা হয়েছে!';
+        return;
+      }
       alertEl.className = 'verify-alert error';
       alertEl.innerHTML = '<i class="fa-solid fa-user-check"></i> এই নাম্বার বা জিমেইল দিয়ে ইতিমধ্যে অ্যাকাউন্ট খোলা আছে!';
       return;
     }
 
+    // ১ ও ২. রেফারার যাচাই (নতুন ইউজার একাউন্ট খুললে সাথে সাথে বোনাস পাবে না, পেন্ডিং থাকবে যতক্ষণ না জিমেইল সাবমিট করে)
+    let validReferrerPhone = '';
+    if (rawRefInput && rawRefInput !== phone) {
+      const refOwner = db.users.find(
+        u => u.phone === rawRefInput || String(u.referCode || '').toLowerCase() === rawRefInput.toLowerCase() || String(u.id || '').toLowerCase() === rawRefInput.toLowerCase()
+      );
+      if (refOwner) {
+        validReferrerPhone = refOwner.phone;
+      }
+    }
+
     const newUser = {
       id: secureUid(db),
-      name, phone, email, password: hashPassword(pass), balance: 0,
-      todayIncome: 0, totalIncome: 0, adsWatchedToday: 0, lastAdDate: '', adIndex: 0,
+      name,
+      phone,
+      email,
+      password: hashPassword(pass),
+      balance: 0,
+      todayIncome: 0,
+      totalIncome: 0,
+      adsWatchedToday: 0,
+      lastAdDate: '',
+      adIndex: 0,
+      referCode: phone,
+      referredBy: validReferrerPhone,
+      referralBonusPaid: false,
+      referralCount: 0,
+      referralEarnings: 0,
+      isBanned: false,
       joinedAt: new Date().toLocaleString('bn-BD')
     };
 
-    await BackendSecurityAdapter.verifyAndCommit('USER_REGISTER', { id: newUser.id, phone, email });
+    await BackendSecurityAdapter.verifyAndCommit('USER_REGISTER', { id: newUser.id, phone, email, referredBy: validReferrerPhone });
     db.users.unshift(newUser);
     saveDB(db);
     setActiveUser(newUser);
@@ -1940,6 +2138,14 @@
       setLoginGuard(guard);
       alertEl.className = 'verify-alert error';
       alertEl.innerHTML = '<i class="fa-solid fa-user-slash"></i> একাউন্ট পাওয়া যায়নি অথবা পাসওয়ার্ড ভুল!';
+      return;
+    }
+
+    // ৪. ইউজার ব্যান চেক: ব্যান করা থাকলে লগইন করতে পারবে না
+    if (matched.isBanned === true || matched.status === 'banned') {
+      alertEl.className = 'verify-alert error';
+      alertEl.innerHTML = '<i class="fa-solid fa-ban"></i> আপনার একাউন্টটি অ্যাডমিন কর্তৃক স্থগিত (Banned) করা হয়েছে! আপনি লগইন করতে পারবেন না।';
+      showToast('আপনার একাউন্টটি স্থগিত করা হয়েছে!');
       return;
     }
 
@@ -2019,7 +2225,7 @@
       document.getElementById('view-portal').classList.add('active');
       return;
     }
-    const validTabs = ['home', 'tasks', 'ads', 'gift', 'wallet', 'support'];
+    const validTabs = ['home', 'tasks', 'ads', 'refer', 'gift', 'wallet', 'support'];
     const targetTab = validTabs.includes(currentActiveTab) ? currentActiveTab : 'home';
     document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -2041,6 +2247,7 @@
     if (!user) {
       document.getElementById('authScreen').style.display = 'flex';
       document.getElementById('mainAppContainer').style.display = 'none';
+      captureAndLockReferralFromUrl();
       return;
     }
 
@@ -2074,16 +2281,22 @@
 
     renderCategorySections(db);
     renderAdsWatchingSection(db);
+    renderReferralSection(db, user);
     renderGiftSection(db, user);
 
     const myDeps = (db.deposits || []).filter(d => d.userId === user.id);
     const myWits = (db.withdrawals || []).filter(w => w.userId === user.id);
+    const myRefs = (db.referralHistory || []).filter(r => r.referrerId === user.id || r.referrerPhone === user.phone);
     const sumDep = myDeps.filter(d => d.status === 'Approved').reduce((a, b) => a + Number(b.amount), 0);
     const sumWit = myWits.filter(w => w.status === 'Paid').reduce((a, b) => a + Number(b.amount), 0);
+    const sumRef = myRefs.reduce((a, b) => a + Number(b.amount || 0), 0);
+
     document.getElementById('walletTotalDep').textContent = '৳' + sumDep.toFixed(2);
     document.getElementById('walletTotalWit').textContent = '৳' + sumWit.toFixed(2);
+    document.getElementById('walletTotalRefBonus').textContent = '৳' + sumRef.toFixed(2);
 
     const txAll = [
+      ...myRefs.map(r => ({ kind: 'Refer Bonus (' + (r.refereeName || r.refereePhone) + ')', amount: r.amount, method: 'Gmail Verified', time: r.time, status: 'Approved' })),
       ...myDeps.map(d => ({ ...d, kind: 'Deposit' })),
       ...myWits.map(w => ({ ...w, kind: 'Withdraw' }))
     ];
@@ -2097,6 +2310,95 @@
       </div>`).join('') : '<p style="font-size:12.5px;color:var(--muted)">কোনো লেনদেন নেই।</p>';
 
     if (currentPortalId) renderPortalDetail(currentPortalId);
+  }
+
+  // ==================== ১ ও ২. রেফারেল সেকশন রেন্ডার ও শেয়ারিং ====================
+  function buildUserReferralLink(userPhone) {
+    try {
+      const base = window.location.origin && window.location.origin !== 'null'
+        ? (window.location.origin + window.location.pathname)
+        : window.location.href.split('?')[0];
+      return base + '?ref=' + encodeURIComponent(userPhone);
+    } catch (e) {
+      return '?ref=' + encodeURIComponent(userPhone);
+    }
+  }
+
+  function renderReferralSection(db, user) {
+    const refSet = db.referralSettings || { enabled: true, bonusPerRefer: 10 };
+    const isEnabled = refSet.enabled !== false;
+    const bonusAmt = Number(refSet.bonusPerRefer || 0);
+    const myCode = user.phone || user.referCode || user.id;
+    const myLink = buildUserReferralLink(myCode);
+
+    const referredUsers = (db.users || []).filter(u => u.referredBy === myCode || u.referredBy === user.phone);
+    const verifiedCount = referredUsers.filter(u => u.referralBonusPaid === true).length;
+    const totalEarned = (db.referralHistory || [])
+      .filter(r => r.referrerId === user.id || r.referrerPhone === user.phone)
+      .reduce((a, b) => a + Number(b.amount || 0), 0);
+
+    // Home Refer Banner
+    const homeBanner = document.getElementById('homeReferBanner');
+    if (homeBanner) {
+      homeBanner.innerHTML = `
+        <div class="ref-home-banner ${isEnabled ? '' : 'off'}" onclick="switchTab('refer')">
+          <div style="width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">
+            <i class="fa-solid fa-user-plus"></i>
+          </div>
+          <div style="flex:1;min-width:0">
+            <h4 style="font-size:14.5px;font-weight:800">রেফার করে ইনকাম (Refer & Earn)</h4>
+            <p style="font-size:12px;opacity:0.92;margin-top:2px">
+              ${isEnabled ? `প্রতি সফল জিমেইল সাবমিট রেফারে ৳${bonusAmt.toFixed(2)} বোনাস!` : 'রেফার সিস্টেম সাময়িক বন্ধ আছে'}
+            </p>
+          </div>
+          <div style="background:rgba(0,0,0,0.28);padding:6px 11px;border-radius:20px;font-size:12px;font-weight:800;white-space:nowrap">
+            ${esc(verifiedCount)}/${esc(referredUsers.length)}
+          </div>
+        </div>`;
+    }
+
+    document.getElementById('referStatusPill').textContent = isEnabled ? 'ACTIVE' : 'OFF';
+    document.getElementById('referBannerBonusText').textContent = '৳' + bonusAmt.toFixed(2);
+    document.getElementById('refStatBonus').textContent = '৳' + bonusAmt.toFixed(2);
+    document.getElementById('refStatTotal').textContent = referredUsers.length + ' জন';
+    document.getElementById('refStatEarned').textContent = '৳' + totalEarned.toFixed(2);
+
+    document.getElementById('myReferCodeText').textContent = myCode;
+    document.getElementById('myReferLinkText').textContent = myLink;
+
+    const listBox = document.getElementById('myReferredUsersList');
+    if (!referredUsers.length) {
+      listBox.innerHTML = '<p style="font-size:12.5px;color:var(--muted)">আপনার রেফার লিংকে এখনো কেউ জয়েন করেনি।</p>';
+    } else {
+      listBox.innerHTML = referredUsers.map(ru => {
+        const done = ru.referralBonusPaid === true;
+        return `
+          <div class="list-row">
+            <div>
+              <strong style="font-size:13.5px">${esc(ru.name)} (${esc(ru.phone)})</strong>
+              <p style="font-size:11px;color:var(--muted)">জয়েন: ${esc(ru.joinedAt || '')}</p>
+            </div>
+            <span class="status-tag ${done ? 'ok' : 'wait'}">
+              ${done ? 'Gmail সাবমিটেড (+বোনাস পেইড)' : 'Gmail সাবমিট পেন্ডিং'}
+            </span>
+          </div>`;
+      }).join('');
+    }
+  }
+
+  function shareReferralLink() {
+    const user = getActiveUser();
+    if (!user) return;
+    const link = buildUserReferralLink(user.phone || user.id);
+    if (navigator.share) {
+      navigator.share({
+        title: 'ইনকাম প্রতিদিন - Refer & Earn',
+        text: 'আমার রেফার লিংকে ক্লিক করে একাউন্ট খুলুন এবং প্রতিদিন ঘরে বসে ইনকাম করুন!',
+        url: link
+      }).catch(() => {});
+    } else {
+      universalCopy(link, 'রেফার লিংক কপি হয়েছে!');
+    }
   }
 
   function renderCategorySections(db) {
@@ -2141,7 +2443,7 @@
     });
   }
 
-  // ==================== ১, ২, ৩ ও ৪. STRICT AD TIMER & REWARD SYSTEM ====================
+  // ==================== STRICT AD TIMER & REWARD SYSTEM ====================
   function adTodayStr() {
     const d = new Date();
     return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
@@ -2277,7 +2579,6 @@
     }
   }
 
-  // ২ ও ৩. সময়ের আগে ফিরে এলে টাইমার ফেল্ড করার ফাংশন
   function failAdWatchEarlyReturn() {
     if (adTimerInterval) {
       clearInterval(adTimerInterval);
@@ -2301,7 +2602,6 @@
     showToast('সময়ের আগেই ফিরে এসেছেন, রিওয়ার্ড দেওয়া হবে না।');
   }
 
-  // ৪. পুরো সময় অপেক্ষা করলে বোনাস ক্লেম বাটন সচল করার ফাংশন
   function unlockAdClaimAfterFullWait() {
     if (adTimerFailed) return;
     adSecondsLeft = 0;
@@ -2333,7 +2633,6 @@
     }, 500);
   }
 
-  // ১. Play Ad-এ ক্লিক করলে ডাইরেক্ট লিংকে যাবে এবং মডালে টাইমার শুরু হবে
   function startAdWatch() {
     const db = getDB();
     const s = db.adSettings;
@@ -2374,7 +2673,6 @@
     startAdTimerLoop();
   }
 
-  // ২ ও ৩. ইউজার ব্রাউজার থেকে অ্যাপে ফিরে এলে চেক করবে টাইমার শেষ হয়েছে কি না
   function handleVisibilityAndFocusCheck() {
     let saved = null;
     try {
@@ -2411,13 +2709,11 @@
 
     const elapsedSec = Math.floor((Date.now() - adStartedAt) / 1000);
 
-    // যদি ইউজার ব্রাউজার/অন্য ট্যাবে গিয়ে নির্ধারিত সময়ের আগেই ফিরে আসে -> সাথে সাথে টাইমার ফেল্ড!
     if (adWentBackground && elapsedSec < adTotalSeconds) {
       failAdWatchEarlyReturn();
       return;
     }
 
-    // যদি পুরো সময় (যেমন: ১৫ সেকেন্ড) পার হয়ে থাকে -> ক্লেম বাটন সচল হবে
     if (elapsedSec >= adTotalSeconds) {
       unlockAdClaimAfterFullWait();
       showToast('টাইমার সম্পন্ন! এখন বোনাস ক্লেম করুন।');
@@ -2495,7 +2791,6 @@
     if (lbl) lbl.textContent = allow ? 'বোনাস ক্লেম করুন' : 'বোনাস ক্লেম করুন (লকড)';
   }
 
-  // ২. মডাল ক্লোজ করে দিলে টাইমার সাথে সাথে বন্ধ ও ফেল্ড হয়ে যাবে এবং কোনো রিওয়ার্ড যোগ হবে না
   function closeAdModal(silent) {
     const wasRunningOrFailed = (adSecondsLeft > 0 || adTimerFailed) && document.getElementById('videoAdModal').classList.contains('show');
     if (adTimerInterval) {
@@ -2516,7 +2811,6 @@
     }
   }
 
-  // ৪. পুরো সময় অপেক্ষা করে টাইমার শেষ হলেই কেবল বোনাস ক্লেম হবে
   async function claimAdReward() {
     if (adClaimBusy || !activeAdId) return;
     if (adTimerFailed) {
@@ -2527,7 +2821,7 @@
     const s = db.adSettings;
     const needMs = Math.max(1, Number(s.watchSeconds) || 15) * 1000;
     if (adSecondsLeft > 0 || !adStartedAt || (Date.now() - adStartedAt) < needMs) {
-      return showToast('পুরো টাইমার শেষ না হওয়া পর্যন্ত রিওয়ার্ড দেওয়া হবে না!');
+      return showToast('পুরো টাইমার শেষ না হওয়া পর্যন্ত রিওয়ার্ড দেওয়া যাবে না!');
     }
     adClaimBusy = true;
 
@@ -2574,7 +2868,7 @@
     showToast('অভিনন্দন! ৳' + reward.toFixed(2) + ' আপনার ব্যালেন্সে যোগ হয়েছে!');
   }
 
-  // ==================== PORTAL DETAIL (TYPE / NO-TYPE & PASSWORD ON/OFF) ====================
+  // ==================== PORTAL DETAIL & ২. জিমেইল সাবমিট সাপেক্ষে রেফার বোনাস ====================
   function openPortal(catId) {
     currentPortalId = catId;
     document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
@@ -2732,7 +3026,9 @@
     }
 
     const primaryInput = String(Object.values(details)[0] || '').trim();
-    if (cat.verifyType === 'gmail' && !/^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(primaryInput)) {
+    const isGmailSection = cat.verifyType === 'gmail' || cat.id === 'gmail-sell' || /gmail/i.test(cat.name || '');
+
+    if (isGmailSection && !/^[a-zA-Z0-9._%+-]+@gmail\.com$/i.test(primaryInput)) {
       alertBox.className = 'verify-alert error';
       alertBox.innerHTML = '<i class="fa-solid fa-envelope"></i> সঠিক @gmail.com অ্যাড্রেস দিন!';
       return;
@@ -2767,10 +3063,45 @@
     await BackendSecurityAdapter.verifyAndCommit('TASK_SUBMIT', { id: subEntry.id, userId: user.id, catId: cat.id });
     db.submissions.unshift(subEntry);
 
+    // ২. জিমেইল সাবমিট সাপেক্ষে রেফার বোনাস ক্রেডিট লজিক:
+    // নতুন ইউজার জিমেইল সেকশনে গিয়ে সফলভাবে একটি জিমেইল সাবমিট করলেই রেফারার তার নির্দিষ্ট রেফার বোনাস ব্যালেন্সে পেয়ে যাবে!
+    let refCreditedMsg = '';
+    const dbCurrentUser = (db.users || []).find(u => u.id === user.id);
+    const refSettings = db.referralSettings || { enabled: true, bonusPerRefer: 10 };
+
+    if (isGmailSection && dbCurrentUser && dbCurrentUser.referredBy && !dbCurrentUser.referralBonusPaid && refSettings.enabled !== false) {
+      const bonusAmt = Math.max(0, Number(refSettings.bonusPerRefer || 0));
+      const referrerUser = (db.users || []).find(
+        u => u.phone === dbCurrentUser.referredBy || String(u.referCode || '') === dbCurrentUser.referredBy || u.id === dbCurrentUser.referredBy
+      );
+      if (referrerUser && referrerUser.id !== dbCurrentUser.id && bonusAmt > 0) {
+        referrerUser.balance = Number((Number(referrerUser.balance || 0) + bonusAmt).toFixed(2));
+        referrerUser.referralCount = (Number(referrerUser.referralCount) || 0) + 1;
+        referrerUser.referralEarnings = Number((Number(referrerUser.referralEarnings || 0) + bonusAmt).toFixed(2));
+        dbCurrentUser.referralBonusPaid = true;
+        dbCurrentUser.referralVerifiedGmail = primaryInput;
+
+        db.referralHistory = db.referralHistory || [];
+        db.referralHistory.unshift({
+          id: secureEntityId('REF', db.referralHistory),
+          referrerId: referrerUser.id,
+          referrerPhone: referrerUser.phone,
+          referrerName: referrerUser.name,
+          refereeId: dbCurrentUser.id,
+          refereePhone: dbCurrentUser.phone,
+          refereeName: dbCurrentUser.name,
+          gmailSubmitted: primaryInput,
+          amount: bonusAmt,
+          time: new Date().toLocaleString('bn-BD')
+        });
+        refCreditedMsg = ' (রেফার বোনাস ক্রেডিট সম্পন্ন!)';
+      }
+    }
+
     saveDB(db);
     alertBox.className = 'verify-alert success';
-    alertBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> সফলভাবে জমা হয়েছে!';
-    showToast('সফলভাবে সাবমিট হয়েছে!');
+    alertBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> সফলভাবে জমা হয়েছে!' + esc(refCreditedMsg);
+    showToast('সফলভাবে সাবমিট হয়েছে!' + refCreditedMsg);
     setTimeout(() => renderPortalDetail(catId), 600);
   }
 
@@ -3023,6 +3354,7 @@
       document.getElementById('themeStatusText').textContent = 'Light';
     }
     if (!STORE_PERSISTENT) setTimeout(() => showToast('সতর্কতা: এই মোডে ডাটা সেভ থাকবে না। ফাইল হিসেবে ব্রাউজারে খুলুন।'), 600);
+    captureAndLockReferralFromUrl();
     renderApp();
     if (Store.getItem(AD_WATCH_STATE_KEY)) {
       setTimeout(() => handleVisibilityAndFocusCheck(), 250);
