@@ -967,7 +967,7 @@
           <label class="form-label">রেফার কোড (Referral Code) <span id="refLockBadge" style="font-size:11px;color:#34d399">ঐচ্ছিক</span></label>
           <div class="input-wrap">
             <i class="fa-solid fa-user-group prefix" id="refInputIcon"></i>
-            <input type="text" id="regRefCodeInput" class="form-input" maxlength="30" placeholder="Ex: Siyam786 / Rahim123">
+            <input type="text" id="regRefCodeInput" class="form-input" maxlength="30" placeholder="Ex: Siyam123 / Rahim456">
           </div>
         </div>
         <div id="regVerifyAlert" class="verify-alert"></div>
@@ -985,7 +985,7 @@
       <p id="drawerPhone" style="font-size:12px;opacity:0.9">01700000000</p>
       <p id="drawerEmail" style="font-size:11.5px;opacity:0.8;margin-top:2px">user@gmail.com</p>
       <div style="margin-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-        <span style="font-size:11px;background:rgba(0,0,0,0.28);padding:4px 10px;border-radius:8px" id="drawerUidText">Ref: Siyam786</span>
+        <span style="font-size:11px;background:rgba(0,0,0,0.28);padding:4px 10px;border-radius:8px" id="drawerUidText">Ref: Siyam123</span>
         <button class="copy-action-btn" style="padding:4px 9px;font-size:11px;background:rgba(255,255,255,0.25)" onclick="copyCurrentReferCode()">
           <i class="fa-regular fa-copy"></i> Copy Ref
         </button>
@@ -1082,7 +1082,7 @@
       <!-- হোমপেজ অ্যাড ইনকাম ব্যানার -->
       <div id="homeAdCard"></div>
 
-      <!-- হোমপেজ রেফার ইনকাম ব্যানার (নামের সাথে সংখ্যাযুক্ত রেফার কোড ও লিংকসহ) -->
+      <!-- হোমপেজ পার্মানেন্ট রেফার কোড ও লিংক ব্যানার -->
       <div id="homeReferBanner"></div>
 
       <div id="homeCategoriesContainer"></div>
@@ -1112,22 +1112,22 @@
           </div>
         </div>
 
-        <!-- ১ ও ২. ইউনিক নাম+সংখ্যা রেফার কোড বক্স (যেমন: Siyam786 / Rahim123) -->
+        <!-- ১ ও ২. ইউনিক ও পার্মানেন্ট রেফার কোড বক্স (যেমন: Siyam123 / Rahim456) -->
         <div class="copy-box-card">
-          <div class="cbc-head"><span>আপনার ইউনিক রেফার কোড (REFER CODE)</span><span>TAP TO COPY</span></div>
+          <div class="cbc-head"><span>আপনার পার্মানেন্ট রেফার কোড (PERMANENT REFER CODE)</span><span>TAP TO COPY</span></div>
           <div class="cbc-row">
-            <span class="cbc-val" id="myReferCodeText">Siyam786</span>
+            <span class="cbc-val" id="myReferCodeText">Siyam123</span>
             <button type="button" class="copy-action-btn" onclick="copyById('myReferCodeText', 'রেফার কোড কপি হয়েছে!')">
               <i class="fa-regular fa-copy"></i> Copy Code
             </button>
           </div>
         </div>
 
-        <!-- ২. শেয়ার করার উপযোগী রেফার লিংক (?ref=Name123) -->
+        <!-- ২. শেয়ার করার উপযোগী পার্মানেন্ট রেফার লিংক (?ref=Name123) -->
         <div class="copy-box-card">
-          <div class="cbc-head"><span>আপনার রেফারেল লিংক (REFERRAL LINK)</span><span>AUTO-TRACKING</span></div>
+          <div class="cbc-head"><span>আপনার পার্মানেন্ট রেফারেল লিংক (REFERRAL LINK)</span><span>AUTO-TRACKING</span></div>
           <div class="cbc-row">
-            <span class="cbc-val" id="myReferLinkText" style="font-size:12.5px">https://...?ref=Siyam786</span>
+            <span class="cbc-val" id="myReferLinkText" style="font-size:12.5px">https://...?ref=Siyam123</span>
             <button type="button" class="copy-action-btn" onclick="copyById('myReferLinkText', 'রেফার লিংক কপি হয়েছে!')">
               <i class="fa-regular fa-copy"></i> Copy Link
             </button>
@@ -1145,7 +1145,7 @@
         <div class="card-box">
           <h4 style="font-size:14px;color:#fbbf24;margin-bottom:8px"><i class="fa-solid fa-circle-info"></i> রেফার বোনাস পাওয়ার শর্তাবলী:</h4>
           <ul style="padding-left:18px;font-size:13px;color:var(--muted);line-height:1.6">
-            <li>আপনার শেয়ার করা রেফার লিংকে (যেমন: <b>?ref=Name123</b>) ক্লিক করে নতুন ইউজারকে একাউন্ট খুলতে হবে।</li>
+            <li>আপনার শেয়ার করা পার্মানেন্ট রেফার লিংকে (যেমন: <b>?ref=Name123</b>) ক্লিক করে নতুন ইউজারকে একাউন্ট খুলতে হবে।</li>
             <li>শুধুমাত্র একাউন্ট খুললেই সাথে সাথে রেফার বোনাস যোগ হবে না।</li>
             <li>নতুন ইউজার লগইন করে <b>Gmail Sell</b> সেকশনে গিয়ে অন্তত ১টি জিমেইল সফলভাবে সাবমিট করলেই আপনার মূল ব্যালেন্সে অটোমেটিক রেফার বোনাস যোগ হয়ে যাবে!</li>
           </ul>
@@ -1433,6 +1433,7 @@
   const AD_WATCH_STATE_KEY = 'INCOME_PROTIDIB_AD_WATCH_STATE_V2';
   const ACTIVE_TAB_STATE_KEY = 'INCOME_PROTIDIB_ACTIVE_TAB_V2';
   const REF_TRACKING_KEY = 'INCOME_PROTIDIB_REF_CODE_V2';
+  const PERM_REF_LOCK_MAP_KEY = 'INCOME_PROTIDIB_PERM_REF_MAP_V2';
 
   const syncChannel = (function () {
     try { return new BroadcastChannel('income_protidin_2026_sync'); }
@@ -1453,13 +1454,33 @@
   let currentWalletSub = 'main';
   let currentPortalId = null;
 
-  // ==================== ১. ইউজারের নাম + ইউনিক সংখ্যা দিয়ে রেফার কোড জেনারেশন (যেমন: Siyam786 / Rahim123) ====================
-  function generateNameBasedReferralCode(name, email, existingUsers) {
-    // প্রথমে নামের প্রথম অংশ থেকে ইংরেজি অক্ষর নেওয়া হবে
+  // ==================== ১ ও ২. ইউনিক ও পার্মানেন্ট রেফার কোড (Permanent Name-based Referral Code & Duplicate Protection) ====================
+  function getPermanentReferCache() {
+    try {
+      return JSON.parse(Store.getItem(PERM_REF_LOCK_MAP_KEY) || '{}') || {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function setPermanentReferCache(map) {
+    try {
+      Store.setItem(PERM_REF_LOCK_MAP_KEY, JSON.stringify(map || {}));
+    } catch (e) {}
+  }
+
+  function isValidPermanentRefFormat(code, phone) {
+    const c = String(code || '').trim();
+    if (!c || c.length < 4) return false;
+    if (phone && c === String(phone).trim()) return false;
+    if (/^01[3-9]\d{8}$/.test(c)) return false;
+    return true;
+  }
+
+  function generateNameBasedReferralCode(name, email, existingUsers, excludeUserId) {
     const firstWord = String(name || '').trim().split(/\s+/)[0] || '';
     let base = firstWord.replace(/[^a-zA-Z]/g, '');
 
-    // যদি ইউজার বাংলায় নাম লেখে (যেমন: সিয়াম), তবে জিমেইলের @ এর আগের অংশ থেকে নাম নেওয়া হবে
     if (base.length < 2 && email) {
       const emailPrefix = String(email).split('@')[0].replace(/[^a-zA-Z]/g, '');
       if (emailPrefix.length >= 2) {
@@ -1467,7 +1488,6 @@
       }
     }
 
-    // যদি তবুও না পাওয়া যায় তবে পুরো নাম (বাংলা/ইংরেজি অক্ষর) নেওয়া হবে
     if (base.length < 2) {
       base = firstWord.replace(/[^\p{L}\p{M}]/gu, '') || 'User';
     }
@@ -1478,35 +1498,93 @@
     }
 
     const usersList = Array.isArray(existingUsers) ? existingUsers : [];
-    for (let i = 0; i < 40; i++) {
+    const usedLower = new Set();
+    usersList.forEach(u => {
+      if (!u) return;
+      if (excludeUserId && u.id === excludeUserId) return;
+      const rc = String(u.referCode || '').trim().toLowerCase();
+      if (rc) usedLower.add(rc);
+    });
+
+    const cacheMap = getPermanentReferCache();
+    Object.entries(cacheMap).forEach(([uid, code]) => {
+      if (excludeUserId && uid === excludeUserId) return;
+      if (code) usedLower.add(String(code).trim().toLowerCase());
+    });
+
+    // ৩ ডিজিট ইউনিক র‍্যান্ডম সংখ্যা (যেমন: Siyam123 / Rahim456)
+    for (let i = 0; i < 120; i++) {
       const r = new Uint32Array(1);
       crypto.getRandomValues(r);
-      const randDigits = String(100 + (r[0] % 900)); // ৩ ডিজিটের সুন্দর সংখ্যা (100 - 999)
+      const randDigits = String(100 + (r[0] % 900));
       const candidate = base + randDigits;
-      const taken = usersList.some(
-        u => u && String(u.referCode || '').toLowerCase() === candidate.toLowerCase()
-      );
-      if (!taken) return candidate;
+      if (!usedLower.has(candidate.toLowerCase())) {
+        return candidate;
+      }
     }
-    return base + String(Math.floor(1000 + Math.random() * 9000));
+
+    // ৪ ডিজিট ব্যাকআপ চেক
+    for (let i = 0; i < 200; i++) {
+      const r = new Uint32Array(1);
+      crypto.getRandomValues(r);
+      const randDigits = String(1000 + (r[0] % 9000));
+      const candidate = base + randDigits;
+      if (!usedLower.has(candidate.toLowerCase())) {
+        return candidate;
+      }
+    }
+
+    const fallbackSuffix = Date.now().toString().slice(-4) + String(Math.floor(10 + Math.random() * 89));
+    return base + fallbackSuffix;
   }
 
-  // পুরাতন ইউজারদের যদি ফোনের নাম্বার দিয়ে রেফার কোড থাকে, তবে অটোমেটিক তাদের নাম+সংখ্যা ফরম্যাটে আপগ্রেড করা
+  // ইউজারের পার্মানেন্ট রেফার কোড লক ও ডুপ্লিকেট রোধ নিশ্চিতকরণ (একবার তৈরি হলে আর কখনো পরিবর্তন হবে না)
   function ensureAllUsersHaveNameReferCode(db) {
     if (!db || !Array.isArray(db.users)) return false;
     let updated = false;
+    const seenCodes = new Set();
+    const cacheMap = getPermanentReferCache();
+    let cacheUpdated = false;
+
     db.users.forEach(u => {
-      if (!u) return;
-      const rc = String(u.referCode || '').trim();
-      if (!rc || rc === u.phone || /^01[3-9]\d{8}$/.test(rc)) {
-        u.referCode = generateNameBasedReferralCode(u.name, u.email, db.users);
-        updated = true;
+      if (!u || !u.id) return;
+      let rc = String(u.referCode || '').trim();
+      const cachedCode = String(cacheMap[u.id] || '').trim();
+
+      // যদি ইউজারের অবজেক্টে আগে থেকেই বৈধ পার্মানেন্ট কোড থাকে এবং সেটি ইউনিক হয়, তবে সেটিই স্থায়ী থাকবে
+      if (isValidPermanentRefFormat(rc, u.phone) && !seenCodes.has(rc.toLowerCase())) {
+        seenCodes.add(rc.toLowerCase());
+        if (cacheMap[u.id] !== rc) {
+          cacheMap[u.id] = rc;
+          cacheUpdated = true;
+        }
+        return;
       }
+
+      // যদি লোকাল পার্মানেন্ট ক্যাশে ইউজারের আগের কোডটি সংরক্ষিত থাকে এবং সেটি ইউনিক হয়, তবে সেটি পুনরুদ্ধার হবে
+      if (isValidPermanentRefFormat(cachedCode, u.phone) && !seenCodes.has(cachedCode.toLowerCase())) {
+        u.referCode = cachedCode;
+        seenCodes.add(cachedCode.toLowerCase());
+        updated = true;
+        return;
+      }
+
+      // অন্যথায় নতুন ইউনিক নাম+সংখ্যা কোড তৈরি করে চিরতরে সেভ করা হবে
+      const newUniqueCode = generateNameBasedReferralCode(u.name, u.email, db.users, u.id);
+      u.referCode = newUniqueCode;
+      seenCodes.add(newUniqueCode.toLowerCase());
+      cacheMap[u.id] = newUniqueCode;
+      cacheUpdated = true;
+      updated = true;
     });
+
+    if (cacheUpdated) {
+      setPermanentReferCache(cacheMap);
+    }
     return updated;
   }
 
-  // ==================== ২. URL থেকে রেফার কোড (?ref=Name123) অটো-ট্র্যাক ও সাইন-আপ ফর্মে লক ====================
+  // ==================== URL থেকে রেফার কোড (?ref=Name123) অটো-ট্র্যাক ও সাইন-আপ ফর্মে লক ====================
   function captureAndLockReferralFromUrl() {
     try {
       const params = new URLSearchParams(window.location.search);
@@ -2060,7 +2138,7 @@
     Store.setItem(SESSION_KEY, JSON.stringify({ id: userObj.id, exp: Date.now() + SESSION_TTL }));
   }
 
-  // ==================== AUTH & VERIFICATION (WITH NAME-BASED REFERRAL CODE GENERATION) ====================
+  // ==================== AUTH & VERIFICATION (PERMANENT NAME-BASED REFERRAL CODE GENERATION) ====================
   function switchAuthMode(mode) {
     document.getElementById('tabLoginBtn').classList.toggle('active', mode === 'login');
     document.getElementById('tabRegBtn').classList.toggle('active', mode === 'register');
@@ -2123,8 +2201,14 @@
       return;
     }
 
-    // ১. ইউজারের নাম + ইউনিক সংখ্যা দিয়ে নতুন রেফার কোড জেনারেট করা (যেমন: Siyam786 বা Rahim123)
-    const generatedRefCode = generateNameBasedReferralCode(name, email, db.users);
+    const newUid = secureUid(db);
+    // ১. ইউজারের নাম + ইউনিক সংখ্যা দিয়ে নতুন পার্মানেন্ট রেফার কোড জেনারেট করা (যেমন: Siyam123 বা Rahim456)
+    const generatedRefCode = generateNameBasedReferralCode(name, email, db.users, newUid);
+
+    // পার্মানেন্ট লোকাল ক্যাশেও সাথে সাথে লক করে রাখা যাতে কখনোই পরিবর্তন না হয়
+    const cacheMap = getPermanentReferCache();
+    cacheMap[newUid] = generatedRefCode;
+    setPermanentReferCache(cacheMap);
 
     // ২. রেফারার যাচাই (নামের রেফার কোড, আইডি বা ফোন নাম্বার দিয়ে ম্যাচ করা)
     let validReferrerCode = '';
@@ -2140,7 +2224,7 @@
     }
 
     const newUser = {
-      id: secureUid(db),
+      id: newUid,
       name,
       phone,
       email,
@@ -2164,7 +2248,7 @@
     db.users.unshift(newUser);
     saveDB(db);
     setActiveUser(newUser);
-    showToast('রেজিস্ট্রেশন সফল! আপনার রেফার কোড: ' + generatedRefCode);
+    showToast('রেজিস্ট্রেশন সফল! আপনার পার্মানেন্ট রেফার কোড: ' + generatedRefCode);
     renderApp();
   }
 
@@ -2208,10 +2292,17 @@
     }
 
     setLoginGuard({ fails: 0, lockUntil: 0 });
+    let needSave = false;
     if (String(matched.password).indexOf('h1$') !== 0) {
       matched.password = hashPassword(passVal);
-      saveDB(db);
+      needSave = true;
     }
+    if (!isValidPermanentRefFormat(matched.referCode, matched.phone)) {
+      ensureAllUsersHaveNameReferCode(db);
+      needSave = true;
+    }
+    if (needSave) saveDB(db);
+
     setActiveUser(matched);
     document.getElementById('loginPassInput').value = '';
     showToast('লগইন সফল হয়েছে!');
@@ -2266,6 +2357,7 @@
     const db = getDB();
     const target = (db.users || []).find(x => x.id === u.id);
     if (target) {
+      // প্রোফাইলের নাম পরিবর্তন করলেও ইউজারের পার্মানেন্ট রেফার কোড (target.referCode) কখনোই পরিবর্তন হবে না
       target.name = newName;
       if (newPass) target.password = hashPassword(newPass);
       saveDB(db);
@@ -2316,6 +2408,7 @@
 
     restoreActiveViewState();
 
+    // ইউজারের পার্মানেন্ট রেফার কোড ব্যবহার করা হচ্ছে (নতুন করে জেনারেট করা হবে না)
     const myRefCode = user.referCode || user.id;
 
     document.getElementById('headerAppName').textContent = db.appName || 'ইনকাম প্রতিদিন';
@@ -2348,7 +2441,7 @@
     const myDeps = (db.deposits || []).filter(d => d.userId === user.id);
     const myWits = (db.withdrawals || []).filter(w => w.userId === user.id);
     const myRefs = (db.referralHistory || []).filter(
-      r => r.referrerId === user.id || r.referrerCode === myRefCode || r.referrerPhone === user.phone
+      r => r.referrerId === user.id || String(r.referrerCode || '').toLowerCase() === String(myRefCode).toLowerCase() || r.referrerPhone === user.phone
     );
     const sumDep = myDeps.filter(d => d.status === 'Approved').reduce((a, b) => a + Number(b.amount), 0);
     const sumWit = myWits.filter(w => w.status === 'Paid').reduce((a, b) => a + Number(b.amount), 0);
@@ -2375,7 +2468,7 @@
     if (currentPortalId) renderPortalDetail(currentPortalId);
   }
 
-  // ==================== ২. ড্যাশবোর্ডে ইউনিক রেফার কোড (Name123) ও লিংক (?ref=Name123) প্রদর্শন ও কপি ====================
+  // ==================== ৩. ড্যাশবোর্ডে ইউজারের পার্মানেন্ট রেফার কোড ও লিংক সঠিকভাবে প্রদর্শন ====================
   function buildUserReferralLink(referCode) {
     try {
       const base = window.location.origin && window.location.origin !== 'null'
@@ -2391,18 +2484,19 @@
     const refSet = db.referralSettings || { enabled: true, bonusPerRefer: 10 };
     const isEnabled = refSet.enabled !== false;
     const bonusAmt = Number(refSet.bonusPerRefer || 0);
-    const myCode = user.referCode || generateNameBasedReferralCode(user.name, user.email, db.users);
+
+    // ইউজারের ডাটা অবজেক্টে সেভ থাকা পার্মানেন্ট রেফার কোড সরাসরি রিড করা হচ্ছে (কখনোই রিজেনারেট হবে না)
+    const myCode = String(user.referCode || user.id).trim();
     const myLink = buildUserReferralLink(myCode);
 
     const referredUsers = (db.users || []).filter(
-      u => String(u.referredBy || '').toLowerCase() === String(myCode).toLowerCase() || u.referredBy === user.phone
+      u => String(u.referredBy || '').toLowerCase() === myCode.toLowerCase() || u.referredBy === user.phone
     );
-    const verifiedCount = referredUsers.filter(u => u.referralBonusPaid === true).length;
     const totalEarned = (db.referralHistory || [])
-      .filter(r => r.referrerId === user.id || r.referrerCode === myCode || r.referrerPhone === user.phone)
+      .filter(r => r.referrerId === user.id || String(r.referrerCode || '').toLowerCase() === myCode.toLowerCase() || r.referrerPhone === user.phone)
       .reduce((a, b) => a + Number(b.amount || 0), 0);
 
-    // Home Refer Banner (ড্যাশবোর্ডে নিজস্ব রেফার কোড ও লিংক কপি করার সুবিধা সহ)
+    // Home Refer Banner (ড্যাশবোর্ডে পার্মানেন্ট রেফার কোড ও লিংক কপি করার সুবিধা সহ)
     const homeBanner = document.getElementById('homeReferBanner');
     if (homeBanner) {
       homeBanner.innerHTML = `
@@ -3402,9 +3496,12 @@
     window._fbDBRef.on('value', (snap) => {
       const remoteData = snap.val();
       if (remoteData && typeof remoteData === 'object') {
-        ensureAllUsersHaveNameReferCode(remoteData);
+        const refChanged = ensureAllUsersHaveNameReferCode(remoteData);
         sealAllUsers(remoteData);
         Store.setItem(STORAGE_KEY, JSON.stringify(remoteData));
+        if (refChanged) {
+          try { window._fbDBRef.set(JSON.parse(JSON.stringify(remoteData))); } catch (e) {}
+        }
         renderApp();
       } else {
         const currentDB = getDB();
